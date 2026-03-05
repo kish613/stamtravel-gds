@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { usePnr } from '@/lib/query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,8 +13,9 @@ import { formatCountdown, toMinutesLeft } from '@/lib/time';
 import { ArrowRight, Plane } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
-export default function BookingDetailPage({ params }: { params: { locator: string } }) {
-  const { data, isLoading, isError, error, refetch } = usePnr(params.locator);
+export default function BookingDetailPage({ params }: { params: Promise<{ locator: string }> }) {
+  const resolvedParams = use(params);
+  const { data, isLoading, isError, error, refetch } = usePnr(resolvedParams.locator);
   const [confirmAction, setConfirmAction] = useState<string | null>(null);
 
   if (isLoading) {
@@ -168,7 +169,7 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
         </Card>
       </aside>
 
-      </div>{/* end xl:grid-cols-3 */}
+    </div>
 
       <Dialog open={Boolean(confirmAction)} onOpenChange={(open) => !open && setConfirmAction(null)}>
         <DialogContent>
@@ -191,6 +192,6 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
           </div>
         </DialogContent>
       </Dialog>
-    </div>{/* end space-y-6 */}
+    </div>
   );
 }
