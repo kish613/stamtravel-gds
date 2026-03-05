@@ -7,6 +7,9 @@ import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-
 import { CSS } from '@dnd-kit/utilities';
 import { useQueues } from '@/lib/query';
 import { QueueBucket, QueueItem } from '@/lib/types';
+
+type QueueItemWithId = QueueItem & { id: string };
+type QueueBucketWithId = Omit<QueueBucket, 'items'> & { items: QueueItemWithId[] };
 import { useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -37,7 +40,7 @@ export default function QueuesPage() {
   const queryClient = useQueryClient();
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }));
 
-  const columns = useMemo(
+  const columns: QueueBucketWithId[] = useMemo(
     () =>
       (data || []).map((bucket) => ({
         ...bucket,
@@ -53,7 +56,7 @@ export default function QueuesPage() {
     queryClient.setQueryData<QueueBucket[] | undefined>(['fixtures', 'queues'], updater);
   };
 
-  const buckets = useMemo(() => {
+  const buckets: QueueBucketWithId[] = useMemo(() => {
     return columns.map((col) => ({
       ...col,
       items: col.items.filter((item) => {
@@ -177,7 +180,7 @@ export default function QueuesPage() {
                     </CardContent>
                   </Card>
                 ))
-              : buckets.map((bucket: QueueBucket) => (
+              : buckets.map((bucket) => (
                   <Card key={bucket.queueCode} className="w-64 min-w-64">
                     <CardContent className="pt-4 space-y-2">
                       <div className="flex items-center justify-between mb-1">
@@ -185,10 +188,10 @@ export default function QueuesPage() {
                         <Badge variant="neutral">{bucket.items.length}</Badge>
                       </div>
                       <SortableContext
-                        items={bucket.items.map((item: QueueItem & { id: string }) => item.id)}
+                        items={bucket.items.map((item) => item.id)}
                         strategy={verticalListSortingStrategy}
                       >
-                        {bucket.items.map((item: QueueItem & { id: string }) => {
+                        {bucket.items.map((item) => {
                           const mins = toMinutesLeft(item.deadlineAt);
                           const isOverdue = mins < 0;
                           const isUrgent = !isOverdue && mins <= 30;
