@@ -18,12 +18,12 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
   const [confirmAction, setConfirmAction] = useState<string | null>(null);
 
   if (isLoading) {
-    return <div className="text-sm text-[#64748B]">Loading booking...</div>;
+    return <div className="text-sm text-muted-foreground">Loading booking...</div>;
   }
 
   if (isError || !data) {
     return (
-      <div className="rounded border border-status-danger bg-status-danger/10 text-status-danger p-3">
+      <div className="rounded-md border border-destructive bg-destructive/10 text-destructive p-3">
         <div>{(error as Error)?.message || 'Booking not found'}</div>
       </div>
     );
@@ -69,7 +69,7 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
                     <TableCell>{segment.from} → {segment.to}</TableCell>
                     <TableCell>{segment.departure}</TableCell>
                     <TableCell>
-                      <Link href={`/bookings/${pnr.locator}/seatmap/${segment.id}`} className="text-[#1D4ED8] underline">
+                      <Link href={`/bookings/${pnr.locator}/seatmap/${segment.id}`} className="text-sky-600 underline hover:text-sky-700 transition-colors">
                         Seat map
                       </Link>
                     </TableCell>
@@ -95,7 +95,7 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
             </CardHeader>
             <CardContent>
               {pnr.passengers.map((p) => (
-                <div key={p.passportNumber} className="mb-2 rounded border border-[#CBD5E1] p-2">
+                <div key={p.passportNumber} className="mb-2 rounded-md border border-border bg-muted/30 p-2">
                   {p.title} {p.firstName} {p.lastName} · {p.nationality}
                 </div>
               ))}
@@ -128,9 +128,9 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
                 {pnr.history?.length ? (
                   <div className="space-y-1">
                     {pnr.history.map((h) => (
-                      <div key={`${h.date}-${h.event}`} className="rounded border border-[#CBD5E1] p-2">
+                      <div key={`${h.date}-${h.event}`} className="rounded-md border border-border p-2">
                         <div>{h.date}</div>
-                        <div className="text-[12px] text-[#475569]">{h.event} · {h.actor}</div>
+                        <div className="text-[12px] text-muted-foreground">{h.event} · {h.actor}</div>
                       </div>
                     ))}
                   </div>

@@ -7,13 +7,14 @@ import { cn } from '@/lib/utils';
 const DialogRoot = Dialog.Root;
 const DialogTrigger = Dialog.Trigger;
 const DialogPortal = Dialog.Portal;
+
 const DialogOverlay = React.forwardRef<
   React.ElementRef<typeof Dialog.Overlay>,
   React.ComponentPropsWithoutRef<typeof Dialog.Overlay>
 >(({ className, ...props }, ref) => (
   <Dialog.Overlay
     ref={ref}
-    className={cn('fixed inset-0 bg-black/60', className)}
+    className={cn('fixed inset-0 bg-black/40 backdrop-blur-[2px]', className)}
     {...props}
   />
 ));
@@ -26,10 +27,14 @@ const DialogContent = React.forwardRef<
     <DialogOverlay />
     <Dialog.Content
       ref={ref}
-      className={cn('fixed left-1/2 top-1/2 w-[95vw] max-w-xl -translate-x-1/2 -translate-y-1/2 rounded-lg border border-[#CBD5E1] bg-white p-4 shadow-lg', className)}
+      className={cn(
+        'fixed left-1/2 top-1/2 w-[95vw] max-w-xl -translate-x-1/2 -translate-y-1/2',
+        'rounded-lg border border-border bg-background p-4 shadow-card-md',
+        className
+      )}
       {...props}
     >
-      <Dialog.Close className="absolute right-3 top-3 rounded-md opacity-70 hover:opacity-100">
+      <Dialog.Close className="absolute right-3 top-3 rounded-md p-0.5 text-muted-foreground opacity-70 hover:opacity-100 hover:bg-secondary transition-colors">
         <X className="h-4 w-4" />
       </Dialog.Close>
       {children}
@@ -47,7 +52,7 @@ const DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <Dialog.Title
     ref={ref}
-    className={cn('text-[18px] font-semibold leading-none tracking-tight', className)}
+    className={cn('text-[18px] font-semibold leading-none tracking-tight text-foreground', className)}
     {...props}
   />
 ));
@@ -58,7 +63,7 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <Dialog.Description
     ref={ref}
-    className={cn('text-[13px] text-[#64748B] mt-2', className)}
+    className={cn('text-[13px] text-muted-foreground mt-2', className)}
     {...props}
   />
 ));

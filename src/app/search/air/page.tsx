@@ -84,7 +84,6 @@ export default function AirSearchPage() {
       { label: '$500-$700', min: 500, max: 700 },
       { label: 'Over $700', min: 701, max: 5000 }
     ];
-
     return bands.map((band) => ({
       label: band.label,
       counts: {} as Record<number, number>,
@@ -104,7 +103,6 @@ export default function AirSearchPage() {
       .filter((flight) => {
         if (query.origin && flight.origin !== query.origin) return false;
         if (query.destination && flight.destination !== query.destination) return false;
-        if (query.cabin && query.cabin === 'Business' ? true : true) return true;
         if (query.maxStops != null && flight.stops > query.maxStops) return false;
         if (query.ndcOnly) return flight.contentType === 'NDC';
         return true;
@@ -133,8 +131,8 @@ export default function AirSearchPage() {
 
   return (
     <div className="space-y-4 text-[13px]">
-      <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-        <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
+      <Card>
+        <CardHeader>
           <CardTitle>Air Search</CardTitle>
         </CardHeader>
         <CardContent>
@@ -144,7 +142,7 @@ export default function AirSearchPage() {
                 <Label>Trip type</Label>
                 <select
                   {...register('tripType')}
-                  className="h-8 rounded border border-white/20 bg-white/50 backdrop-blur-sm px-2 text-[13px] transition-shadow hover:shadow-md"
+                  className="h-8 rounded-md border border-input bg-background px-2.5 text-[13px] focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   <option value="one-way">One-way</option>
                   <option value="return">Return</option>
@@ -165,7 +163,7 @@ export default function AirSearchPage() {
                   setValue('origin', query.destination);
                   setValue('destination', o);
                 }}
-                className="border border-white/20 bg-white/50 backdrop-blur-sm h-8 w-8 rounded flex items-center justify-center transition-all duration-200 hover:bg-white/70 hover:shadow-[0_0_12px_rgba(59,130,246,0.3)]"
+                className="border border-border bg-background h-8 w-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                 aria-label="swap"
               >
                 <ArrowLeftRight className="h-4 w-4" />
@@ -180,24 +178,20 @@ export default function AirSearchPage() {
 
               <div>
                 <Label>Departure</Label>
-                    <DateRangePicker
-                      value={query.departure || null}
-                      onChange={(range) => {
-                        if (range) setValue('departure', range);
-                      }}
-                      label=""
-                    />
+                <DateRangePicker
+                  value={query.departure || null}
+                  onChange={(range) => { if (range) setValue('departure', range); }}
+                  label=""
+                />
               </div>
               {query.tripType === 'return' && (
                 <div>
                   <Label>Return</Label>
-                    <DateRangePicker
-                      value={query.returnDate || null}
-                      onChange={(range) => {
-                        if (range) setValue('returnDate', range);
-                      }}
-                      label=""
-                    />
+                  <DateRangePicker
+                    value={query.returnDate || null}
+                    onChange={(range) => { if (range) setValue('returnDate', range); }}
+                    label=""
+                  />
                 </div>
               )}
               <div className="w-36">
@@ -221,35 +215,28 @@ export default function AirSearchPage() {
               <div className="ml-auto">
                 <Popover>
                   <PopoverTrigger asChild>
-                    <button type="button" className="inline-flex h-8 items-center gap-1 rounded border border-white/20 bg-white/50 backdrop-blur-sm px-2 text-[13px] transition-all duration-200 hover:bg-white/70 hover:shadow-md">
-                      Passenger count <ChevronDown className="h-4 w-4" />
+                    <button
+                      type="button"
+                      className="inline-flex h-8 items-center gap-1 rounded-md border border-border bg-background px-2.5 text-[13px] text-foreground hover:bg-muted transition-colors"
+                    >
+                      Passenger count <ChevronDown className="h-4 w-4 text-muted-foreground" />
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-56 space-y-2 bg-white/70 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
-                    <div className="flex justify-between items-center">
-                      <span>Adults</span>
-                      <div className="flex items-center gap-1">
-                        <button type="button" onClick={() => setValue('adults', Math.max(1, query.adults - 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">-</button>
-                        <span>{query.adults}</span>
-                        <button type="button" onClick={() => setValue('adults', Math.min(9, query.adults + 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">+</button>
+                  <PopoverContent className="w-56 space-y-2">
+                    {[
+                      { label: 'Adults', field: 'adults' as const, min: 1 },
+                      { label: 'Children', field: 'children' as const, min: 0 },
+                      { label: 'Infants', field: 'infants' as const, min: 0 }
+                    ].map(({ label, field, min }) => (
+                      <div key={field} className="flex justify-between items-center">
+                        <span className="text-[13px]">{label}</span>
+                        <div className="flex items-center gap-1">
+                          <button type="button" onClick={() => setValue(field, Math.max(min, (query[field] as number) - 1))} className="h-6 w-6 border border-border rounded text-muted-foreground hover:bg-muted transition-colors">-</button>
+                          <span className="w-6 text-center text-[13px]">{query[field] as number}</span>
+                          <button type="button" onClick={() => setValue(field, Math.min(9, (query[field] as number) + 1))} className="h-6 w-6 border border-border rounded text-muted-foreground hover:bg-muted transition-colors">+</button>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span>Children</span>
-                      <div className="flex items-center gap-1">
-                        <button type="button" onClick={() => setValue('children', Math.max(0, query.children - 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">-</button>
-                        <span>{query.children}</span>
-                        <button type="button" onClick={() => setValue('children', Math.min(9, query.children + 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">+</button>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span>Infants</span>
-                      <div className="flex items-center gap-1">
-                        <button type="button" onClick={() => setValue('infants', Math.max(0, query.infants - 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">-</button>
-                        <span>{query.infants}</span>
-                        <button type="button" onClick={() => setValue('infants', Math.min(9, query.infants + 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">+</button>
-                      </div>
-                    </div>
+                    ))}
                   </PopoverContent>
                 </Popover>
               </div>
@@ -257,11 +244,11 @@ export default function AirSearchPage() {
               <div>
                 <Label>Flexible dates</Label>
                 <div className="flex items-center gap-1">
-                  <button type="button" onClick={() => setValue('flexibleWindow', Math.max(-3, flexibleWindow - 1))} className="h-8 w-8 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">-</button>
+                  <button type="button" onClick={() => setValue('flexibleWindow', Math.max(-3, flexibleWindow - 1))} className="h-8 w-8 border border-border rounded-md bg-background text-muted-foreground hover:bg-muted transition-colors">-</button>
                   <Button variant="outline" onClick={() => setValue('flexible', !isFlexible)} type="button">
                     {isFlexible ? `±${Math.abs(flexibleWindow)}d` : 'off'}
                   </Button>
-                  <button type="button" onClick={() => setValue('flexibleWindow', Math.min(3, flexibleWindow + 1))} className="h-8 w-8 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">+</button>
+                  <button type="button" onClick={() => setValue('flexibleWindow', Math.min(3, flexibleWindow + 1))} className="h-8 w-8 border border-border rounded-md bg-background text-muted-foreground hover:bg-muted transition-colors">+</button>
                 </div>
               </div>
             </div>
@@ -275,11 +262,7 @@ export default function AirSearchPage() {
                     <Input placeholder="Alliance" {...register('alliance')} />
                     <div className="flex gap-2 items-center">
                       <Label>Max stops</Label>
-                      <Input
-                        type="number"
-                        {...register('maxStops', { valueAsNumber: true })}
-                        className="w-24"
-                      />
+                      <Input type="number" {...register('maxStops', { valueAsNumber: true })} className="w-24" />
                     </div>
                     <label className="flex items-center gap-2">
                       <input type="checkbox" {...register('ndcOnly')} />
@@ -290,30 +273,28 @@ export default function AirSearchPage() {
               </AccordionItem>
             </Accordion>
 
-            {errors.origin && <div className="text-status-danger text-sm">{errors.origin.message}</div>}
+            {errors.origin && <div className="text-destructive text-sm">{errors.origin.message}</div>}
 
             <div className="pt-2">
-              <Button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg hover:shadow-xl transition-all duration-200">Search</Button>
+              <Button type="submit">Search</Button>
             </div>
           </form>
         </CardContent>
       </Card>
 
       {isError && (
-        <Card className="border-status-danger bg-white/60 backdrop-blur-md">
-          <CardContent className="py-3 text-status-danger">
+        <Card className="border-destructive">
+          <CardContent className="py-3 text-destructive">
             {(error as Error)?.message}
-            <Button variant="outline" size="sm" className="ml-3" onClick={() => refetch()}>
-              Retry
-            </Button>
+            <Button variant="outline" size="sm" className="ml-3" onClick={() => refetch()}>Retry</Button>
           </CardContent>
         </Card>
       )}
 
       {(searchResult || isLoading || isError) && (
         <div className="grid grid-cols-1 xl:grid-cols-[320px_1fr] gap-3">
-          <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-            <CardHeader className="bg-gradient-to-r from-slate-50/80 to-indigo-50/80 rounded-t-lg">
+          <Card>
+            <CardHeader>
               <CardTitle>Fare matrix</CardTitle>
             </CardHeader>
             <CardContent>
@@ -322,17 +303,17 @@ export default function AirSearchPage() {
               ) : (
                 <table className="w-full text-[12px]">
                   <thead>
-                    <tr className="bg-gradient-to-r from-slate-100/60 to-blue-100/40">
-                      <th className="text-left py-1.5 px-1 rounded-l">Price band</th>
-                      <th className="text-center py-1.5">0 stops</th>
-                      <th className="text-center py-1.5">1 stop</th>
-                      <th className="text-center py-1.5 rounded-r">2+ stops</th>
+                    <tr className="bg-muted">
+                      <th className="text-left py-1.5 px-2 text-muted-foreground font-medium">Price band</th>
+                      <th className="text-center py-1.5 text-muted-foreground font-medium">0 stops</th>
+                      <th className="text-center py-1.5 text-muted-foreground font-medium">1 stop</th>
+                      <th className="text-center py-1.5 text-muted-foreground font-medium">2+ stops</th>
                     </tr>
                   </thead>
                   <tbody>
                     {fareRows.map((row) => (
-                      <tr key={row.label} className="border-t border-white/20 transition-colors hover:bg-white/40">
-                        <td className="py-1">{row.label}</td>
+                      <tr key={row.label} className="border-t border-border hover:bg-muted/50 transition-colors">
+                        <td className="py-1.5 px-2">{row.label}</td>
                         <td className="text-center">{row.counts[0] || 0}</td>
                         <td className="text-center">{row.counts[1] || 0}</td>
                         <td className="text-center">{row.counts[2] || 0}</td>
@@ -344,49 +325,45 @@ export default function AirSearchPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-            <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
+          <Card>
+            <CardHeader>
               <CardTitle>Results</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               {isLoading ? (
                 <div className="space-y-2">{Array.from({ length: 5 }).map((_, idx) => <Skeleton key={idx} className="h-24" />)}</div>
               ) : results.length === 0 ? (
-                <div className="py-8 text-center text-[#64748B]">
-                  No matches. Try a broader date or airport.
-                </div>
+                <div className="py-8 text-center text-muted-foreground">No matches. Try a broader date or airport.</div>
               ) : (
                 results.map((flight) => {
                   const expandedState = expanded === flight.id;
                   return (
-                    <UiCard key={flight.id} className="bg-white/50 backdrop-blur-sm border-white/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
-                      <CardContent className="space-y-2">
+                    <UiCard key={flight.id} className="transition-colors hover:bg-muted/30">
+                      <CardContent className="space-y-2 pt-3">
                         <div className="flex items-center justify-between">
                           <div>
-                            <div className="font-semibold">{flight.airline} · {flight.flightNumber}</div>
-                            <div className="text-[12px] text-[#475569]">
+                            <div className="font-semibold text-foreground">{flight.airline} · {flight.flightNumber}</div>
+                            <div className="text-[12px] text-muted-foreground">
                               {flight.origin} to {flight.destination} · {format(new Date(flight.departure), 'MMM d, HH:mm')} · {flight.durationMinutes}m · {flight.stops} stop(s)
                             </div>
-                            <div className="text-[11px] text-[#64748B]">Fare basis {flight.fareBasis}</div>
+                            <div className="text-[11px] text-muted-foreground">Fare basis {flight.fareBasis}</div>
                           </div>
                           <div className="text-right">
-                            <div className="text-[26px] font-bold bg-gradient-to-r from-slate-800 to-blue-700 bg-clip-text text-transparent">${flight.price}</div>
+                            <div className="text-[26px] font-bold text-foreground tracking-tight">${flight.price}</div>
                             <Badge variant={flight.contentType === 'NDC' ? 'confirmed' : flight.contentType === 'ATPCO' ? 'warning' : 'neutral'}>
                               {flight.contentType}
                             </Badge>
                           </div>
                         </div>
                         <div className="flex justify-between items-center">
-                          <button className="text-[12px] flex items-center text-[#0A1628]" onClick={() => setExpanded(expandedState ? null : flight.id)}>
+                          <button className="text-[12px] flex items-center text-muted-foreground hover:text-foreground transition-colors" onClick={() => setExpanded(expandedState ? null : flight.id)}>
                             <Plane className="h-3 w-3 mr-1" />
                             {expandedState ? 'Hide details' : 'Show details'}
                           </button>
-                          <Button size="sm" onClick={() => handleSelect(flight.id)} className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md hover:shadow-lg transition-all duration-200">
-                            Select
-                          </Button>
+                          <Button size="sm" onClick={() => handleSelect(flight.id)}>Select</Button>
                         </div>
                         {expandedState && (
-                          <div className="grid grid-cols-2 gap-3 text-[12px] bg-white/30 backdrop-blur-sm rounded-lg p-2 border border-white/10">
+                          <div className="grid grid-cols-2 gap-3 text-[12px] bg-muted rounded-md p-2.5 border border-border">
                             <div>Baggage: {flight.baggageAllowance}</div>
                             <div>Refundable: {flight.refundable ? 'Yes' : 'No'}</div>
                             <div className="col-span-2">Rules: {flight.fareRulesSummary}</div>

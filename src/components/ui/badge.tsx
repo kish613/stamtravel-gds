@@ -2,10 +2,10 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 export const badgeVariants = {
-  confirmed: 'border-status-good/40 text-status-good bg-status-good/10 shadow-[0_0_12px_-2px_rgba(34,197,94,0.4)]',
-  warning: 'border-status-warn/40 text-status-warn bg-status-warn/10 shadow-[0_0_12px_-2px_rgba(245,158,11,0.4)]',
-  danger: 'border-status-danger/40 text-status-danger bg-status-danger/10 shadow-[0_0_12px_-2px_rgba(239,68,68,0.4)]',
-  neutral: 'border-white/18 text-[#475569] bg-white/60 backdrop-blur-md shadow-[0_2px_8px_-1px_rgba(10,22,40,0.05),inset_0_1px_1px_rgba(255,255,255,0.4)]'
+  confirmed: 'border-emerald-200 text-emerald-700 bg-emerald-50',
+  warning: 'border-amber-200 text-amber-700 bg-amber-50',
+  danger: 'border-red-200 text-red-700 bg-red-50',
+  neutral: 'border-slate-200 text-slate-600 bg-slate-100'
 };
 
 const Badge = ({
