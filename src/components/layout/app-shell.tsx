@@ -3,15 +3,17 @@
 import { ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Bell, BarChart3, LayoutDashboard, ListTodo, Plane, Settings, Ticket, Menu, TerminalSquare } from 'lucide-react';
+import { Bell, BarChart3, LayoutDashboard, ListTodo, Plane, Settings, Ticket, Menu, TerminalSquare, LucideIcon } from 'lucide-react';
 import { useAppStore } from '@/stores/app-store';
 import { TerminalPanel } from '@/components/terminal/terminal-overlay';
 import { cn } from '@/lib/utils';
 
-const NAV = [
+type NavItem = { path: string; label: string; icon: LucideIcon; matchPrefix?: string };
+
+const NAV: NavItem[] = [
   { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/search/air', label: 'Search', icon: Plane },
-  { path: '/bookings', label: 'Bookings', icon: Ticket },
+  { path: '/search/air', label: 'Search', icon: Plane, matchPrefix: '/search' },
+  { path: '/bookings', label: 'Bookings', icon: Ticket, matchPrefix: '/bookings' },
   { path: '/queues', label: 'Queues', icon: ListTodo },
   { path: '/reports', label: 'Reports', icon: BarChart3 },
   { path: '/settings', label: 'Settings', icon: Settings }
@@ -86,7 +88,8 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div className="mx-3 mb-1 h-px bg-slate-800" />
             {NAV.map((item) => {
               const Icon = item.icon;
-              const active = pathname.startsWith(item.path);
+              const prefix = item.matchPrefix ?? item.path;
+              const active = pathname === prefix || pathname.startsWith(prefix + '/');
               return (
                 <Link
                   key={item.path}
