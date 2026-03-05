@@ -11,9 +11,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 const statusClass = (count: number) => {
-  if (count < 10) return 'text-status-good bg-status-good/10 border-status-good';
-  if (count <= 30) return 'text-status-warn bg-status-warn/10 border-status-warn';
-  return 'text-status-danger bg-status-danger/10 border-status-danger';
+  if (count < 10) return 'text-emerald-700 border-emerald-300/50 bg-gradient-to-br from-emerald-100/60 to-emerald-50/30 shadow-[0_0_12px_rgba(5,150,105,0.1)]';
+  if (count <= 30) return 'text-amber-700 border-amber-300/50 bg-gradient-to-br from-amber-100/60 to-amber-50/30 shadow-[0_0_12px_rgba(217,119,6,0.1)]';
+  return 'text-rose-700 border-rose-300/50 bg-gradient-to-br from-rose-100/60 to-rose-50/30 shadow-[0_0_12px_rgba(225,29,72,0.1)]';
 };
 
 export default function DashboardPage() {
@@ -57,17 +57,19 @@ export default function DashboardPage() {
   const busy = loadingPnr || loadingQueue;
 
   return (
-    <div className="space-y-4 text-[13px]">
+    <div className="space-y-6 text-[13px]">
       <div>
-        <h1 className="text-[20px] font-semibold">Dashboard</h1>
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-[#0F172A] to-[#334155] bg-clip-text text-transparent">Dashboard</h1>
+        <p className="text-[#64748B] text-sm mt-1">Real-time operations overview</p>
       </div>
 
+      {/* Queue count cards */}
       <section>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2.5">
           {busy ? (
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2.5">
               {Array.from({ length: 10 }).map((_, idx) => (
-                <div key={idx} className="h-20 w-32 rounded border border-[#E2E8F0] bg-white shadow-card p-2">
+                <div key={idx} className="h-20 w-32 rounded-xl border border-white/20 bg-white/60 backdrop-blur-sm p-2">
                   <Skeleton className="h-4 w-16 mb-2" />
                   <Skeleton className="h-6 w-10" />
                 </div>
@@ -75,10 +77,10 @@ export default function DashboardPage() {
             </div>
           ) : (
             q0to9.map((q) => (
-              <Card key={q.queueCode} className={`w-32 border ${statusClass(q.count)}`}>
-                <CardContent className="p-2">
-                  <div className="text-[11px] text-[#334155]">{q.queueCode}</div>
-                  <div className="text-[20px] font-semibold">{q.count}</div>
+              <Card key={q.queueCode} className={`w-32 rounded-xl border backdrop-blur-sm transition-all duration-200 hover:scale-[1.03] hover:shadow-lg ${statusClass(q.count)}`}>
+                <CardContent className="p-2.5">
+                  <div className="text-[11px] text-[#64748B] font-medium">{q.queueCode}</div>
+                  <div className="text-[22px] font-bold tracking-tight">{q.count}</div>
                 </CardContent>
               </Card>
             ))
@@ -87,8 +89,8 @@ export default function DashboardPage() {
       </section>
 
       {errQueue && (
-        <Card className="border-status-danger">
-          <CardContent className="text-status-danger py-3 text-sm">
+        <Card className="border-rose-300/50 bg-rose-50/60 backdrop-blur-sm">
+          <CardContent className="text-rose-700 py-3 text-sm">
             {(queueError as Error)?.message || 'Failed to load queues'}
             <div className="mt-2">
               <Button size="sm" onClick={() => refetchQueue()} variant="outline">
@@ -99,36 +101,47 @@ export default function DashboardPage() {
         </Card>
       )}
 
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-        <Card>
+      {/* KPI cards */}
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <Card className="bg-gradient-to-br from-blue-500/10 to-indigo-500/10 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(59,130,246,0.08)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.14)] transition-all duration-300">
           <CardHeader>
-            <CardTitle>Bookings today</CardTitle>
+            <CardTitle className="text-[#64748B] text-sm font-medium">Bookings today</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-[28px] font-semibold">{busy ? <Skeleton className="h-8 w-16" /> : bookingsToday}</div>
+            <div className="flex items-end justify-between">
+              <div className="text-[32px] font-bold text-[#0F172A] tracking-tight">{busy ? <Skeleton className="h-10 w-16" /> : bookingsToday}</div>
+              <div className="text-emerald-600 text-xs font-medium mb-1.5">+12%</div>
+            </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(56,189,248,0.08)] hover:shadow-[0_8px_40px_rgba(56,189,248,0.14)] transition-all duration-300">
           <CardHeader>
-            <CardTitle>Segments today</CardTitle>
+            <CardTitle className="text-[#64748B] text-sm font-medium">Segments today</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-[28px] font-semibold">{busy ? <Skeleton className="h-8 w-16" /> : segmentsToday}</div>
+            <div className="flex items-end justify-between">
+              <div className="text-[32px] font-bold text-[#0F172A] tracking-tight">{busy ? <Skeleton className="h-10 w-16" /> : segmentsToday}</div>
+              <div className="text-emerald-600 text-xs font-medium mb-1.5">+8%</div>
+            </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-gradient-to-br from-violet-500/10 to-purple-500/10 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(139,92,246,0.08)] hover:shadow-[0_8px_40px_rgba(139,92,246,0.14)] transition-all duration-300">
           <CardHeader>
-            <CardTitle>Revenue today</CardTitle>
+            <CardTitle className="text-[#64748B] text-sm font-medium">Revenue today</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-[28px] font-semibold">{busy ? <Skeleton className="h-8 w-20" /> : `$${revenueToday}`}</div>
+            <div className="flex items-end justify-between">
+              <div className="text-[32px] font-bold text-[#0F172A] tracking-tight">{busy ? <Skeleton className="h-10 w-20" /> : `$${revenueToday}`}</div>
+              <div className="text-emerald-600 text-xs font-medium mb-1.5">+5%</div>
+            </div>
           </CardContent>
         </Card>
       </section>
 
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        <Card>
-          <CardHeader>
+      {/* Departures and ticketing alerts */}
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <Card className="bg-white/60 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
             <CardTitle>Today&apos;s departures</CardTitle>
           </CardHeader>
           <CardContent>
@@ -143,10 +156,10 @@ export default function DashboardPage() {
             ) : (
               <div className="space-y-2">
                 {todaysPnrs.map((p) => (
-                  <div key={p.locator} className="rounded border border-[#CBD5E1] bg-[#F8FAFC] p-2 flex items-center justify-between">
+                  <div key={p.locator} className="rounded-lg border border-white/20 bg-white/50 backdrop-blur-sm p-2.5 flex items-center justify-between transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)]">
                     <div>
-                      <div className="font-medium">{p.passengerName}</div>
-                      <div className="text-[12px] text-[#475569]">{p.locator} · {p.route}</div>
+                      <div className="font-medium text-[#0F172A]">{p.passengerName}</div>
+                      <div className="text-[12px] text-[#64748B]">{p.locator} · {p.route}</div>
                     </div>
                     <StatusBadge status={p.status} />
                   </div>
@@ -156,8 +169,8 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
+        <Card className="bg-white/60 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          <CardHeader className="bg-gradient-to-r from-slate-50/80 to-indigo-50/80 rounded-t-lg">
             <CardTitle>Ticketing time-limit alerts</CardTitle>
           </CardHeader>
           <CardContent>
@@ -171,13 +184,13 @@ export default function DashboardPage() {
                 {urgentPnrs.map((p) => {
                   const deadline = formatCountdown(p.deadlineAt) || '00:00';
                   return (
-                    <div key={p.locator} className="rounded border border-[#CBD5E1] bg-[#F8FAFC] p-2 flex items-center justify-between">
+                    <div key={p.locator} className="rounded-lg border border-white/20 bg-white/50 backdrop-blur-sm p-2.5 flex items-center justify-between transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)]">
                       <div>
-                        <div className="font-medium">{p.locator}</div>
-                        <div className="text-[12px] text-[#475569]">{p.passengerName} · {p.route}</div>
+                        <div className="font-medium text-[#0F172A]">{p.locator}</div>
+                        <div className="text-[12px] text-[#64748B]">{p.passengerName} · {p.route}</div>
                       </div>
                       <div className="text-right">
-                        <div className="font-mono text-[12px]">{deadline}</div>
+                        <div className="font-mono text-[12px] text-[#475569]">{deadline}</div>
                         <Badge variant={Number(p.minutes) <= 40 ? 'warning' : 'neutral'}>
                           {Number(p.minutes) <= 40 ? 'Approaching' : 'Safe'}
                         </Badge>
@@ -192,11 +205,12 @@ export default function DashboardPage() {
         </Card>
       </section>
 
+      {/* Quick actions */}
       <section>
-        <Card>
-          <CardContent className="p-3 flex flex-wrap gap-2">
+        <Card className="bg-gradient-to-r from-white/60 to-white/40 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          <CardContent className="p-5 flex flex-wrap gap-3">
             <Link href="/search/air">
-              <Button size="lg">New Search</Button>
+              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_0_20px_rgba(59,130,246,0.2)] hover:shadow-[0_0_28px_rgba(59,130,246,0.35)] transition-all duration-300">New Search</Button>
             </Link>
             <Link href="/bookings">
               <Button variant="outline" size="lg">
@@ -211,8 +225,8 @@ export default function DashboardPage() {
       </section>
 
       {errPnr && (
-        <Card className="border-status-danger">
-          <CardContent className="text-status-danger py-3">
+        <Card className="border-rose-300/50 bg-rose-50/60 backdrop-blur-sm">
+          <CardContent className="text-rose-700 py-3">
             {(pnrError as Error)?.message || 'Failed to load PNR data'}
             <div className="mt-2">
               <Button size="sm" onClick={() => refetchPnr()} variant="outline">

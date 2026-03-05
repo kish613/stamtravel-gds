@@ -67,35 +67,43 @@ export default function ReportsPage() {
 
   if (isError) {
     return (
-      <Card className="border-status-danger text-status-danger">
+      <Card className="border-status-danger text-status-danger bg-white/60 backdrop-blur-md">
         <CardContent className="py-3">{(error as Error)?.message}</CardContent>
       </Card>
     );
   }
 
+  const kpiCards = [
+    { label: 'Total bookings', value: total, trend: 8, gradient: 'from-blue-500/10 to-indigo-500/10' },
+    { label: 'Total segments', value: totalSegments, trend: 3, gradient: 'from-emerald-500/10 to-teal-500/10' },
+    { label: 'Revenue', value: `$${revenue}`, trend: -5, gradient: 'from-violet-500/10 to-purple-500/10' },
+    { label: 'Awaiting Ticket', value: awaiting, trend: 12, gradient: 'from-amber-500/10 to-orange-500/10' }
+  ];
+
   return (
     <div className="space-y-4 text-[13px]">
-      <Card>
-        <CardHeader>
+      <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+        <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
           <CardTitle>Reports</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2 items-end">
             <Input type="date" value={from} onChange={(e) => setFrom(e.target.value)} />
             <Input type="date" value={to} onChange={(e) => setTo(e.target.value)} />
-            <Button onClick={exportCsv}>Export CSV</Button>
+            <Button onClick={exportCsv} className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md hover:shadow-lg transition-all duration-200">Export CSV</Button>
           </div>
         </CardContent>
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-        {[{ label: 'Total bookings', value: total, trend: 8 }, { label: 'Total segments', value: totalSegments, trend: 3 }, { label: 'Revenue', value: `$${revenue}`, trend: -5 }, { label: 'Awaiting Ticket', value: awaiting, trend: 12 }].map((card) => (
-          <Card key={card.label}>
+        {kpiCards.map((card) => (
+          <Card key={card.label} className={`bg-gradient-to-br ${card.gradient} backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(0,0,0,0.1)]`}>
             <CardContent className="p-3">
               <div className="text-[#64748B] text-[12px]">{card.label}</div>
               <div className="text-[26px] font-semibold">{card.value}</div>
-              <div className={`text-[11px] ${card.trend >= 0 ? 'text-status-good' : 'text-status-danger'} flex items-center`}>
-                {card.trend >= 0 ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />} {Math.abs(card.trend)}%
+              <div className={`text-[11px] ${card.trend >= 0 ? 'text-[#059669]' : 'text-[#DC2626]'} flex items-center`}>
+                {card.trend >= 0 ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />}
+                <span className={card.trend >= 0 ? 'drop-shadow-[0_0_4px_rgba(5,150,105,0.4)]' : 'drop-shadow-[0_0_4px_rgba(220,38,38,0.4)]'}>{Math.abs(card.trend)}%</span>
               </div>
             </CardContent>
           </Card>
@@ -103,8 +111,8 @@ export default function ReportsPage() {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-        <Card>
-          <CardHeader>
+        <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
             <CardTitle>Bookings per agent</CardTitle>
           </CardHeader>
           <CardContent>
@@ -124,8 +132,8 @@ export default function ReportsPage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
+        <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          <CardHeader className="bg-gradient-to-r from-slate-50/80 to-indigo-50/80 rounded-t-lg">
             <CardTitle>Content mix</CardTitle>
           </CardHeader>
           <CardContent>

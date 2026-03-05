@@ -162,18 +162,19 @@ export default function BookingWizardPage() {
   const stepContent = () => {
     if (createdLocator && currentStep === 5) {
       return (
-        <Card>
-          <CardHeader>
+        <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          <CardHeader className="bg-gradient-to-r from-emerald-50/80 to-green-50/80 rounded-t-lg">
             <CardTitle>PNR Created</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-[14px] font-semibold">Record Locator</div>
-            <div className="text-[32px] font-mono">{createdLocator}</div>
+            <div className="text-[32px] font-mono bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">{createdLocator}</div>
             <div className="mt-2 flex gap-2">
               <Button
                 onClick={() => {
                   navigator.clipboard.writeText(createdLocator).catch(() => undefined);
                 }}
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md hover:shadow-lg transition-all duration-200"
               >
                 Copy locator
               </Button>
@@ -191,15 +192,15 @@ export default function BookingWizardPage() {
 
     if (currentStep === 1) {
       return (
-        <Card>
-          <CardHeader>
+        <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
             <CardTitle>Passenger Details</CardTitle>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue={`p-${0}`}>
-              <TabsList>
+              <TabsList className="bg-white/40 backdrop-blur-sm border border-white/20 p-1">
                 {Array.from({ length: passengerCount }).map((_, idx) => (
-                  <TabsTrigger key={idx} value={`p-${idx}`}>
+                  <TabsTrigger key={idx} value={`p-${idx}`} className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500/90 data-[state=active]:to-indigo-500/90 data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-200">
                     Traveller {idx + 1}
                   </TabsTrigger>
                 ))}
@@ -227,7 +228,7 @@ export default function BookingWizardPage() {
                       <Label>Gender (Secure Flight)</Label>
                       <select
                         {...register(`passengers.${idx}.gender` as const)}
-                        className="h-8 rounded border border-[#CBD5E1] px-2 text-[13px]"
+                        className="h-8 rounded border border-white/20 bg-white/50 backdrop-blur-sm px-2 text-[13px] transition-shadow hover:shadow-md"
                       >
                         <option value="M">M</option>
                         <option value="F">F</option>
@@ -245,8 +246,8 @@ export default function BookingWizardPage() {
 
     if (currentStep === 2) {
       return (
-        <Card>
-          <CardHeader>
+        <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
             <CardTitle>Itinerary Review</CardTitle>
           </CardHeader>
           <CardContent>
@@ -255,7 +256,7 @@ export default function BookingWizardPage() {
             ) : (
               <div className="space-y-2">
                 {booking.airSegments.map((segment) => (
-                  <div key={segment.id} className="rounded border border-[#CBD5E1] p-2 flex items-center justify-between">
+                  <div key={segment.id} className="rounded border border-white/20 bg-white/50 backdrop-blur-sm p-2 flex items-center justify-between transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
                     <div>{segment.from} → {segment.to} · {segment.flightNumber} · {segment.cabin}</div>
                     <Button size="sm" variant="outline" onClick={() => removeAirSegment(segment.id)}>
                       Remove
@@ -271,8 +272,8 @@ export default function BookingWizardPage() {
 
     if (currentStep === 3) {
       return (
-        <Card>
-          <CardHeader>
+        <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
             <CardTitle>Contact and ticketing</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
@@ -282,7 +283,7 @@ export default function BookingWizardPage() {
               <Input {...register('agencyIata')} placeholder="Agency IATA" />
               <select
                 {...register('phoneType')}
-                className="h-8 rounded border border-[#CBD5E1] px-2 text-[13px]"
+                className="h-8 rounded border border-white/20 bg-white/50 backdrop-blur-sm px-2 text-[13px] transition-shadow hover:shadow-md"
               >
                 <option value="Office">Office</option>
                 <option value="Mobile">Mobile</option>
@@ -309,8 +310,8 @@ export default function BookingWizardPage() {
 
     if (currentStep === 4) {
       return (
-        <Card>
-          <CardHeader>
+        <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
             <CardTitle>Special Requests</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
@@ -318,7 +319,7 @@ export default function BookingWizardPage() {
               {ssrCodes.map(([code, label, desc]) => {
                 const checked = selectedSSR.includes(code);
                 return (
-                  <label key={code} className="flex items-start gap-2 rounded border border-[#CBD5E1] p-2">
+                  <label key={code} className={`flex items-start gap-2 rounded border p-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${checked ? 'border-blue-400/40 bg-blue-50/50 backdrop-blur-sm shadow-[0_0_12px_rgba(59,130,246,0.1)]' : 'border-white/20 bg-white/50 backdrop-blur-sm'}`}>
                     <input
                       type="checkbox"
                       checked={checked}
@@ -345,7 +346,7 @@ export default function BookingWizardPage() {
 
             <div className="space-y-2">
               {booking.airSegments.map((seg) => (
-                <label key={seg.id} className="flex items-center justify-between rounded border border-[#CBD5E1] p-2">
+                <label key={seg.id} className="flex items-center justify-between rounded border border-white/20 bg-white/50 backdrop-blur-sm p-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
                   <span>
                     {seg.from}→{seg.to} {seg.flightNumber}
                   </span>
@@ -365,42 +366,42 @@ export default function BookingWizardPage() {
     }
 
     return (
-      <Card>
-        <CardHeader>
+      <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+        <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
           <CardTitle>Review and create</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <UiCard>
+            <UiCard className="bg-gradient-to-br from-blue-50/60 to-indigo-50/60 backdrop-blur-sm border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.04)]">
               <CardContent>
                 <div className="text-[#64748B] text-[12px]">Base fare</div>
                 <div className="font-semibold">${totalPrice}</div>
               </CardContent>
             </UiCard>
-            <UiCard>
+            <UiCard className="bg-gradient-to-br from-emerald-50/60 to-teal-50/60 backdrop-blur-sm border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.04)]">
               <CardContent>
                 <div className="text-[#64748B] text-[12px]">Taxes</div>
                 <div className="font-semibold">${Math.round(totalPrice * 0.15)}</div>
               </CardContent>
             </UiCard>
-            <UiCard>
+            <UiCard className="bg-gradient-to-br from-violet-50/60 to-purple-50/60 backdrop-blur-sm border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.04)]">
               <CardContent>
                 <div className="text-[#64748B] text-[12px]">Fees</div>
                 <div className="font-semibold">${Math.round(totalPrice * 0.05)}</div>
               </CardContent>
             </UiCard>
           </div>
-          <div className="rounded border border-[#CBD5E1] bg-[#F8FAFC] p-2">
+          <div className="rounded border border-white/20 bg-white/40 backdrop-blur-sm p-2 font-semibold text-lg">
             Total: ${Math.round(totalPrice * 1.2)}
           </div>
           {ttlMinutes < 120 && (
-            <div className="rounded border border-status-warn bg-status-warn/10 text-status-warn p-2 flex items-center gap-2 text-[12px]">
+            <div className="rounded border border-[#D97706]/40 bg-[#D97706]/10 text-[#D97706] p-2 flex items-center gap-2 text-[12px] shadow-[0_0_16px_rgba(217,119,6,0.15)]">
               <AlertCircle className="h-4 w-4" />
               Ticketing deadline is approaching.
             </div>
           )}
           <div className="text-right">
-            <Button onClick={handleSubmit(onSubmit)} disabled={createPnr.isPending}>
+            <Button onClick={handleSubmit(onSubmit)} disabled={createPnr.isPending} className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md hover:shadow-lg transition-all duration-200">
               {createPnr.isPending ? 'Creating...' : 'Create PNR'}
             </Button>
           </div>
@@ -414,14 +415,14 @@ export default function BookingWizardPage() {
 
   return (
     <div className="space-y-4 text-[13px]">
-      <div className="rounded bg-white border border-[#CBD5E1] p-2 text-[13px]">
+      <div className="rounded bg-white/60 backdrop-blur-md border border-white/20 p-2 text-[13px] shadow-[0_4px_16px_rgba(0,0,0,0.04)]">
         <div className="flex items-center justify-between">
           {steps.map((label, idx) => {
             const step = idx + 1;
             const active = step === currentStep;
             return (
               <div key={label} className={`flex items-center ${active ? 'font-semibold' : ''}`}>
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#CBD5E1] mr-2 text-[12px]">
+                <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full mr-2 text-[12px] transition-all duration-200 ${active ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-[0_0_12px_rgba(59,130,246,0.4)]' : 'border border-white/30 bg-white/50 backdrop-blur-sm text-[#64748B]'}`}>
                   {step}
                 </span>
                 <span className={active ? 'text-[#0F172A]' : 'text-[#64748B]'}>{label}</span>

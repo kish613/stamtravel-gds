@@ -29,7 +29,7 @@ function QueueCard({
       style={{ transform: CSS.Transform.toString(transform), transition }}
       {...attributes}
       {...listeners}
-      className={`rounded border border-[#CBD5E1] bg-white p-2 ${isDragging ? 'opacity-70' : ''}`}
+      className={`rounded border border-white/20 bg-white/60 backdrop-blur-sm p-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)] ${isDragging ? 'opacity-70 shadow-lg' : ''}`}
     >
       {children}
     </div>
@@ -135,7 +135,7 @@ export default function QueuesPage() {
 
   if (isError) {
     return (
-      <Card className="border-status-danger text-status-danger">
+      <Card className="border-status-danger text-status-danger bg-white/60 backdrop-blur-md">
         <CardContent className="py-3">{(error as Error)?.message}</CardContent>
       </Card>
     );
@@ -144,8 +144,8 @@ export default function QueuesPage() {
   return (
     <div className="space-y-4 text-[13px]">
       <div className="flex flex-wrap gap-2 items-end justify-between">
-        <Card className="flex-1">
-          <CardHeader>
+        <Card className="flex-1 bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+          <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
             <CardTitle>Queue Filters</CardTitle>
           </CardHeader>
           <CardContent>
@@ -154,19 +154,19 @@ export default function QueuesPage() {
                 value={filters.agent}
                 onChange={(e) => setFilters((state) => ({ ...state, agent: e.target.value }))}
                 placeholder="Agent"
-                className="h-8 rounded border border-[#CBD5E1] px-2 text-[13px]"
+                className="h-8 rounded border border-white/20 bg-white/50 backdrop-blur-sm px-2 text-[13px] transition-shadow hover:shadow-md focus:shadow-md focus:outline-none focus:ring-1 focus:ring-blue-300/50"
               />
               <input
                 value={filters.dateFrom}
                 onChange={(e) => setFilters((state) => ({ ...state, dateFrom: e.target.value }))}
                 type="date"
-                className="h-8 rounded border border-[#CBD5E1] px-2 text-[13px]"
+                className="h-8 rounded border border-white/20 bg-white/50 backdrop-blur-sm px-2 text-[13px] transition-shadow hover:shadow-md focus:shadow-md focus:outline-none focus:ring-1 focus:ring-blue-300/50"
               />
               <input
                 value={filters.dateTo}
                 onChange={(e) => setFilters((state) => ({ ...state, dateTo: e.target.value }))}
                 type="date"
-                className="h-8 rounded border border-[#CBD5E1] px-2 text-[13px]"
+                className="h-8 rounded border border-white/20 bg-white/50 backdrop-blur-sm px-2 text-[13px] transition-shadow hover:shadow-md focus:shadow-md focus:outline-none focus:ring-1 focus:ring-blue-300/50"
               />
               <Button variant="outline" onClick={() => setFilters({ agent: '', dateFrom: '', dateTo: '' })}>
                 Clear
@@ -187,15 +187,15 @@ export default function QueuesPage() {
           <div className="flex gap-3 min-w-[1600px]">
             {isLoading
               ? Array.from({ length: 4 }).map((_, idx) => (
-                  <Card key={idx} className="w-64 min-w-64">
+                  <Card key={idx} className="w-64 min-w-64 bg-white/60 backdrop-blur-md border-white/20">
                     <CardContent>
-                      <div className="h-44 animate-pulse rounded bg-[#E2E8F0]" />
+                      <div className="h-44 animate-pulse rounded bg-white/40 backdrop-blur-sm" />
                     </CardContent>
                   </Card>
                 ))
               : buckets.map((bucket: any) => (
-                  <Card key={bucket.queueCode} className="w-64 min-w-64">
-                    <CardHeader>
+                  <Card key={bucket.queueCode} className="w-64 min-w-64 bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+                    <CardHeader className="bg-gradient-to-b from-white/50 to-transparent rounded-t-lg">
                       <CardTitle>
                         {bucket.queueCode}
                         <Badge variant="neutral" className="ml-2">
@@ -209,13 +209,13 @@ export default function QueuesPage() {
                           const mins = toMinutesLeft(item.deadlineAt);
                           const itemClass =
                             mins < 0
-                              ? 'bg-status-danger/20 border-status-danger'
+                              ? 'bg-[#DC2626]/10 border-[#DC2626]/40 shadow-[0_0_12px_rgba(220,38,38,0.15)]'
                               : mins <= 30
-                              ? 'border-status-warn'
-                              : 'border-[#CBD5E1]';
+                              ? 'border-[#D97706]/40 shadow-[0_0_12px_rgba(217,119,6,0.15)]'
+                              : 'border-white/20';
                           return (
                             <QueueCard key={item.id} id={item.id}>
-                              <div className={`rounded border p-2 text-[12px] ${itemClass}`}>
+                              <div className={`rounded border p-2 text-[12px] backdrop-blur-sm ${itemClass}`}>
                                 <div className="font-semibold">{item.locator}</div>
                                 <div>{item.passengerName}</div>
                                 <div>

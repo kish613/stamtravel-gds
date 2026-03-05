@@ -133,8 +133,8 @@ export default function AirSearchPage() {
 
   return (
     <div className="space-y-4 text-[13px]">
-      <Card>
-        <CardHeader>
+      <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+        <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
           <CardTitle>Air Search</CardTitle>
         </CardHeader>
         <CardContent>
@@ -144,7 +144,7 @@ export default function AirSearchPage() {
                 <Label>Trip type</Label>
                 <select
                   {...register('tripType')}
-                  className="h-8 rounded border border-[#CBD5E1] px-2 text-[13px]"
+                  className="h-8 rounded border border-white/20 bg-white/50 backdrop-blur-sm px-2 text-[13px] transition-shadow hover:shadow-md"
                 >
                   <option value="one-way">One-way</option>
                   <option value="return">Return</option>
@@ -165,7 +165,7 @@ export default function AirSearchPage() {
                   setValue('origin', query.destination);
                   setValue('destination', o);
                 }}
-                className="border border-[#CBD5E1] h-8 w-8 rounded flex items-center justify-center"
+                className="border border-white/20 bg-white/50 backdrop-blur-sm h-8 w-8 rounded flex items-center justify-center transition-all duration-200 hover:bg-white/70 hover:shadow-[0_0_12px_rgba(59,130,246,0.3)]"
                 aria-label="swap"
               >
                 <ArrowLeftRight className="h-4 w-4" />
@@ -221,33 +221,33 @@ export default function AirSearchPage() {
               <div className="ml-auto">
                 <Popover>
                   <PopoverTrigger asChild>
-                    <button type="button" className="inline-flex h-8 items-center gap-1 rounded border border-[#CBD5E1] px-2 text-[13px]">
+                    <button type="button" className="inline-flex h-8 items-center gap-1 rounded border border-white/20 bg-white/50 backdrop-blur-sm px-2 text-[13px] transition-all duration-200 hover:bg-white/70 hover:shadow-md">
                       Passenger count <ChevronDown className="h-4 w-4" />
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-56 space-y-2">
+                  <PopoverContent className="w-56 space-y-2 bg-white/70 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
                     <div className="flex justify-between items-center">
                       <span>Adults</span>
                       <div className="flex items-center gap-1">
-                        <button type="button" onClick={() => setValue('adults', Math.max(1, query.adults - 1))} className="px-2 border rounded">-</button>
+                        <button type="button" onClick={() => setValue('adults', Math.max(1, query.adults - 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">-</button>
                         <span>{query.adults}</span>
-                        <button type="button" onClick={() => setValue('adults', Math.min(9, query.adults + 1))} className="px-2 border rounded">+</button>
+                        <button type="button" onClick={() => setValue('adults', Math.min(9, query.adults + 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">+</button>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span>Children</span>
                       <div className="flex items-center gap-1">
-                        <button type="button" onClick={() => setValue('children', Math.max(0, query.children - 1))} className="px-2 border rounded">-</button>
+                        <button type="button" onClick={() => setValue('children', Math.max(0, query.children - 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">-</button>
                         <span>{query.children}</span>
-                        <button type="button" onClick={() => setValue('children', Math.min(9, query.children + 1))} className="px-2 border rounded">+</button>
+                        <button type="button" onClick={() => setValue('children', Math.min(9, query.children + 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">+</button>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span>Infants</span>
                       <div className="flex items-center gap-1">
-                        <button type="button" onClick={() => setValue('infants', Math.max(0, query.infants - 1))} className="px-2 border rounded">-</button>
+                        <button type="button" onClick={() => setValue('infants', Math.max(0, query.infants - 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">-</button>
                         <span>{query.infants}</span>
-                        <button type="button" onClick={() => setValue('infants', Math.min(9, query.infants + 1))} className="px-2 border rounded">+</button>
+                        <button type="button" onClick={() => setValue('infants', Math.min(9, query.infants + 1))} className="px-2 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">+</button>
                       </div>
                     </div>
                   </PopoverContent>
@@ -257,11 +257,11 @@ export default function AirSearchPage() {
               <div>
                 <Label>Flexible dates</Label>
                 <div className="flex items-center gap-1">
-                  <button type="button" onClick={() => setValue('flexibleWindow', Math.max(-3, flexibleWindow - 1))} className="h-8 w-8 border rounded">-</button>
+                  <button type="button" onClick={() => setValue('flexibleWindow', Math.max(-3, flexibleWindow - 1))} className="h-8 w-8 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">-</button>
                   <Button variant="outline" onClick={() => setValue('flexible', !isFlexible)} type="button">
                     {isFlexible ? `±${Math.abs(flexibleWindow)}d` : 'off'}
                   </Button>
-                  <button type="button" onClick={() => setValue('flexibleWindow', Math.min(3, flexibleWindow + 1))} className="h-8 w-8 border rounded">+</button>
+                  <button type="button" onClick={() => setValue('flexibleWindow', Math.min(3, flexibleWindow + 1))} className="h-8 w-8 border border-white/20 rounded bg-white/50 backdrop-blur-sm transition-colors hover:bg-white/80">+</button>
                 </div>
               </div>
             </div>
@@ -293,14 +293,14 @@ export default function AirSearchPage() {
             {errors.origin && <div className="text-status-danger text-sm">{errors.origin.message}</div>}
 
             <div className="pt-2">
-              <Button type="submit">Search</Button>
+              <Button type="submit" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg hover:shadow-xl transition-all duration-200">Search</Button>
             </div>
           </form>
         </CardContent>
       </Card>
 
       {isError && (
-        <Card className="border-status-danger">
+        <Card className="border-status-danger bg-white/60 backdrop-blur-md">
           <CardContent className="py-3 text-status-danger">
             {(error as Error)?.message}
             <Button variant="outline" size="sm" className="ml-3" onClick={() => refetch()}>
@@ -312,8 +312,8 @@ export default function AirSearchPage() {
 
       {(searchResult || isLoading || isError) && (
         <div className="grid grid-cols-1 xl:grid-cols-[320px_1fr] gap-3">
-          <Card>
-            <CardHeader>
+          <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+            <CardHeader className="bg-gradient-to-r from-slate-50/80 to-indigo-50/80 rounded-t-lg">
               <CardTitle>Fare matrix</CardTitle>
             </CardHeader>
             <CardContent>
@@ -322,16 +322,16 @@ export default function AirSearchPage() {
               ) : (
                 <table className="w-full text-[12px]">
                   <thead>
-                    <tr>
-                      <th className="text-left">Price band</th>
-                      <th className="text-center">0 stops</th>
-                      <th className="text-center">1 stop</th>
-                      <th className="text-center">2+ stops</th>
+                    <tr className="bg-gradient-to-r from-slate-100/60 to-blue-100/40">
+                      <th className="text-left py-1.5 px-1 rounded-l">Price band</th>
+                      <th className="text-center py-1.5">0 stops</th>
+                      <th className="text-center py-1.5">1 stop</th>
+                      <th className="text-center py-1.5 rounded-r">2+ stops</th>
                     </tr>
                   </thead>
                   <tbody>
                     {fareRows.map((row) => (
-                      <tr key={row.label} className="border-t">
+                      <tr key={row.label} className="border-t border-white/20 transition-colors hover:bg-white/40">
                         <td className="py-1">{row.label}</td>
                         <td className="text-center">{row.counts[0] || 0}</td>
                         <td className="text-center">{row.counts[1] || 0}</td>
@@ -344,8 +344,8 @@ export default function AirSearchPage() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
+          <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+            <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
               <CardTitle>Results</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -359,7 +359,7 @@ export default function AirSearchPage() {
                 results.map((flight) => {
                   const expandedState = expanded === flight.id;
                   return (
-                    <UiCard key={flight.id}>
+                    <UiCard key={flight.id} className="bg-white/50 backdrop-blur-sm border-white/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
                       <CardContent className="space-y-2">
                         <div className="flex items-center justify-between">
                           <div>
@@ -370,7 +370,7 @@ export default function AirSearchPage() {
                             <div className="text-[11px] text-[#64748B]">Fare basis {flight.fareBasis}</div>
                           </div>
                           <div className="text-right">
-                            <div className="text-[22px] font-semibold">${flight.price}</div>
+                            <div className="text-[26px] font-bold bg-gradient-to-r from-slate-800 to-blue-700 bg-clip-text text-transparent">${flight.price}</div>
                             <Badge variant={flight.contentType === 'NDC' ? 'confirmed' : flight.contentType === 'ATPCO' ? 'warning' : 'neutral'}>
                               {flight.contentType}
                             </Badge>
@@ -381,12 +381,12 @@ export default function AirSearchPage() {
                             <Plane className="h-3 w-3 mr-1" />
                             {expandedState ? 'Hide details' : 'Show details'}
                           </button>
-                          <Button size="sm" onClick={() => handleSelect(flight.id)}>
+                          <Button size="sm" onClick={() => handleSelect(flight.id)} className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md hover:shadow-lg transition-all duration-200">
                             Select
                           </Button>
                         </div>
                         {expandedState && (
-                          <div className="grid grid-cols-2 gap-3 text-[12px]">
+                          <div className="grid grid-cols-2 gap-3 text-[12px] bg-white/30 backdrop-blur-sm rounded-lg p-2 border border-white/10">
                             <div>Baggage: {flight.baggageAllowance}</div>
                             <div>Refundable: {flight.refundable ? 'Yes' : 'No'}</div>
                             <div className="col-span-2">Rules: {flight.fareRulesSummary}</div>

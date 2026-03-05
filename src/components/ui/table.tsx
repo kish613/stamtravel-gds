@@ -6,7 +6,13 @@ const Table = ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) 
 );
 
 const TableHeader = ({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) => (
-  <thead className={cn('[&_tr]:border-b', className)} {...props} />
+  <thead
+    className={cn(
+      '[&_tr]:border-b bg-gradient-to-r from-[#F1F5F9]/80 to-[#EEF2FF]/60',
+      className
+    )}
+    {...props}
+  />
 );
 
 const TableBody = ({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) => (
@@ -14,7 +20,13 @@ const TableBody = ({ className, ...props }: React.HTMLAttributes<HTMLTableSectio
 );
 
 const TableRow = ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
-  <tr className={cn('border-b transition-colors hover:bg-[#F8FAFC]', className)} {...props} />
+  <tr
+    className={cn(
+      'border-b border-white/10 transition-all hover:bg-white/40 hover:backdrop-blur-sm hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]',
+      className
+    )}
+    {...props}
+  />
 );
 
 const TableHead = ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (

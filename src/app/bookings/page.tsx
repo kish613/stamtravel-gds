@@ -30,24 +30,33 @@ export default function BookingManagerPage() {
 
   return (
     <div className="space-y-4 text-[13px]">
-      <Card>
-        <CardHeader>
+      <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
+        <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
           <CardTitle>PNR Manager</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2">
-          <div className="flex flex-wrap gap-3">
-            <label className="flex items-center gap-2">
-              <input type="radio" checked={mode === 'locator'} onChange={() => setMode('locator')} />
+          <div className="flex flex-wrap gap-1 bg-white/40 backdrop-blur-sm rounded-lg p-1 border border-white/20">
+            <button
+              type="button"
+              onClick={() => setMode('locator')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-[13px] transition-all duration-200 ${mode === 'locator' ? 'bg-gradient-to-r from-blue-500/90 to-indigo-500/90 text-white shadow-md' : 'text-slate-600 hover:bg-white/60'}`}
+            >
               Locator
-            </label>
-            <label className="flex items-center gap-2">
-              <input type="radio" checked={mode === 'surname'} onChange={() => setMode('surname')} />
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode('surname')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-[13px] transition-all duration-200 ${mode === 'surname' ? 'bg-gradient-to-r from-blue-500/90 to-indigo-500/90 text-white shadow-md' : 'text-slate-600 hover:bg-white/60'}`}
+            >
               Surname + departure
-            </label>
-            <label className="flex items-center gap-2">
-              <input type="radio" checked={mode === 'ticket'} onChange={() => setMode('ticket')} />
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode('ticket')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-[13px] transition-all duration-200 ${mode === 'ticket' ? 'bg-gradient-to-r from-blue-500/90 to-indigo-500/90 text-white shadow-md' : 'text-slate-600 hover:bg-white/60'}`}
+            >
               Ticket number
-            </label>
+            </button>
           </div>
 
           {mode === 'locator' && <Input value={locator} onChange={(e) => setLocator(e.target.value)} placeholder="Search locator" />}
@@ -62,7 +71,7 @@ export default function BookingManagerPage() {
       </Card>
 
       {isError && (
-        <Card className="border-status-danger">
+        <Card className="border-status-danger bg-white/60 backdrop-blur-md">
           <CardContent className="text-status-danger py-3">
             {(error as Error)?.message}
             <Button className="ml-3" variant="outline" size="sm" onClick={() => refetch()}>Retry</Button>
@@ -70,12 +79,12 @@ export default function BookingManagerPage() {
         </Card>
       )}
 
-      <Card>
+      <Card className="bg-white/60 backdrop-blur-md border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
         <CardContent>
           {isLoading ? (
             <div className="space-y-2">
               {Array.from({ length: 4 }).map((_, idx) => (
-                <div key={idx} className="h-8 bg-[#E2E8F0] animate-pulse rounded" />
+                <div key={idx} className="h-8 bg-white/40 backdrop-blur-sm animate-pulse rounded" />
               ))}
             </div>
           ) : filtered.length === 0 ? (
@@ -83,7 +92,7 @@ export default function BookingManagerPage() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow>
+                <TableRow className="bg-gradient-to-r from-slate-100/60 to-blue-100/40 border-white/20">
                   <TableHead>Locator</TableHead>
                   <TableHead>Passenger</TableHead>
                   <TableHead>Route</TableHead>
@@ -94,9 +103,9 @@ export default function BookingManagerPage() {
               </TableHeader>
               <TableBody>
                 {filtered.map((pnr) => (
-                  <TableRow key={pnr.locator}>
+                  <TableRow key={pnr.locator} className="border-white/20 transition-colors duration-200 hover:bg-white/40">
                     <TableCell>
-                      <Link href={`/bookings/${pnr.locator}`} className="text-[#1D4ED8] underline">
+                      <Link href={`/bookings/${pnr.locator}`} className="text-[#1D4ED8] underline transition-all duration-200 hover:text-blue-500 hover:drop-shadow-[0_0_6px_rgba(59,130,246,0.4)]">
                         {pnr.locator}
                       </Link>
                     </TableCell>
