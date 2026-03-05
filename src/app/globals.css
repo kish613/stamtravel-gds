@@ -5,35 +5,36 @@
   --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, monospace;
 
   /* ── ShadCN semantic color tokens ── */
-  --color-background: #ffffff;
-  --color-foreground: #0f172a;
+  --color-background: #f9fafb;
+  --color-foreground: #111827;
   --color-card: #ffffff;
-  --color-card-foreground: #0f172a;
+  --color-card-foreground: #111827;
   --color-popover: #ffffff;
-  --color-popover-foreground: #0f172a;
-  --color-primary: #0f172a;
-  --color-primary-foreground: #f8fafc;
-  --color-secondary: #f1f5f9;
-  --color-secondary-foreground: #0f172a;
-  --color-muted: #f1f5f9;
-  --color-muted-foreground: #64748b;
-  --color-accent: #f1f5f9;
-  --color-accent-foreground: #0f172a;
-  --color-destructive: #dc2626;
+  --color-popover-foreground: #111827;
+  --color-primary: #111827;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f3f4f6;
+  --color-secondary-foreground: #111827;
+  --color-muted: #f3f4f6;
+  --color-muted-foreground: #6b7280;
+  --color-accent: #f3f4f6;
+  --color-accent-foreground: #111827;
+  --color-destructive: #ef4444;
   --color-destructive-foreground: #fef2f2;
-  --color-border: #e2e8f0;
-  --color-input: #e2e8f0;
-  --color-ring: #0f172a;
+  --color-border: #f1f5f9;
+  --color-input: #f1f5f9;
+  --color-ring: #111827;
 
   /* ── Status colors ── */
-  --color-status-good: #059669;
-  --color-status-warn: #d97706;
-  --color-status-danger: #dc2626;
-  --color-status-info: #0284c7;
+  --color-status-good: #10b981;
+  --color-status-warn: #f59e0b;
+  --color-status-danger: #ef4444;
+  --color-status-info: #0ea5e9;
 
-  /* ── Layout ── */
+  /* ── Layout & Shadows ── */
   --nav-height: 56px;
   --radius: 0.5rem;
+  --shadow-card: 0 8px 30px -4px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -44,7 +45,7 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   color: var(--color-foreground);
-  background: #f8fafc;
+  background: var(--color-background);
   min-height: 100vh;
 }
 
@@ -62,7 +63,12 @@ body {
   transition: none !important;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 
@@ -105,17 +111,20 @@ a {
 
 /* ── Shimmer animation for skeleton ── */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    #f1f5f9 0%,
-    #e2e8f0 40%,
-    #f1f5f9 80%
-  );
+  background: linear-gradient(90deg,
+      #f1f5f9 0%,
+      #e2e8f0 40%,
+      #f1f5f9 80%);
   background-size: 200% 100%;
   animation: shimmer 1.8s ease-in-out infinite;
 }

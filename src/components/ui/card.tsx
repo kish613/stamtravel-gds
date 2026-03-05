@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 export const Card = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      'rounded-lg border border-border bg-card text-card-foreground shadow-card',
+      'rounded-[20px] border border-border bg-card text-card-foreground shadow-card',
       className
     )}
     {...props}
@@ -12,7 +12,7 @@ export const Card = ({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
 );
 
 export const CardHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn('flex flex-col space-y-1.5 p-3', className)} {...props} />
+  <div className={cn('flex flex-col space-y-1.5 p-5', className)} {...props} />
 );
 
 export const CardTitle = ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
@@ -24,9 +24,9 @@ export const CardDescription = ({ className, ...props }: React.HTMLAttributes<HT
 );
 
 export const CardContent = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn('p-3 pt-0', className)} {...props} />
+  <div className={cn('p-5 pt-0', className)} {...props} />
 );
 
 export const CardFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn('flex items-center p-3 pt-0', className)} {...props} />
+  <div className={cn('flex items-center p-5 pt-0', className)} {...props} />
 );

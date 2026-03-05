@@ -59,8 +59,8 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 text-[13px]">
       <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground text-sm mt-1">Real-time operations overview</p>
+        <h1 className="text-[28px] font-black text-foreground tracking-tight">Dashboard</h1>
+        <p className="text-muted-foreground text-[14px] font-medium mt-1">Real-time operations overview</p>
       </div>
 
       {/* Queue count cards */}
@@ -82,14 +82,14 @@ export default function DashboardPage() {
           ) : (
             q0to9.map((q) => (
               <Link key={q.queueCode} href="/queues">
-                <Card className="w-32 border border-border bg-card hover:bg-muted/40 transition-colors cursor-pointer group">
-                  <CardContent className="p-3">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{q.queueCode}</span>
-                      <span className={`w-1.5 h-1.5 rounded-full ${queueDotClass(q.count)}`} />
+                <Card className="min-w-[124px] border border-border bg-card hover:shadow-md transition-all cursor-pointer group">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="font-sans text-[11px] font-bold uppercase tracking-wider text-muted-foreground">{q.queueCode}</span>
+                      <span className={`w-2 h-2 rounded-full ${queueDotClass(q.count)}`} />
                     </div>
-                    <div className="text-[26px] font-bold tracking-tight text-foreground leading-none">{q.count}</div>
-                    <div className="text-[10px] text-muted-foreground mt-1.5">items</div>
+                    <div className="text-[28px] font-black tracking-tighter text-foreground leading-none">{q.count}</div>
+                    <div className="text-[12px] text-muted-foreground mt-2 font-medium">items</div>
                   </CardContent>
                 </Card>
               </Link>
@@ -117,30 +117,30 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="flex items-end justify-between">
-              <div className="text-[32px] font-bold text-foreground tracking-tight">{busy ? <Skeleton className="h-10 w-16" /> : bookingsToday}</div>
-              <div className="text-emerald-600 text-xs font-medium mb-1.5">+12%</div>
+              <div className="text-[36px] font-black text-foreground tracking-tighter">{busy ? <Skeleton className="h-10 w-16" /> : bookingsToday}</div>
+              <div className="text-emerald-500 text-[13px] font-bold mb-1.5 bg-emerald-50 px-2 py-0.5 rounded-md">+12%</div>
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border-border">
           <CardHeader>
-            <CardTitle className="text-muted-foreground text-sm font-medium">Segments today</CardTitle>
+            <CardTitle className="text-muted-foreground text-sm font-semibold">Segments today</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-end justify-between">
-              <div className="text-[32px] font-bold text-foreground tracking-tight">{busy ? <Skeleton className="h-10 w-16" /> : segmentsToday}</div>
-              <div className="text-emerald-600 text-xs font-medium mb-1.5">+8%</div>
+              <div className="text-[36px] font-black text-foreground tracking-tighter">{busy ? <Skeleton className="h-10 w-16" /> : segmentsToday}</div>
+              <div className="text-emerald-500 text-[13px] font-bold mb-1.5 bg-emerald-50 px-2 py-0.5 rounded-md">+8%</div>
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border-border">
           <CardHeader>
-            <CardTitle className="text-muted-foreground text-sm font-medium">Revenue today</CardTitle>
+            <CardTitle className="text-muted-foreground text-sm font-semibold">Revenue today</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-end justify-between">
-              <div className="text-[32px] font-bold text-foreground tracking-tight">{busy ? <Skeleton className="h-10 w-20" /> : `$${revenueToday}`}</div>
-              <div className="text-emerald-600 text-xs font-medium mb-1.5">+5%</div>
+              <div className="text-[36px] font-black text-foreground tracking-tighter">{busy ? <Skeleton className="h-10 w-20" /> : `$${revenueToday}`}</div>
+              <div className="text-emerald-500 text-[13px] font-bold mb-1.5 bg-emerald-50 px-2 py-0.5 rounded-md">+5%</div>
             </div>
           </CardContent>
         </Card>
@@ -162,12 +162,12 @@ export default function DashboardPage() {
             ) : todaysPnrs.length === 0 ? (
               <div className="text-muted-foreground py-2">No departures today.</div>
             ) : (
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {todaysPnrs.map((p) => (
-                  <div key={p.locator} className="rounded-md border border-border bg-muted/30 p-2.5 flex items-center justify-between">
+                  <div key={p.locator} className="rounded-[12px] hover:bg-slate-50 transition-colors p-3 flex items-center justify-between group">
                     <div>
-                      <div className="font-medium text-foreground">{p.passengerName}</div>
-                      <div className="text-[12px] text-muted-foreground">{p.locator} · {p.route}</div>
+                      <div className="font-semibold text-[14px] text-foreground">{p.passengerName}</div>
+                      <div className="text-[13px] text-muted-foreground font-medium mt-0.5">{p.locator} <span className="mx-1.5 text-slate-300">•</span> {p.route}</div>
                     </div>
                     <StatusBadge status={p.status} />
                   </div>
@@ -188,18 +188,18 @@ export default function DashboardPage() {
                 <Skeleton className="h-10 w-full" />
               </div>
             ) : (
-              <div className="space-y-2">
+              <div className="space-y-1">
                 {urgentPnrs.map((p) => {
                   const deadline = formatCountdown(p.deadlineAt) || '00:00';
                   return (
-                    <div key={p.locator} className="rounded-md border border-border bg-muted/30 p-2.5 flex items-center justify-between">
+                    <div key={p.locator} className="rounded-[12px] hover:bg-slate-50 transition-colors p-3 flex items-center justify-between group">
                       <div>
-                        <div className="font-medium text-foreground">{p.locator}</div>
-                        <div className="text-[12px] text-muted-foreground">{p.passengerName} · {p.route}</div>
+                        <div className="font-semibold text-[14px] text-foreground">{p.locator}</div>
+                        <div className="text-[13px] text-muted-foreground font-medium mt-0.5">{p.passengerName} <span className="mx-1.5 text-slate-300">•</span> {p.route}</div>
                       </div>
-                      <div className="text-right">
-                        <div className="font-mono text-[12px] text-muted-foreground">{deadline}</div>
-                        <Badge variant={Number(p.minutes) <= 40 ? 'warning' : 'neutral'}>
+                      <div className="text-right flex items-center gap-3">
+                        <div className="font-mono text-[13px] font-medium text-slate-400">{deadline}</div>
+                        <Badge variant={Number(p.minutes) <= 40 ? 'warning' : 'neutral'} className="font-semibold rounded-md">
                           {Number(p.minutes) <= 40 ? 'Approaching' : 'Safe'}
                         </Badge>
                       </div>
@@ -213,17 +213,16 @@ export default function DashboardPage() {
         </Card>
       </section>
 
-      {/* Quick actions */}
       <section>
-        <Card>
+        <Card className="border-border shadow-sm">
           <CardContent className="p-4 flex flex-wrap gap-3">
             <Link href="/search/air">
-              <Button size="lg">New Search</Button>
+              <Button size="lg" variant="accent" className="font-bold px-6">New Search</Button>
             </Link>
             <Link href="/bookings">
-              <Button variant="outline" size="lg">Open PNR</Button>
+              <Button variant="outline" size="lg" className="font-semibold bg-white">Open PNR</Button>
             </Link>
-            <Button variant="outline" size="lg">New Queue</Button>
+            <Button variant="outline" size="lg" className="font-semibold bg-white">New Queue</Button>
           </CardContent>
         </Card>
       </section>

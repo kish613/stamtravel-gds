@@ -45,105 +45,107 @@ export function AppShell({ children }: { children: ReactNode }) {
   const sidebarWidth = collapsed ? 'w-14' : 'w-56';
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      {/* Header — flat slate-900, no gradient */}
-      <header className="h-[var(--nav-height)] bg-slate-900 text-white flex items-center px-4 fixed top-0 left-0 right-0 z-40 border-b border-slate-800">
-        <div className="w-56 min-w-56 font-bold flex items-center gap-2">
-          <span className="text-white tracking-tight">Sabre GDS</span>
+    <div className="min-h-screen bg-background text-foreground flex">
+      {/* Sidebar — Full height, Light Mode */}
+      <aside
+        className={cn(
+          'fixed left-0 top-0 bottom-0 z-40 bg-white border-r border-slate-100 transition-all duration-300 ease-in-out flex flex-col',
+          sidebarWidth
+        )}
+      >
+        {/* Logo area */}
+        <div className="h-[var(--nav-height)] flex items-center px-6 font-bold mt-2">
+          <span className={cn("text-slate-900 tracking-tight text-xl font-black", collapsed && "hidden")}>Sabre GDS</span>
+          {collapsed && <span className="text-slate-900 tracking-tight font-black mx-auto text-xl">S</span>}
         </div>
-        <div className="flex-1 text-sm text-center text-slate-400 flex items-center justify-center gap-2">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-          </span>
-          Agent: Jordan Ellis · PCC: 901
-        </div>
-        <div className="flex items-center gap-2">
+
+        <nav className="flex-1 py-4 flex flex-col gap-1 overflow-y-auto px-4">
+          {!collapsed && (
+            <p className="px-2 py-2 text-[11px] uppercase tracking-wider text-slate-400 font-semibold mt-2 mb-1">
+              Main Menu
+            </p>
+          )}
+          {NAV.map((item) => {
+            const Icon = item.icon;
+            const prefix = item.matchPrefix ?? item.path;
+            const active = pathname === prefix || pathname.startsWith(prefix + '/');
+            return (
+              <Link
+                key={item.path}
+                href={item.path}
+                className={cn(
+                  'group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] transition-all font-medium',
+                  active
+                    ? 'bg-slate-50 text-slate-900'
+                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                )}
+              >
+                <Icon className={cn('h-[18px] w-[18px] flex-shrink-0 transition-colors', active ? 'text-amber-400 fill-amber-400/20' : 'text-slate-400 group-hover:text-slate-600')} />
+                {!collapsed && <span>{item.label}</span>}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Terminal button & Collapse in Footer area */}
+        <div className="p-4 border-t border-slate-200 flex flex-col gap-1">
           <button
-            className="rounded-md p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-            aria-label="notifications"
-          >
-            <Bell className="h-4 w-4" />
-          </button>
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-700 text-xs font-semibold text-white ring-1 ring-slate-600 select-none">
-            JE
-          </div>
-        </div>
-      </header>
-
-      <div className="pt-[var(--nav-height)] flex min-h-screen">
-        {/* Sidebar — flat slate-900, right border only */}
-        <aside
-          className={cn(
-            'fixed left-0 top-[var(--nav-height)] bottom-0 z-30 bg-slate-900 text-white border-r border-slate-800 transition-all duration-300 ease-in-out',
-            sidebarWidth
-          )}
-        >
-          <nav className="py-3 flex flex-col gap-0.5">
-            {!collapsed && (
-              <p className="px-3 py-1.5 text-[10px] uppercase tracking-widest text-slate-500 font-medium">
-                Navigation
-              </p>
+            onClick={toggleTerminal}
+            className={cn(
+              "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] font-medium text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors",
+              collapsed && "justify-center px-0"
             )}
-            <div className="mx-3 mb-1 h-px bg-slate-800" />
-            {NAV.map((item) => {
-              const Icon = item.icon;
-              const prefix = item.matchPrefix ?? item.path;
-              const active = pathname === prefix || pathname.startsWith(prefix + '/');
-              return (
-                <Link
-                  key={item.path}
-                  href={item.path}
-                  className={cn(
-                    'group mx-1.5 flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] transition-colors relative',
-                    active
-                      ? 'bg-slate-800 text-white'
-                      : 'text-slate-400 hover:bg-slate-800 hover:text-white'
-                  )}
-                >
-                  {/* Active left accent */}
-                  {active && (
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-sky-400" />
-                  )}
-                  <Icon className={cn('h-4 w-4 flex-shrink-0', active ? 'text-sky-400' : '')} />
-                  {!collapsed && <span>{item.label}</span>}
-                </Link>
-              );
-            })}
-          </nav>
+            aria-label="Open terminal"
+          >
+            <TerminalSquare className={cn("h-[18px] w-[18px] flex-shrink-0 text-slate-400 transition-colors group-hover:text-slate-600")} />
+            {!collapsed && <span>Terminal</span>}
+          </button>
 
-          {/* Terminal button — fires overlay, no routing */}
-          <div className="mx-1.5 mt-1">
-            <button
-              onClick={toggleTerminal}
-              className="w-full group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
-              aria-label="Open terminal"
-            >
-              <TerminalSquare className="h-4 w-4 flex-shrink-0" />
-              {!collapsed && <span>Terminal</span>}
-            </button>
+          <button
+            className={cn(
+              "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] font-medium text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors",
+              collapsed && "justify-center px-0"
+            )}
+            aria-label="collapse nav"
+            onClick={() => setCollapsed((prev) => !prev)}
+          >
+            <Menu className="h-[18px] w-[18px] flex-shrink-0 text-slate-400 group-hover:text-slate-600" />
+            {!collapsed && <span>Collapse</span>}
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content Area */}
+      <div
+        className={cn(
+          'flex-1 flex flex-col min-h-screen transition-all duration-300 ease-in-out bg-[#f4f4f5]',
+          collapsed ? 'pl-14' : 'pl-56'
+        )}
+      >
+        {/* Header - Transparent/Floaty */}
+        <header className="h-[var(--nav-height)] bg-[#f4f4f5]/90 backdrop-blur-md sticky top-0 z-30 flex items-center justify-between px-8 border-b border-slate-200 shadow-sm">
+          <div className="flex-1 text-sm text-slate-500 flex items-center gap-2 font-medium">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            Agent: Jordan Ellis · PCC: 901
           </div>
-
-          {/* Collapse toggle */}
-          <div className="absolute right-2 bottom-3">
+          <div className="flex items-center gap-4">
             <button
-              className="rounded-md p-2 text-slate-500 hover:text-white hover:bg-slate-800 transition-colors"
-              aria-label="collapse nav"
-              onClick={() => setCollapsed((prev) => !prev)}
+              className="rounded-full p-2 text-slate-400 hover:text-slate-700 hover:bg-white transition-colors"
+              aria-label="notifications"
             >
-              <Menu className="h-4 w-4" />
+              <Bell className="h-5 w-5" />
             </button>
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-semibold text-slate-700 ring-1 ring-slate-200 select-none cursor-pointer hover:bg-slate-50 transition-colors shadow-sm">
+              JE
+            </div>
           </div>
-        </aside>
+        </header>
 
-        <main
-          className={cn(
-            'flex-1 min-h-[calc(100vh-var(--nav-height))]',
-            collapsed ? 'ml-14' : 'ml-56',
-            'transition-all duration-300 ease-in-out'
-          )}
-        >
-          <div className="p-6">{children}</div>
+        <main className="flex-1 px-8 py-6 w-full max-w-6xl mx-auto">
+          {children}
         </main>
       </div>
 
