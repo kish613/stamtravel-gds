@@ -23,11 +23,16 @@ interface BookingSession {
   selectedSeats: Record<string, string>;
 }
 
+type DashboardTheme = 'light' | 'dark';
+
 interface AppState {
   terminalOpen: boolean;
   toggleTerminal: () => void;
   terminalDrawerOpen: boolean;
   toggleTerminalDrawer: () => void;
+  dashboardTheme: DashboardTheme;
+  setDashboardTheme: (theme: DashboardTheme) => void;
+  toggleDashboardTheme: () => void;
   booking: BookingSession;
   setBookingSession: (session: Partial<BookingSession>) => void;
   resetBookingSession: () => void;
@@ -56,6 +61,7 @@ export const useAppStore = create<AppState>()(
     (set) => ({
       terminalOpen: false,
       terminalDrawerOpen: false,
+      dashboardTheme: 'light',
       booking: defaultBooking,
       toggleTerminal: () =>
         set((state) => ({
@@ -65,6 +71,14 @@ export const useAppStore = create<AppState>()(
       toggleTerminalDrawer: () =>
         set((state) => ({
           terminalDrawerOpen: !state.terminalDrawerOpen
+        })),
+      setDashboardTheme: (dashboardTheme) =>
+        set(() => ({
+          dashboardTheme
+        })),
+      toggleDashboardTheme: () =>
+        set((state) => ({
+          dashboardTheme: state.dashboardTheme === 'dark' ? 'light' : 'dark'
         })),
       setBookingSession: (session) =>
         set((state) => ({
