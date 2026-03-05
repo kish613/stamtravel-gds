@@ -130,12 +130,15 @@ export default function AirSearchPage() {
   };
 
   return (
-    <div className="space-y-4 text-[13px]">
+    <div className="space-y-6 text-[13px]">
+      {/* Page header */}
+      <div>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">Air Search</h1>
+        <p className="text-sm text-muted-foreground mt-1">Search flights across all content types and add to an active booking</p>
+      </div>
+
       <Card>
-        <CardHeader>
-          <CardTitle>Air Search</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <CardContent className="pt-5">
           <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-wrap gap-3 items-end">
               <div>

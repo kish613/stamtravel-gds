@@ -3,7 +3,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Bell, BarChart3, CircleHelp, LayoutDashboard, ListTodo, Plane, Settings, Ticket, Menu } from 'lucide-react';
+import { Bell, BarChart3, LayoutDashboard, ListTodo, Plane, Settings, Ticket, Menu, TerminalSquare } from 'lucide-react';
 import { useAppStore } from '@/stores/app-store';
 import { TerminalPanel } from '@/components/terminal/terminal-overlay';
 import { cn } from '@/lib/utils';
@@ -13,7 +13,6 @@ const NAV = [
   { path: '/search/air', label: 'Search', icon: Plane },
   { path: '/bookings', label: 'Bookings', icon: Ticket },
   { path: '/queues', label: 'Queues', icon: ListTodo },
-  { path: '/terminal', label: 'Terminal', icon: CircleHelp },
   { path: '/reports', label: 'Reports', icon: BarChart3 },
   { path: '/settings', label: 'Settings', icon: Settings }
 ];
@@ -98,9 +97,6 @@ export function AppShell({ children }: { children: ReactNode }) {
                       ? 'bg-slate-800 text-white'
                       : 'text-slate-400 hover:bg-slate-800 hover:text-white'
                   )}
-                  onClick={() => {
-                    if (item.path === '/terminal') toggleTerminal();
-                  }}
                 >
                   {/* Active left accent */}
                   {active && (
@@ -112,6 +108,18 @@ export function AppShell({ children }: { children: ReactNode }) {
               );
             })}
           </nav>
+
+          {/* Terminal button — fires overlay, no routing */}
+          <div className="mx-1.5 mt-1">
+            <button
+              onClick={toggleTerminal}
+              className="w-full group flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+              aria-label="Open terminal"
+            >
+              <TerminalSquare className="h-4 w-4 flex-shrink-0" />
+              {!collapsed && <span>Terminal</span>}
+            </button>
+          </div>
 
           {/* Collapse toggle */}
           <div className="absolute right-2 bottom-3">

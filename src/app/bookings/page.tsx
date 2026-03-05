@@ -28,7 +28,13 @@ export default function BookingManagerPage() {
   });
 
   return (
-    <div className="space-y-4 text-[13px]">
+    <div className="space-y-6 text-[13px]">
+      {/* Page header */}
+      <div>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">Bookings</h1>
+        <p className="text-sm text-muted-foreground mt-1">Search and manage passenger name records</p>
+      </div>
+
       <Card>
         <CardHeader>
           <CardTitle>PNR Manager</CardTitle>

@@ -393,7 +393,13 @@ export default function BookingWizardPage() {
   };
 
   return (
-    <div className="space-y-4 text-[13px]">
+    <div className="space-y-6 text-[13px]">
+      {/* Page header */}
+      <div>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">New Booking</h1>
+        <p className="text-sm text-muted-foreground mt-1">Build and create a passenger name record step by step</p>
+      </div>
+
       {/* Step indicator */}
       <div className="rounded-md border border-border bg-card p-3">
         <div className="flex items-center justify-between">

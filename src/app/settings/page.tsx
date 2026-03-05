@@ -15,12 +15,15 @@ export default function SettingsPage() {
   const [autoSeat, setAutoSeat] = useState(false);
 
   return (
-    <div className="space-y-4 text-[13px]">
+    <div className="space-y-6 text-[13px]">
+      {/* Page header */}
+      <div>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">Settings</h1>
+        <p className="text-sm text-muted-foreground mt-1">Manage your agent profile, PCCs, and queue preferences</p>
+      </div>
+
       <Card>
-        <CardHeader>
-          <CardTitle>Settings</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <CardContent className="pt-5">
           <Tabs defaultValue="profile">
             <TabsList>
               <TabsTrigger value="profile">Profile</TabsTrigger>

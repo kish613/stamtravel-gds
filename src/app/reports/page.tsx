@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import { usePnrList } from '@/lib/query';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -81,15 +80,24 @@ export default function ReportsPage() {
   ];
 
   return (
-    <div className="space-y-4 text-[13px]">
+    <div className="space-y-6 text-[13px]">
+      {/* Page header */}
+      <div>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">Reports</h1>
+        <p className="text-sm text-muted-foreground mt-1">Analyse booking performance and content mix across all agents</p>
+      </div>
+
       <Card>
-        <CardHeader>
-          <CardTitle>Reports</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <CardContent className="pt-5">
           <div className="flex flex-wrap gap-2 items-end">
-            <Input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="w-40" />
-            <Input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="w-40" />
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">From</label>
+              <Input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="w-40" />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">To</label>
+              <Input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="w-40" />
+            </div>
             <Button onClick={exportCsv}>Export CSV</Button>
           </div>
         </CardContent>
@@ -100,7 +108,7 @@ export default function ReportsPage() {
           <Card key={card.label}>
             <CardContent className="p-3">
               <div className="text-muted-foreground text-[12px]">{card.label}</div>
-              <div className="text-[26px] font-semibold text-foreground">{card.value}</div>
+              <div className="text-[32px] font-bold text-foreground tracking-tight leading-none">{card.value}</div>
               <div className={`text-[11px] flex items-center gap-0.5 ${card.trend >= 0 ? 'text-emerald-600' : 'text-destructive'}`}>
                 {card.trend >= 0 ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />}
                 <span>{Math.abs(card.trend)}%</span>

@@ -32,7 +32,16 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
   const pnr = data;
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 text-[13px]">
+    <div className="space-y-6 text-[13px]">
+      {/* Page header */}
+      <div>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">Booking Detail</h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          Locator <span className="font-mono">{pnr.locator}</span> · {pnr.route} · {pnr.departureDate}
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
       <div className="xl:col-span-2 space-y-4">
         <Card>
           <CardHeader>
@@ -135,7 +144,7 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
                     ))}
                   </div>
                 ) : (
-                  <div className="text-[#64748B]">No history yet.</div>
+                  <div className="text-muted-foreground">No history yet.</div>
                 )}
               </TabsContent>
             </Tabs>
@@ -159,6 +168,8 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
         </Card>
       </aside>
 
+      </div>{/* end xl:grid-cols-3 */}
+
       <Dialog open={Boolean(confirmAction)} onOpenChange={(open) => !open && setConfirmAction(null)}>
         <DialogContent>
           <DialogHeader>
@@ -180,6 +191,6 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </div>{/* end space-y-6 */}
   );
 }

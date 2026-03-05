@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSeatMap } from '@/lib/query';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/stores/app-store';
 import type { Seat } from '@/lib/types';
@@ -23,7 +23,7 @@ export default function SeatMapPage({ params }: { params: { locator: string; seg
   }, [mapData]);
 
   const grouped = useMemo(() => {
-    const index: Record<number, any[]> = {};
+    const index: Record<number, Seat[]> = {};
     rows.forEach((seat) => {
       if (!index[seat.row]) index[seat.row] = [];
       index[seat.row].push(seat);
@@ -36,31 +36,40 @@ export default function SeatMapPage({ params }: { params: { locator: string; seg
       .sort((a, b) => a.row - b.row);
   }, [rows]);
 
-  const colors = (status: string, selected: boolean) => {
-    if (selected) return 'bg-blue-500 text-white';
-    if (status === 'occupied') return 'bg-gray-400 text-white';
-    if (status === 'premium' || status === 'fee') return 'bg-amber-500 text-white';
-    return 'bg-white';
+  const seatClass = (status: string, selected: boolean) => {
+    if (selected) return 'bg-sky-500 border-sky-500 text-white';
+    if (status === 'occupied') return 'bg-muted border-border text-muted-foreground cursor-not-allowed opacity-60';
+    if (status === 'premium' || status === 'fee') return 'bg-amber-400 border-amber-400 text-white';
+    return 'bg-background border-border text-foreground hover:bg-muted/50';
   };
 
   if (!mapData) {
-    return <div className="text-sm">Loading seat map...</div>;
+    return <div className="text-sm text-muted-foreground">Loading seat map...</div>;
   }
 
   return (
-    <div className="space-y-4 text-[13px]">
+    <div className="space-y-6 text-[13px]">
+      {/* Page header */}
+      <div>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">Seat Map</h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          Segment {params.segment} · Locator{' '}
+          <span className="font-mono">{params.locator}</span>
+        </p>
+      </div>
+
       <Card>
-        <CardHeader>
-          <CardTitle>Seat Map · Segment {params.segment} · {params.locator}</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <CardContent className="pt-5">
           <div className="overflow-x-auto">
-            <div className="grid gap-2 min-w-[640px]">
+            <div className="grid gap-1.5 min-w-[640px]">
               {grouped.map(({ row, seats }) => {
                 const isExitRow = exitRows.includes(row);
                 return (
-                  <div key={row} className={`flex items-center gap-1 ${isExitRow ? 'border-t border-b border-emerald-500' : ''}`}>
-                    <div className="w-8 text-right text-[12px] text-[#64748B]">{row}</div>
+                  <div
+                    key={row}
+                    className={`flex items-center gap-1 ${isExitRow ? 'border-t border-b border-sky-400' : ''}`}
+                  >
+                    <div className="w-8 text-right text-[12px] text-muted-foreground">{row}</div>
                     <div className="flex gap-1">
                       {seats
                         .filter((s) => s.col <= 'C')
@@ -70,23 +79,18 @@ export default function SeatMapPage({ params }: { params: { locator: string; seg
                           return (
                             <button
                               key={seatCode}
-                              title={`${seatCode} • ${seat.type || 'seat'} ${seat.fee ? `• $${seat.fee}` : ''}`}
-                              onClick={() => {
-                                if (seat.status === 'occupied') return;
-                                setLocalSeat(seatCode);
-                              }}
+                              title={`${seatCode} · ${seat.type || 'standard'} ${seat.fee ? `· $${seat.fee}` : ''}`}
+                              onClick={() => { if (seat.status !== 'occupied') setLocalSeat(seatCode); }}
                               disabled={seat.status === 'occupied'}
-                              className={`h-8 w-8 rounded border text-[11px] ${colors(
-                                seat.status,
-                                selected
-                              )} ${seat.status === 'occupied' ? 'cursor-not-allowed opacity-70' : 'hover:opacity-90'}`}
+                              className={`h-8 w-8 rounded border text-[11px] font-medium transition-colors ${seatClass(seat.status, selected)}`}
                             >
                               {seat.col}
                             </button>
                           );
                         })}
                     </div>
-                    <div className="w-6" />
+                    {/* Aisle gap */}
+                    <div className="w-5" />
                     <div className="flex gap-1">
                       {seats
                         .filter((s) => s.col > 'C')
@@ -96,46 +100,64 @@ export default function SeatMapPage({ params }: { params: { locator: string; seg
                           return (
                             <button
                               key={seatCode}
-                              title={`${seatCode} • ${seat.type || 'seat'} ${seat.fee ? `• $${seat.fee}` : ''}`}
-                              onClick={() => {
-                                if (seat.status === 'occupied') return;
-                                setLocalSeat(seatCode);
-                              }}
+                              title={`${seatCode} · ${seat.type || 'standard'} ${seat.fee ? `· $${seat.fee}` : ''}`}
+                              onClick={() => { if (seat.status !== 'occupied') setLocalSeat(seatCode); }}
                               disabled={seat.status === 'occupied'}
-                              className={`h-8 w-8 rounded border text-[11px] ${colors(
-                                seat.status,
-                                selected
-                              )} ${seat.status === 'occupied' ? 'cursor-not-allowed opacity-70' : 'hover:opacity-90'}`}
+                              className={`h-8 w-8 rounded border text-[11px] font-medium transition-colors ${seatClass(seat.status, selected)}`}
                             >
                               {seat.col}
                             </button>
                           );
                         })}
                     </div>
-                    <div className="ml-3 text-[11px] text-[#64748B]">{isExitRow ? 'Exit row' : ''}</div>
+                    <div className="ml-3 text-[11px] text-muted-foreground">
+                      {isExitRow ? 'Exit' : ''}
+                    </div>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          <div className="mt-4 flex gap-4 text-[12px]">
-            <div className="flex items-center gap-2"><span className="inline-block h-3 w-3 bg-white border"></span>Available</div>
-            <div className="flex items-center gap-2"><span className="inline-block h-3 w-3 bg-gray-400"></span>Occupied</div>
-            <div className="flex items-center gap-2"><span className="inline-block h-3 w-3 bg-amber-500"></span>Premium/Fee</div>
-            <div className="flex items-center gap-2"><span className="inline-block h-3 w-3 bg-blue-500"></span>Selected</div>
-            <div className="flex items-center gap-2"><span className="inline-block h-3 w-3 border-2 border-emerald-500"></span>Exit row</div>
+          {/* Legend */}
+          <div className="mt-5 flex flex-wrap gap-4 text-[12px] text-muted-foreground border-t border-border pt-4">
+            <div className="flex items-center gap-1.5">
+              <span className="inline-block h-3.5 w-3.5 rounded border border-border bg-background" />
+              Available
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="inline-block h-3.5 w-3.5 rounded border border-border bg-muted opacity-60" />
+              Occupied
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="inline-block h-3.5 w-3.5 rounded border border-amber-400 bg-amber-400" />
+              Premium / Fee
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="inline-block h-3.5 w-3.5 rounded border border-sky-500 bg-sky-500" />
+              Selected
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="inline-block h-3.5 w-3.5 rounded border-2 border-sky-400 bg-background" />
+              Exit row
+            </div>
           </div>
 
           <div className="mt-4 flex justify-end gap-2">
             <Button
+              variant="outline"
+              onClick={() => router.push(`/bookings/${params.locator}`)}
+            >
+              Cancel
+            </Button>
+            <Button
+              disabled={!localSeat}
               onClick={() => {
-                if (!localSeat) return;
                 setSelectedSeat(params.segment, localSeat);
                 router.push(`/bookings/${params.locator}`);
               }}
             >
-              Confirm selection
+              Confirm seat {localSeat}
             </Button>
           </div>
         </CardContent>
