@@ -1,0 +1,139 @@
+[
+  {
+    "locator": "ABCD12",
+    "status": "Ticketed",
+    "passengerName": "Alice Green",
+    "route": "LHR-JFK",
+    "createdAt": "2026-03-05T14:40:21.674Z",
+    "departureDate": "2026-03-05",
+    "segments": [
+      {
+        "id": "s1",
+        "from": "LHR",
+        "to": "JFK",
+        "carrier": "British Airways",
+        "flightNumber": "BA178",
+        "departure": "2026-03-05T08:15:00.000Z",
+        "arrival": "2026-03-05T11:30:00.000Z",
+        "durationMinutes": 455,
+        "stops": 0,
+        "cabin": "Economy",
+        "fareType": "NDC",
+        "deadlineAt": "2026-03-05T17:40:21.674Z"
+      }
+    ],
+    "passengers": [
+      {
+        "title": "Ms",
+        "firstName": "Alice",
+        "lastName": "Green",
+        "dob": "1987-03-14",
+        "nationality": "GBR",
+        "passportNumber": "P1234567",
+        "passportExpiry": "2030-04-10",
+        "issuingCountry": "GB"
+      }
+    ],
+    "contact": {
+      "phone": "+44-20-1111-2222",
+      "email": "alice.green@example.com",
+      "agencyIata": "123456"
+    },
+    "pricing": {
+      "total": 620,
+      "taxes": 88,
+      "fees": 35,
+      "currency": "USD"
+    },
+    "ttlMinutes": 180,
+    "history": [
+      {
+        "date": "2026-03-05T14:40:21.674Z",
+        "event": "PNR created",
+        "actor": "Agent 901"
+      },
+      {
+        "date": "2026-03-05T14:40:21.674Z",
+        "event": "Ticketed",
+        "actor": "System"
+      }
+    ],
+    "queue": "Q2"
+  },
+  {
+    "locator": "EFGH34",
+    "status": "Awaiting Ticket",
+    "passengerName": "Daniel Brooks",
+    "route": "LHR-JFK-EWR",
+    "createdAt": "2026-03-05T14:40:21.674Z",
+    "departureDate": "2026-03-06",
+    "segments": [
+      {
+        "id": "s2",
+        "from": "LHR",
+        "to": "JFK",
+        "carrier": "United",
+        "flightNumber": "UA7",
+        "departure": "2026-03-06T10:55:00.000Z",
+        "arrival": "2026-03-06T18:05:00.000Z",
+        "durationMinutes": 490,
+        "stops": 1,
+        "cabin": "Business",
+        "fareType": "ATPCO",
+        "deadlineAt": "2026-03-05T15:15:21.674Z"
+      },
+      {
+        "id": "s3",
+        "from": "JFK",
+        "to": "EWR",
+        "carrier": "United",
+        "flightNumber": "UA701",
+        "departure": "2026-03-06T20:00:00.000Z",
+        "arrival": "2026-03-06T21:20:00.000Z",
+        "durationMinutes": 80,
+        "stops": 0,
+        "cabin": "Business",
+        "fareType": "ATPCO",
+        "deadlineAt": "2026-03-05T15:15:21.674Z"
+      }
+    ],
+    "passengers": [
+      {
+        "title": "Mr",
+        "firstName": "Daniel",
+        "lastName": "Brooks",
+        "dob": "1979-12-02",
+        "nationality": "USA",
+        "passportNumber": "T9988776",
+        "passportExpiry": "2028-08-11",
+        "issuingCountry": "US",
+        "gender": "M"
+      }
+    ],
+    "contact": {
+      "phone": "+1-212-555-0101",
+      "email": "dan.brooks@example.com",
+      "agencyIata": "123456"
+    },
+    "pricing": {
+      "total": 1390,
+      "taxes": 110,
+      "fees": 70,
+      "currency": "USD"
+    },
+    "ttlMinutes": 35,
+    "history": [
+      {
+        "date": "2026-03-05T14:40:21.674Z",
+        "event": "PNR built",
+        "actor": "Agent 901"
+      },
+      {
+        "date": "2026-03-05T14:40:21.674Z",
+        "event": "Waiting ticketing",
+        "actor": "System"
+      }
+    ],
+    "queue": "Q1"
+  }
+]
