@@ -10,10 +10,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
-const queueStatusClass = (count: number) => {
-  if (count < 10) return 'text-emerald-700 border-emerald-200 bg-emerald-50';
-  if (count <= 30) return 'text-amber-700 border-amber-200 bg-amber-50';
-  return 'text-rose-700 border-rose-200 bg-rose-50';
+const queueDotClass = (count: number) => {
+  if (count < 10) return 'bg-emerald-500';
+  if (count <= 30) return 'bg-amber-400';
+  return 'bg-rose-500';
 };
 
 export default function DashboardPage() {
@@ -69,20 +69,30 @@ export default function DashboardPage() {
           {busy ? (
             <div className="flex flex-wrap gap-2.5">
               {Array.from({ length: 10 }).map((_, idx) => (
-                <div key={idx} className="h-20 w-32 rounded-lg border border-border bg-card p-2">
-                  <Skeleton className="h-4 w-16 mb-2" />
-                  <Skeleton className="h-6 w-10" />
+                <div key={idx} className="h-[88px] w-32 rounded-lg border border-border bg-card p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <Skeleton className="h-3 w-6" />
+                    <Skeleton className="h-1.5 w-1.5 rounded-full" />
+                  </div>
+                  <Skeleton className="h-7 w-10 mb-1.5" />
+                  <Skeleton className="h-2.5 w-8" />
                 </div>
               ))}
             </div>
           ) : (
             q0to9.map((q) => (
-              <Card key={q.queueCode} className={`w-32 border transition-colors ${queueStatusClass(q.count)}`}>
-                <CardContent className="p-2.5">
-                  <div className="text-[11px] font-medium opacity-70">{q.queueCode}</div>
-                  <div className="text-[22px] font-bold tracking-tight">{q.count}</div>
-                </CardContent>
-              </Card>
+              <Link key={q.queueCode} href="/queues">
+                <Card className="w-32 border border-border bg-card hover:bg-muted/40 transition-colors cursor-pointer group">
+                  <CardContent className="p-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{q.queueCode}</span>
+                      <span className={`w-1.5 h-1.5 rounded-full ${queueDotClass(q.count)}`} />
+                    </div>
+                    <div className="text-[26px] font-bold tracking-tight text-foreground leading-none">{q.count}</div>
+                    <div className="text-[10px] text-muted-foreground mt-1.5">items</div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))
           )}
         </div>
