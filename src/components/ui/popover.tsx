@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 
 const Popover = PopoverPrimitive.Root;
 const PopoverTrigger = PopoverPrimitive.Trigger;
+
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
@@ -14,7 +15,7 @@ const PopoverContent = React.forwardRef<
     align={align}
     sideOffset={sideOffset}
     className={cn(
-      'z-50 rounded-md border border-[#CBD5E1] bg-white p-3 text-sm shadow-lg',
+      'z-50 rounded-md border border-border bg-popover p-3 text-sm text-popover-foreground shadow-card-md',
       className
     )}
     {...props}

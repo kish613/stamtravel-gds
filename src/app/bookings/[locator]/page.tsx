@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { usePnr } from '@/lib/query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,17 +13,18 @@ import { formatCountdown, toMinutesLeft } from '@/lib/time';
 import { ArrowRight, Plane } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
-export default function BookingDetailPage({ params }: { params: { locator: string } }) {
-  const { data, isLoading, isError, error, refetch } = usePnr(params.locator);
+export default function BookingDetailPage({ params }: { params: Promise<{ locator: string }> }) {
+  const resolvedParams = use(params);
+  const { data, isLoading, isError, error, refetch } = usePnr(resolvedParams.locator);
   const [confirmAction, setConfirmAction] = useState<string | null>(null);
 
   if (isLoading) {
-    return <div className="text-sm text-[#64748B]">Loading booking...</div>;
+    return <div className="text-sm text-muted-foreground">Loading booking...</div>;
   }
 
   if (isError || !data) {
     return (
-      <div className="rounded border border-status-danger bg-status-danger/10 text-status-danger p-3">
+      <div className="rounded-md border border-destructive bg-destructive/10 text-destructive p-3">
         <div>{(error as Error)?.message || 'Booking not found'}</div>
       </div>
     );
@@ -32,7 +33,16 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
   const pnr = data;
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 text-[13px]">
+    <div className="space-y-6 text-[13px]">
+      {/* Page header */}
+      <div>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">Booking Detail</h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          Locator <span className="font-mono">{pnr.locator}</span> · {pnr.route} · {pnr.departureDate}
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
       <div className="xl:col-span-2 space-y-4">
         <Card>
           <CardHeader>
@@ -69,7 +79,7 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
                     <TableCell>{segment.from} → {segment.to}</TableCell>
                     <TableCell>{segment.departure}</TableCell>
                     <TableCell>
-                      <Link href={`/bookings/${pnr.locator}/seatmap/${segment.id}`} className="text-[#1D4ED8] underline">
+                      <Link href={`/bookings/${pnr.locator}/seatmap/${segment.id}`} className="text-sky-600 underline hover:text-sky-700 transition-colors">
                         Seat map
                       </Link>
                     </TableCell>
@@ -95,7 +105,7 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
             </CardHeader>
             <CardContent>
               {pnr.passengers.map((p) => (
-                <div key={p.passportNumber} className="mb-2 rounded border border-[#CBD5E1] p-2">
+                <div key={p.passportNumber} className="mb-2 rounded-md border border-border bg-muted/30 p-2">
                   {p.title} {p.firstName} {p.lastName} · {p.nationality}
                 </div>
               ))}
@@ -128,14 +138,14 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
                 {pnr.history?.length ? (
                   <div className="space-y-1">
                     {pnr.history.map((h) => (
-                      <div key={`${h.date}-${h.event}`} className="rounded border border-[#CBD5E1] p-2">
+                      <div key={`${h.date}-${h.event}`} className="rounded-md border border-border p-2">
                         <div>{h.date}</div>
-                        <div className="text-[12px] text-[#475569]">{h.event} · {h.actor}</div>
+                        <div className="text-[12px] text-muted-foreground">{h.event} · {h.actor}</div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <div className="text-[#64748B]">No history yet.</div>
+                  <div className="text-muted-foreground">No history yet.</div>
                 )}
               </TabsContent>
             </Tabs>
@@ -158,6 +168,8 @@ export default function BookingDetailPage({ params }: { params: { locator: strin
           </CardContent>
         </Card>
       </aside>
+
+    </div>
 
       <Dialog open={Boolean(confirmAction)} onOpenChange={(open) => !open && setConfirmAction(null)}>
         <DialogContent>

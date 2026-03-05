@@ -12,12 +12,12 @@ const SelectItem = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Item
     ref={ref}
-    className={cn('relative flex h-7 cursor-pointer items-center rounded px-2 py-1 text-[13px] hover:bg-[#E2E8F0] outline-none', className)}
+    className={cn('relative flex h-7 cursor-pointer items-center rounded px-2 py-1 text-[13px] text-foreground hover:bg-muted outline-none focus:bg-muted', className)}
     {...props}
   >
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     <SelectPrimitive.ItemIndicator className="absolute right-2 flex items-center">
-      <Check className="h-4 w-4" />
+      <Check className="h-4 w-4 text-muted-foreground" />
     </SelectPrimitive.ItemIndicator>
   </SelectPrimitive.Item>
 ));
@@ -29,7 +29,7 @@ const SelectContent = React.forwardRef<
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       ref={ref}
-      className={cn('z-50 min-w-[8rem] overflow-hidden rounded-md border border-[#CBD5E1] bg-white text-[#0F172A] shadow-lg', className)}
+      className={cn('z-50 min-w-[8rem] overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-card-md', className)}
       {...props}
     >
       <SelectPrimitive.Viewport className="p-1">{children}</SelectPrimitive.Viewport>
@@ -43,12 +43,17 @@ const SelectTrigger = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
-    className={cn('flex h-8 w-full items-center justify-between rounded border border-[#C5CEE0] bg-white px-2 text-[13px]', className)}
+    className={cn(
+      'flex h-8 w-full items-center justify-between rounded-md border border-input bg-background px-2.5 text-[13px] text-foreground',
+      'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-0 focus:border-slate-400',
+      'disabled:cursor-not-allowed disabled:opacity-50',
+      className
+    )}
     {...props}
   >
     {children}
     <SelectPrimitive.Icon>
-      <ChevronDown className="h-4 w-4" />
+      <ChevronDown className="h-4 w-4 text-muted-foreground" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));

@@ -10,10 +10,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
-const statusClass = (count: number) => {
-  if (count < 10) return 'text-emerald-700 border-emerald-300/50 bg-gradient-to-br from-emerald-100/60 to-emerald-50/30 shadow-[0_0_12px_rgba(5,150,105,0.1)]';
-  if (count <= 30) return 'text-amber-700 border-amber-300/50 bg-gradient-to-br from-amber-100/60 to-amber-50/30 shadow-[0_0_12px_rgba(217,119,6,0.1)]';
-  return 'text-rose-700 border-rose-300/50 bg-gradient-to-br from-rose-100/60 to-rose-50/30 shadow-[0_0_12px_rgba(225,29,72,0.1)]';
+const queueDotClass = (count: number) => {
+  if (count < 10) return 'bg-emerald-500';
+  if (count <= 30) return 'bg-amber-400';
+  return 'bg-rose-500';
 };
 
 export default function DashboardPage() {
@@ -59,8 +59,8 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 text-[13px]">
       <div>
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-[#0F172A] to-[#334155] bg-clip-text text-transparent">Dashboard</h1>
-        <p className="text-[#64748B] text-sm mt-1">Real-time operations overview</p>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">Dashboard</h1>
+        <p className="text-muted-foreground text-sm mt-1">Real-time operations overview</p>
       </div>
 
       {/* Queue count cards */}
@@ -69,33 +69,41 @@ export default function DashboardPage() {
           {busy ? (
             <div className="flex flex-wrap gap-2.5">
               {Array.from({ length: 10 }).map((_, idx) => (
-                <div key={idx} className="h-20 w-32 rounded-xl border border-white/20 bg-white/60 backdrop-blur-sm p-2">
-                  <Skeleton className="h-4 w-16 mb-2" />
-                  <Skeleton className="h-6 w-10" />
+                <div key={idx} className="h-[88px] w-32 rounded-lg border border-border bg-card p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <Skeleton className="h-3 w-6" />
+                    <Skeleton className="h-1.5 w-1.5 rounded-full" />
+                  </div>
+                  <Skeleton className="h-7 w-10 mb-1.5" />
+                  <Skeleton className="h-2.5 w-8" />
                 </div>
               ))}
             </div>
           ) : (
             q0to9.map((q) => (
-              <Card key={q.queueCode} className={`w-32 rounded-xl border backdrop-blur-sm transition-all duration-200 hover:scale-[1.03] hover:shadow-lg ${statusClass(q.count)}`}>
-                <CardContent className="p-2.5">
-                  <div className="text-[11px] text-[#64748B] font-medium">{q.queueCode}</div>
-                  <div className="text-[22px] font-bold tracking-tight">{q.count}</div>
-                </CardContent>
-              </Card>
+              <Link key={q.queueCode} href="/queues">
+                <Card className="w-32 border border-border bg-card hover:bg-muted/40 transition-colors cursor-pointer group">
+                  <CardContent className="p-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{q.queueCode}</span>
+                      <span className={`w-1.5 h-1.5 rounded-full ${queueDotClass(q.count)}`} />
+                    </div>
+                    <div className="text-[26px] font-bold tracking-tight text-foreground leading-none">{q.count}</div>
+                    <div className="text-[10px] text-muted-foreground mt-1.5">items</div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))
           )}
         </div>
       </section>
 
       {errQueue && (
-        <Card className="border-rose-300/50 bg-rose-50/60 backdrop-blur-sm">
-          <CardContent className="text-rose-700 py-3 text-sm">
+        <Card className="border-destructive">
+          <CardContent className="text-destructive py-3 text-sm">
             {(queueError as Error)?.message || 'Failed to load queues'}
             <div className="mt-2">
-              <Button size="sm" onClick={() => refetchQueue()} variant="outline">
-                Retry
-              </Button>
+              <Button size="sm" onClick={() => refetchQueue()} variant="outline">Retry</Button>
             </div>
           </CardContent>
         </Card>
@@ -103,35 +111,35 @@ export default function DashboardPage() {
 
       {/* KPI cards */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <Card className="bg-gradient-to-br from-blue-500/10 to-indigo-500/10 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(59,130,246,0.08)] hover:shadow-[0_8px_40px_rgba(59,130,246,0.14)] transition-all duration-300">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-[#64748B] text-sm font-medium">Bookings today</CardTitle>
+            <CardTitle className="text-muted-foreground text-sm font-medium">Bookings today</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-end justify-between">
-              <div className="text-[32px] font-bold text-[#0F172A] tracking-tight">{busy ? <Skeleton className="h-10 w-16" /> : bookingsToday}</div>
+              <div className="text-[32px] font-bold text-foreground tracking-tight">{busy ? <Skeleton className="h-10 w-16" /> : bookingsToday}</div>
               <div className="text-emerald-600 text-xs font-medium mb-1.5">+12%</div>
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(56,189,248,0.08)] hover:shadow-[0_8px_40px_rgba(56,189,248,0.14)] transition-all duration-300">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-[#64748B] text-sm font-medium">Segments today</CardTitle>
+            <CardTitle className="text-muted-foreground text-sm font-medium">Segments today</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-end justify-between">
-              <div className="text-[32px] font-bold text-[#0F172A] tracking-tight">{busy ? <Skeleton className="h-10 w-16" /> : segmentsToday}</div>
+              <div className="text-[32px] font-bold text-foreground tracking-tight">{busy ? <Skeleton className="h-10 w-16" /> : segmentsToday}</div>
               <div className="text-emerald-600 text-xs font-medium mb-1.5">+8%</div>
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-violet-500/10 to-purple-500/10 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(139,92,246,0.08)] hover:shadow-[0_8px_40px_rgba(139,92,246,0.14)] transition-all duration-300">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-[#64748B] text-sm font-medium">Revenue today</CardTitle>
+            <CardTitle className="text-muted-foreground text-sm font-medium">Revenue today</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-end justify-between">
-              <div className="text-[32px] font-bold text-[#0F172A] tracking-tight">{busy ? <Skeleton className="h-10 w-20" /> : `$${revenueToday}`}</div>
+              <div className="text-[32px] font-bold text-foreground tracking-tight">{busy ? <Skeleton className="h-10 w-20" /> : `$${revenueToday}`}</div>
               <div className="text-emerald-600 text-xs font-medium mb-1.5">+5%</div>
             </div>
           </CardContent>
@@ -140,8 +148,8 @@ export default function DashboardPage() {
 
       {/* Departures and ticketing alerts */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <Card className="bg-white/60 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-          <CardHeader className="bg-gradient-to-r from-slate-50/80 to-blue-50/80 rounded-t-lg">
+        <Card>
+          <CardHeader>
             <CardTitle>Today&apos;s departures</CardTitle>
           </CardHeader>
           <CardContent>
@@ -152,14 +160,14 @@ export default function DashboardPage() {
                 ))}
               </div>
             ) : todaysPnrs.length === 0 ? (
-              <div className="text-[#64748B] py-2">No departures today.</div>
+              <div className="text-muted-foreground py-2">No departures today.</div>
             ) : (
               <div className="space-y-2">
                 {todaysPnrs.map((p) => (
-                  <div key={p.locator} className="rounded-lg border border-white/20 bg-white/50 backdrop-blur-sm p-2.5 flex items-center justify-between transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)]">
+                  <div key={p.locator} className="rounded-md border border-border bg-muted/30 p-2.5 flex items-center justify-between">
                     <div>
-                      <div className="font-medium text-[#0F172A]">{p.passengerName}</div>
-                      <div className="text-[12px] text-[#64748B]">{p.locator} · {p.route}</div>
+                      <div className="font-medium text-foreground">{p.passengerName}</div>
+                      <div className="text-[12px] text-muted-foreground">{p.locator} · {p.route}</div>
                     </div>
                     <StatusBadge status={p.status} />
                   </div>
@@ -169,8 +177,8 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white/60 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-          <CardHeader className="bg-gradient-to-r from-slate-50/80 to-indigo-50/80 rounded-t-lg">
+        <Card>
+          <CardHeader>
             <CardTitle>Ticketing time-limit alerts</CardTitle>
           </CardHeader>
           <CardContent>
@@ -184,13 +192,13 @@ export default function DashboardPage() {
                 {urgentPnrs.map((p) => {
                   const deadline = formatCountdown(p.deadlineAt) || '00:00';
                   return (
-                    <div key={p.locator} className="rounded-lg border border-white/20 bg-white/50 backdrop-blur-sm p-2.5 flex items-center justify-between transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(0,0,0,0.08)]">
+                    <div key={p.locator} className="rounded-md border border-border bg-muted/30 p-2.5 flex items-center justify-between">
                       <div>
-                        <div className="font-medium text-[#0F172A]">{p.locator}</div>
-                        <div className="text-[12px] text-[#64748B]">{p.passengerName} · {p.route}</div>
+                        <div className="font-medium text-foreground">{p.locator}</div>
+                        <div className="text-[12px] text-muted-foreground">{p.passengerName} · {p.route}</div>
                       </div>
                       <div className="text-right">
-                        <div className="font-mono text-[12px] text-[#475569]">{deadline}</div>
+                        <div className="font-mono text-[12px] text-muted-foreground">{deadline}</div>
                         <Badge variant={Number(p.minutes) <= 40 ? 'warning' : 'neutral'}>
                           {Number(p.minutes) <= 40 ? 'Approaching' : 'Safe'}
                         </Badge>
@@ -198,7 +206,7 @@ export default function DashboardPage() {
                     </div>
                   );
                 })}
-                {!urgentPnrs.length && <div className="text-[#64748B]">No urgent ticketing deadlines.</div>}
+                {!urgentPnrs.length && <div className="text-muted-foreground">No urgent ticketing deadlines.</div>}
               </div>
             )}
           </CardContent>
@@ -207,31 +215,25 @@ export default function DashboardPage() {
 
       {/* Quick actions */}
       <section>
-        <Card className="bg-gradient-to-r from-white/60 to-white/40 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.06)]">
-          <CardContent className="p-5 flex flex-wrap gap-3">
+        <Card>
+          <CardContent className="p-4 flex flex-wrap gap-3">
             <Link href="/search/air">
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_0_20px_rgba(59,130,246,0.2)] hover:shadow-[0_0_28px_rgba(59,130,246,0.35)] transition-all duration-300">New Search</Button>
+              <Button size="lg">New Search</Button>
             </Link>
             <Link href="/bookings">
-              <Button variant="outline" size="lg">
-                Open PNR
-              </Button>
+              <Button variant="outline" size="lg">Open PNR</Button>
             </Link>
-            <Button variant="outline" size="lg">
-              New Queue
-            </Button>
+            <Button variant="outline" size="lg">New Queue</Button>
           </CardContent>
         </Card>
       </section>
 
       {errPnr && (
-        <Card className="border-rose-300/50 bg-rose-50/60 backdrop-blur-sm">
-          <CardContent className="text-rose-700 py-3">
+        <Card className="border-destructive">
+          <CardContent className="text-destructive py-3">
             {(pnrError as Error)?.message || 'Failed to load PNR data'}
             <div className="mt-2">
-              <Button size="sm" onClick={() => refetchPnr()} variant="outline">
-                Retry
-              </Button>
+              <Button size="sm" onClick={() => refetchPnr()} variant="outline">Retry</Button>
             </div>
           </CardContent>
         </Card>
