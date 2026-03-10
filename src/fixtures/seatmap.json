@@ -1,0 +1,1156 @@
+{
+  "segmentId": "s1",
+  "rows": [
+    [
+      {
+        "row": 1,
+        "col": "A",
+        "status": "premium",
+        "type": "Premium Seat"
+      },
+      {
+        "row": 1,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 1,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 1,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 1,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 1,
+        "col": "F",
+        "status": "premium",
+        "type": "Premium Seat"
+      }
+    ],
+    [
+      {
+        "row": 2,
+        "col": "A",
+        "status": "premium",
+        "type": "Premium Seat"
+      },
+      {
+        "row": 2,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 2,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 2,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 2,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 2,
+        "col": "F",
+        "status": "premium",
+        "type": "Premium Seat"
+      }
+    ],
+    [
+      {
+        "row": 3,
+        "col": "A",
+        "status": "premium",
+        "type": "Premium Seat"
+      },
+      {
+        "row": 3,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 3,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 3,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 3,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 3,
+        "col": "F",
+        "status": "premium",
+        "type": "Premium Seat"
+      }
+    ],
+    [
+      {
+        "row": 4,
+        "col": "A",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 4,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 4,
+        "col": "C",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 4,
+        "col": "D",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 4,
+        "col": "E",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 4,
+        "col": "F",
+        "status": "occupied",
+        "type": "Booked"
+      }
+    ],
+    [
+      {
+        "row": 5,
+        "col": "A",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 5,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 5,
+        "col": "C",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 5,
+        "col": "D",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 5,
+        "col": "E",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 5,
+        "col": "F",
+        "status": "occupied",
+        "type": "Booked"
+      }
+    ],
+    [
+      {
+        "row": 6,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 6,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 6,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 6,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 6,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 6,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 7,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 7,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 7,
+        "col": "C",
+        "status": "fee",
+        "fee": 45,
+        "type": "Extra legroom"
+      },
+      {
+        "row": 7,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 7,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 7,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 8,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 8,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 8,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 8,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 8,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 8,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 9,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 9,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 9,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 9,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 9,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 9,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 10,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 10,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 10,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 10,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 10,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 10,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 11,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 11,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 11,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 11,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 11,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 11,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 12,
+        "col": "A",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 12,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 12,
+        "col": "C",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 12,
+        "col": "D",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 12,
+        "col": "E",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 12,
+        "col": "F",
+        "status": "occupied",
+        "type": "Booked"
+      }
+    ],
+    [
+      {
+        "row": 13,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 13,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 13,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 13,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 13,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 13,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 14,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 14,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 14,
+        "col": "C",
+        "status": "fee",
+        "fee": 45,
+        "type": "Extra legroom"
+      },
+      {
+        "row": 14,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 14,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 14,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 15,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 15,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 15,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 15,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 15,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 15,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 16,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 16,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 16,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 16,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 16,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 16,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 17,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 17,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 17,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 17,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 17,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 17,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 18,
+        "col": "A",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 18,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 18,
+        "col": "C",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 18,
+        "col": "D",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 18,
+        "col": "E",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 18,
+        "col": "F",
+        "status": "occupied",
+        "type": "Booked"
+      }
+    ],
+    [
+      {
+        "row": 19,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 19,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 19,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 19,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 19,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 19,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 20,
+        "col": "A",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 20,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 20,
+        "col": "C",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 20,
+        "col": "D",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 20,
+        "col": "E",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 20,
+        "col": "F",
+        "status": "occupied",
+        "type": "Booked"
+      }
+    ],
+    [
+      {
+        "row": 21,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 21,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 21,
+        "col": "C",
+        "status": "fee",
+        "fee": 45,
+        "type": "Extra legroom"
+      },
+      {
+        "row": 21,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 21,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 21,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 22,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 22,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 22,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 22,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 22,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 22,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 23,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 23,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 23,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 23,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 23,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 23,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 24,
+        "col": "A",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 24,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 24,
+        "col": "C",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 24,
+        "col": "D",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 24,
+        "col": "E",
+        "status": "occupied",
+        "type": "Booked"
+      },
+      {
+        "row": 24,
+        "col": "F",
+        "status": "occupied",
+        "type": "Booked"
+      }
+    ],
+    [
+      {
+        "row": 25,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 25,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 25,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 25,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 25,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 25,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 26,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 26,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 26,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 26,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 26,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 26,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 27,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 27,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 27,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 27,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 27,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 27,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 28,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 28,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 28,
+        "col": "C",
+        "status": "fee",
+        "fee": 45,
+        "type": "Extra legroom"
+      },
+      {
+        "row": 28,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 28,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 28,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 29,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 29,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 29,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 29,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 29,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 29,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ],
+    [
+      {
+        "row": 30,
+        "col": "A",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 30,
+        "col": "B",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 30,
+        "col": "C",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 30,
+        "col": "D",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 30,
+        "col": "E",
+        "status": "available",
+        "type": "Standard"
+      },
+      {
+        "row": 30,
+        "col": "F",
+        "status": "available",
+        "type": "Standard"
+      }
+    ]
+  ],
+  "premiumRows": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}

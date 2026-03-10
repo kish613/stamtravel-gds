@@ -1,0 +1,1157 @@
+[
+  {
+    "queueCode": "Q0",
+    "items": [
+      {
+        "locator": "AAC00",
+        "passengerName": "Passenger Q0-1",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:10:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "ABD00",
+        "passengerName": "Passenger Q0-2",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:15:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "ACE00",
+        "passengerName": "Passenger Q0-3",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:20:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "ADF00",
+        "passengerName": "Passenger Q0-4",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:25:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "AEG00",
+        "passengerName": "Passenger Q0-5",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:30:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT901"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q1",
+    "items": [
+      {
+        "locator": "BBD01",
+        "passengerName": "Passenger Q1-1",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:18:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "BCE01",
+        "passengerName": "Passenger Q1-2",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:23:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "BDF01",
+        "passengerName": "Passenger Q1-3",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:28:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "BEG01",
+        "passengerName": "Passenger Q1-4",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:33:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "BFH01",
+        "passengerName": "Passenger Q1-5",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:38:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "BGI01",
+        "passengerName": "Passenger Q1-6",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:43:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q2",
+    "items": [
+      {
+        "locator": "CCE02",
+        "passengerName": "Passenger Q2-1",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:26:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "CDF02",
+        "passengerName": "Passenger Q2-2",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:31:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "CEG02",
+        "passengerName": "Passenger Q2-3",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:36:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "CFH02",
+        "passengerName": "Passenger Q2-4",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:41:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "CGI02",
+        "passengerName": "Passenger Q2-5",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:46:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "CHJ02",
+        "passengerName": "Passenger Q2-6",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:51:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "CIK02",
+        "passengerName": "Passenger Q2-7",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:56:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q3",
+    "items": [
+      {
+        "locator": "DDF03",
+        "passengerName": "Passenger Q3-1",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:34:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "DEG03",
+        "passengerName": "Passenger Q3-2",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:39:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "DFH03",
+        "passengerName": "Passenger Q3-3",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:44:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "DGI03",
+        "passengerName": "Passenger Q3-4",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:49:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "DHJ03",
+        "passengerName": "Passenger Q3-5",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:54:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "DIK03",
+        "passengerName": "Passenger Q3-6",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:59:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "DJL03",
+        "passengerName": "Passenger Q3-7",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:04:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "DKM03",
+        "passengerName": "Passenger Q3-8",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:09:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT902"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q4",
+    "items": [
+      {
+        "locator": "EEG04",
+        "passengerName": "Passenger Q4-1",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:42:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "EFH04",
+        "passengerName": "Passenger Q4-2",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:47:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q5",
+    "items": [
+      {
+        "locator": "FFH05",
+        "passengerName": "Passenger Q5-1",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:50:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "FGI05",
+        "passengerName": "Passenger Q5-2",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T14:55:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "FHJ05",
+        "passengerName": "Passenger Q5-3",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:00:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q6",
+    "items": [
+      {
+        "locator": "GGI06",
+        "passengerName": "Passenger Q6-1",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T14:58:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "GHJ06",
+        "passengerName": "Passenger Q6-2",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:03:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "GIK06",
+        "passengerName": "Passenger Q6-3",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:08:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "GJL06",
+        "passengerName": "Passenger Q6-4",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:13:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT901"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q7",
+    "items": [
+      {
+        "locator": "HHJ07",
+        "passengerName": "Passenger Q7-1",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:06:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "HIK07",
+        "passengerName": "Passenger Q7-2",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:11:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "HJL07",
+        "passengerName": "Passenger Q7-3",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:16:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "HKM07",
+        "passengerName": "Passenger Q7-4",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:21:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "HLN07",
+        "passengerName": "Passenger Q7-5",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:26:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q8",
+    "items": [
+      {
+        "locator": "IIK08",
+        "passengerName": "Passenger Q8-1",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:14:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "IJL08",
+        "passengerName": "Passenger Q8-2",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:19:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "IKM08",
+        "passengerName": "Passenger Q8-3",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:24:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "ILN08",
+        "passengerName": "Passenger Q8-4",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:29:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "IMO08",
+        "passengerName": "Passenger Q8-5",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:34:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "INP08",
+        "passengerName": "Passenger Q8-6",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:39:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q9",
+    "items": [
+      {
+        "locator": "JJL09",
+        "passengerName": "Passenger Q9-1",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:22:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "JKM09",
+        "passengerName": "Passenger Q9-2",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:27:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "JLN09",
+        "passengerName": "Passenger Q9-3",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:32:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "JMO09",
+        "passengerName": "Passenger Q9-4",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:37:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "JNP09",
+        "passengerName": "Passenger Q9-5",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:42:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "JOQ09",
+        "passengerName": "Passenger Q9-6",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:47:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "JPR09",
+        "passengerName": "Passenger Q9-7",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:52:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT902"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q10",
+    "items": [
+      {
+        "locator": "KKM10",
+        "passengerName": "Passenger Q10-1",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:30:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "KLN10",
+        "passengerName": "Passenger Q10-2",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:35:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "KMO10",
+        "passengerName": "Passenger Q10-3",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:40:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "KNP10",
+        "passengerName": "Passenger Q10-4",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:45:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "KOQ10",
+        "passengerName": "Passenger Q10-5",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:50:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "KPR10",
+        "passengerName": "Passenger Q10-6",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:55:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "KQS10",
+        "passengerName": "Passenger Q10-7",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:00:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "KRT10",
+        "passengerName": "Passenger Q10-8",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:05:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q11",
+    "items": [
+      {
+        "locator": "LLN11",
+        "passengerName": "Passenger Q11-1",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:38:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "LMO11",
+        "passengerName": "Passenger Q11-2",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:43:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q12",
+    "items": [
+      {
+        "locator": "MMO12",
+        "passengerName": "Passenger Q12-1",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:46:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "MNP12",
+        "passengerName": "Passenger Q12-2",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:51:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "MOQ12",
+        "passengerName": "Passenger Q12-3",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T15:56:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT901"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q13",
+    "items": [
+      {
+        "locator": "NNP13",
+        "passengerName": "Passenger Q13-1",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:54:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "NOQ13",
+        "passengerName": "Passenger Q13-2",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T15:59:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "NPR13",
+        "passengerName": "Passenger Q13-3",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:04:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "NQS13",
+        "passengerName": "Passenger Q13-4",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:09:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q14",
+    "items": [
+      {
+        "locator": "OOQ14",
+        "passengerName": "Passenger Q14-1",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:02:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "OPR14",
+        "passengerName": "Passenger Q14-2",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:07:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "OQS14",
+        "passengerName": "Passenger Q14-3",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:12:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "ORT14",
+        "passengerName": "Passenger Q14-4",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:17:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "OSU14",
+        "passengerName": "Passenger Q14-5",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:22:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q15",
+    "items": [
+      {
+        "locator": "PPR15",
+        "passengerName": "Passenger Q15-1",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:10:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "PQS15",
+        "passengerName": "Passenger Q15-2",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:15:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "PRT15",
+        "passengerName": "Passenger Q15-3",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:20:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "PSU15",
+        "passengerName": "Passenger Q15-4",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:25:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "PTV15",
+        "passengerName": "Passenger Q15-5",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:30:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "PUW15",
+        "passengerName": "Passenger Q15-6",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:35:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT902"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q16",
+    "items": [
+      {
+        "locator": "QQS16",
+        "passengerName": "Passenger Q16-1",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:18:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "QRT16",
+        "passengerName": "Passenger Q16-2",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:23:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "QSU16",
+        "passengerName": "Passenger Q16-3",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:28:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "QTV16",
+        "passengerName": "Passenger Q16-4",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:33:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "QUW16",
+        "passengerName": "Passenger Q16-5",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:38:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "QVX16",
+        "passengerName": "Passenger Q16-6",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:43:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "QWY16",
+        "passengerName": "Passenger Q16-7",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:48:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT901"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q17",
+    "items": [
+      {
+        "locator": "RRT17",
+        "passengerName": "Passenger Q17-1",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:26:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "RSU17",
+        "passengerName": "Passenger Q17-2",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:31:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "RTV17",
+        "passengerName": "Passenger Q17-3",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:36:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "RUW17",
+        "passengerName": "Passenger Q17-4",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:41:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "RVX17",
+        "passengerName": "Passenger Q17-5",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:46:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "RWY17",
+        "passengerName": "Passenger Q17-6",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:51:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "RXZ17",
+        "passengerName": "Passenger Q17-7",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:56:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "RYA17",
+        "passengerName": "Passenger Q17-8",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T17:01:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT902"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q18",
+    "items": [
+      {
+        "locator": "SSU18",
+        "passengerName": "Passenger Q18-1",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:34:21.674Z",
+        "segmentsCount": 1,
+        "status": "Booked",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "STV18",
+        "passengerName": "Passenger Q18-2",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:39:21.674Z",
+        "segmentsCount": 2,
+        "status": "Booked",
+        "agent": "AGT901"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q19",
+    "items": [
+      {
+        "locator": "TTV19",
+        "passengerName": "Passenger Q19-1",
+        "departureDate": "2026-03-05",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:42:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "TUW19",
+        "passengerName": "Passenger Q19-2",
+        "departureDate": "2026-03-06",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:47:21.674Z",
+        "segmentsCount": 2,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      },
+      {
+        "locator": "TVX19",
+        "passengerName": "Passenger Q19-3",
+        "departureDate": "2026-03-07",
+        "route": "LAX-MIA",
+        "deadlineAt": "2026-03-05T16:52:21.674Z",
+        "segmentsCount": 1,
+        "status": "Awaiting Ticket",
+        "agent": "AGT902"
+      }
+    ]
+  },
+  {
+    "queueCode": "Q20",
+    "items": [
+      {
+        "locator": "UUW20",
+        "passengerName": "Passenger Q20-1",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:50:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "UVX20",
+        "passengerName": "Passenger Q20-2",
+        "departureDate": "2026-03-06",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T16:55:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "UWY20",
+        "passengerName": "Passenger Q20-3",
+        "departureDate": "2026-03-07",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T17:00:21.674Z",
+        "segmentsCount": 1,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      },
+      {
+        "locator": "UXZ20",
+        "passengerName": "Passenger Q20-4",
+        "departureDate": "2026-03-05",
+        "route": "LHR-JFK",
+        "deadlineAt": "2026-03-05T17:05:21.674Z",
+        "segmentsCount": 2,
+        "status": "Ticketed",
+        "agent": "AGT901"
+      }
+    ]
+  }
+]

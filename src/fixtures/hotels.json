@@ -1,0 +1,181 @@
+[
+  {
+    "id": "h1",
+    "name": "Riverside Manhattan Hotel",
+    "starRating": 5,
+    "distanceKm": 1.1,
+    "nightlyRate": 340,
+    "refundable": true,
+    "currency": "USD",
+    "address": "100 Water Street, New York",
+    "city": "New York",
+    "description": "Skyline rooms with city views.",
+    "rooms": [
+      {
+        "name": "King Executive",
+        "capacity": 2,
+        "rate": 340,
+        "refundable": true
+      },
+      {
+        "name": "Twin Deluxe",
+        "capacity": 2,
+        "rate": 300,
+        "refundable": false
+      }
+    ],
+    "policies": [
+      "Late checkout by request",
+      "Free cancellation until 24h before"
+    ]
+  },
+  {
+    "id": "h2",
+    "name": "Parkline Suites",
+    "starRating": 4,
+    "distanceKm": 3.4,
+    "nightlyRate": 220,
+    "refundable": true,
+    "currency": "USD",
+    "address": "88 Broadway, New York",
+    "city": "New York",
+    "description": "Business-focused amenities.",
+    "rooms": [
+      {
+        "name": "Standard Double",
+        "capacity": 2,
+        "rate": 220,
+        "refundable": true
+      },
+      {
+        "name": "Family Suite",
+        "capacity": 4,
+        "rate": 320,
+        "refundable": false
+      }
+    ],
+    "policies": [
+      "Early check-in possible",
+      "No smoking"
+    ]
+  },
+  {
+    "id": "h3",
+    "name": "Grand Midtown Residency",
+    "starRating": 3,
+    "distanceKm": 5.2,
+    "nightlyRate": 160,
+    "refundable": false,
+    "currency": "USD",
+    "address": "4 5th Ave, New York",
+    "city": "New York",
+    "description": "Efficient stay for short trips.",
+    "rooms": [
+      {
+        "name": "Classic Queen",
+        "capacity": 2,
+        "rate": 160,
+        "refundable": false
+      },
+      {
+        "name": "Single",
+        "capacity": 1,
+        "rate": 120,
+        "refundable": false
+      }
+    ],
+    "policies": [
+      "Non-refundable",
+      "Breakfast included"
+    ]
+  },
+  {
+    "id": "h4",
+    "name": "Skyline Hotel 45",
+    "starRating": 5,
+    "distanceKm": 2.3,
+    "nightlyRate": 410,
+    "refundable": true,
+    "currency": "USD",
+    "address": "455 Madison Ave, New York",
+    "city": "New York",
+    "description": "Rooftop lounge and premium gyms.",
+    "rooms": [
+      {
+        "name": "Presidential",
+        "capacity": 2,
+        "rate": 410,
+        "refundable": true
+      },
+      {
+        "name": "King Suite",
+        "capacity": 2,
+        "rate": 520,
+        "refundable": false
+      }
+    ],
+    "policies": [
+      "Free airport transfer",
+      "Free cancellation until 48h"
+    ]
+  },
+  {
+    "id": "h5",
+    "name": "Budget Stay Midtown",
+    "starRating": 2,
+    "distanceKm": 6.1,
+    "nightlyRate": 95,
+    "refundable": false,
+    "currency": "USD",
+    "address": "11 Canal Street, New York",
+    "city": "New York",
+    "description": "Simple functional rooms.",
+    "rooms": [
+      {
+        "name": "Single",
+        "capacity": 1,
+        "rate": 95,
+        "refundable": false
+      },
+      {
+        "name": "Double",
+        "capacity": 2,
+        "rate": 130,
+        "refundable": false
+      }
+    ],
+    "policies": [
+      "Pet fee required"
+    ]
+  },
+  {
+    "id": "h6",
+    "name": "Loyal Traveler Hotel",
+    "starRating": 4,
+    "distanceKm": 0.8,
+    "nightlyRate": 250,
+    "refundable": true,
+    "currency": "USD",
+    "address": "55 9th Ave, New York",
+    "city": "New York",
+    "description": "Boutique comfort near subway.",
+    "rooms": [
+      {
+        "name": "Queen Comfort",
+        "capacity": 2,
+        "rate": 250,
+        "refundable": true
+      },
+      {
+        "name": "Suite",
+        "capacity": 3,
+        "rate": 320,
+        "refundable": true
+      }
+    ],
+    "policies": [
+      "Breakfast free",
+      "City parking extra"
+    ]
+  }
+]

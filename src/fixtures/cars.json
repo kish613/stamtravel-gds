@@ -1,0 +1,76 @@
+[
+  {
+    "id": "c1",
+    "vendor": "Hertz",
+    "model": "Economy Focus",
+    "acriss": "ECMR",
+    "category": "economy",
+    "pickupLocation": "JFK",
+    "dailyRate": 55,
+    "inclusions": [
+      "1-2 passengers",
+      "Manual transmission",
+      "Air conditioning"
+    ],
+    "currency": "USD"
+  },
+  {
+    "id": "c2",
+    "vendor": "Avis",
+    "model": "Compact Corolla",
+    "acriss": "CCAR",
+    "category": "compact",
+    "pickupLocation": "JFK",
+    "dailyRate": 65,
+    "inclusions": [
+      "2-3 passengers",
+      "Automatic transmission",
+      "Unlimited mileage"
+    ],
+    "currency": "USD"
+  },
+  {
+    "id": "c3",
+    "vendor": "Enterprise",
+    "model": "Intermediate Accord",
+    "acriss": "IFAR",
+    "category": "intermediate",
+    "pickupLocation": "JFK",
+    "dailyRate": 78,
+    "inclusions": [
+      "4 passengers",
+      "Automatic transmission",
+      "Navigation"
+    ],
+    "currency": "USD"
+  },
+  {
+    "id": "c4",
+    "vendor": "Budget",
+    "model": "Eco Smart",
+    "acriss": "ECAR",
+    "category": "economy",
+    "pickupLocation": "JFK",
+    "dailyRate": 48,
+    "inclusions": [
+      "2 passengers",
+      "Manual transmission"
+    ],
+    "currency": "USD"
+  },
+  {
+    "id": "c5",
+    "vendor": "Sixt",
+    "model": "Compact Escape",
+    "acriss": "CDAR",
+    "category": "compact",
+    "pickupLocation": "JFK",
+    "dailyRate": 72,
+    "inclusions": [
+      "3 passengers",
+      "Automatic transmission",
+      "GPS"
+    ],
+    "currency": "USD"
+  }
+]
