@@ -31,9 +31,9 @@ const schema = z.object({
   maxStops: z.number().min(0).max(5),
   preferredAirline: z.string().optional(),
   alliance: z.string().optional(),
-  ndcOnly: z.boolean().default(false),
-  flexibleWindow: z.number().min(-3).max(3).default(0),
-  flexible: z.boolean().default(false)
+  ndcOnly: z.boolean().optional().default(false),
+  flexibleWindow: z.number().min(-3).max(3).optional().default(0),
+  flexible: z.boolean().optional().default(false)
 });
 
 type FormData = z.infer<typeof schema>;
@@ -74,7 +74,8 @@ export default function AirSearchPage() {
     watch,
     formState: { errors }
   } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(schema) as any,
     defaultValues: {
       tripType: 'one-way',
       origin: 'LHR',
