@@ -103,6 +103,19 @@ export interface PNR {
   ttlMinutes: number;
   history: { date: string; event: string; actor: string }[];
   queue: string;
+  // Optional fields consumed by the dashboard / departure board views.  They
+  // aren't always present on legacy fixture entries so they're marked optional
+  // and accessed defensively in UI code.
+  servicingTags?: string[];
+  orderSyncStatus?: 'In Sync' | 'Out Of Sync' | 'Needs Review';
+  unusedTicketCredits?: {
+    id: string;
+    amount: number;
+    currency: string;
+    issuedAt: string;
+    expiresAt: string;
+    status: 'Open' | 'Used' | 'Expired';
+  }[];
 }
 
 export interface Seat {

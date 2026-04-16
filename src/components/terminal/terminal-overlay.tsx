@@ -82,8 +82,9 @@ export function TerminalPanel() {
       xtermRef.current = terminal;
       terminal.open(terminalRef.current);
       terminal.focus();
-      terminal.writeln('Welcome to Mock Sabre Terminal. Phase 3 live services available soon.');
-      terminal.writeln('Type HLP for supported commands.');
+      terminal.writeln('SABRE GDS MOCK TERMINAL - PCC A0UC - AGENT ASC');
+      terminal.writeln('Type HLP for commands.  Try: QC/  then  Q/9  then  *R  then  WP');
+      terminal.writeln('Shortcut:  # is accepted as ‡ (cross of Lorraine).');
       terminal.write(`${PROMPT} `);
 
       const onData = terminal.onData((data) => {
@@ -92,7 +93,9 @@ export function TerminalPanel() {
           const command = currentLine.replace(PROMPT, '').trim();
           const response = executeMockCommand(command);
           terminal.writeln('');
-          terminal.writeln(response);
+          for (const line of response) {
+            terminal.writeln(line);
+          }
           terminal.write(`${PROMPT} `);
           if (command) {
             setHistory((prev) => {
