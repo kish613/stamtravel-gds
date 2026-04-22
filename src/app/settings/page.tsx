@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
@@ -21,6 +22,24 @@ export default function SettingsPage() {
         <h1 className="text-2xl font-bold text-foreground tracking-tight">Settings</h1>
         <p className="text-sm text-muted-foreground mt-1">Manage your agent profile, PCCs, and queue preferences</p>
       </div>
+
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base">Sabre credentials</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-0">
+          <p className="text-sm text-muted-foreground mb-3">
+            Connect your agency&apos;s Sabre account. Bookings, ticketing, and PNR retrieval
+            will run under your credentials and bill to your Sabre contract.
+          </p>
+          <Link
+            href="/settings/credentials"
+            className="inline-flex h-8 items-center justify-center rounded-md border border-border bg-background px-3 py-1.5 text-[13px] font-medium text-foreground transition-colors hover:bg-secondary"
+          >
+            Manage credentials
+          </Link>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardContent className="pt-5">

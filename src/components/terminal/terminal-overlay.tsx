@@ -6,8 +6,24 @@ import 'xterm/css/xterm.css';
 import { useAppStore } from '@/stores/app-store';
 import { TerminalSquare } from 'lucide-react';
 import { executeMockCommand, TERMINAL_COMMANDS } from '@/lib/commands/commands';
+import { flags } from '@/lib/sabre/flags';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+
+const runCommand = async (command: string): Promise<string[]> => {
+  if (!flags.terminal) return executeMockCommand(command);
+  const res = await fetch('/api/sabre/command', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ command })
+  });
+  if (!res.ok) {
+    const body = await res.json().catch(() => null);
+    return [`[sabre error] ${body?.error ?? res.status}`];
+  }
+  const { screen } = (await res.json()) as { screen: string };
+  return screen.split('\n').map((l) => l.replace(/\r/g, ''));
+};
 
 type XTermApi = {
   open: (el: HTMLDivElement) => void;
@@ -91,12 +107,13 @@ export function TerminalPanel() {
         if (data === '\r') {
           const currentLine = terminal.buffer.active.getLine(terminal.buffer.active.cursorY)?.translateToString() || '';
           const command = currentLine.replace(PROMPT, '').trim();
-          const response = executeMockCommand(command);
           terminal.writeln('');
-          for (const line of response) {
-            terminal.writeln(line);
-          }
-          terminal.write(`${PROMPT} `);
+          runCommand(command).then((response) => {
+            for (const line of response) {
+              terminal.writeln(line);
+            }
+            terminal.write(`${PROMPT} `);
+          });
           if (command) {
             setHistory((prev) => {
               const next = [command, ...prev.slice(0, 49)];
