@@ -15,7 +15,12 @@ const NDC_OPTIONS = [
   { code: 'AA', name: 'American Airlines' },
   { code: 'UA', name: 'United Airlines' },
   { code: 'DL', name: 'Delta Air Lines' },
-  { code: 'LY', name: 'El Al' }
+  { code: 'LY', name: 'El Al' },
+  { code: 'LH', name: 'Lufthansa' },
+  { code: 'LX', name: 'SWISS' },
+  { code: 'OS', name: 'Austrian Airlines' },
+  { code: 'SN', name: 'Brussels Airlines' },
+  { code: 'EW', name: 'Eurowings' }
 ] as const;
 
 type FormState = {
