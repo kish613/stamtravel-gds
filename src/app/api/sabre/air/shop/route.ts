@@ -22,7 +22,7 @@ export const POST = async (req: Request) => {
     const body = querySchema.parse(await req.json());
     const resolved = await resolveCredentials({ op: 'shop', orgId });
     const raw = await runBfmShop(resolved, body, orgId);
-    const flights = mapBfmToFlightResults(raw);
+    const flights = mapBfmToFlightResults(raw, body.departDate);
     return NextResponse.json(flights);
   } catch (err) {
     const status = err instanceof z.ZodError ? 400 : 500;

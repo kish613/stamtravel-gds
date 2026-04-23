@@ -4,7 +4,8 @@ import { useMemo, useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useFlights, useRevalidateResult } from '@/lib/query';
+import { useFlights, useRevalidateResult, useSabreAirShop, type FlightShopQuery } from '@/lib/query';
+import { flags } from '@/lib/sabre/flags';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -42,9 +43,20 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+const cabinToSabre = (c: string): FlightShopQuery['cabin'] => {
+  if (c === 'First') return 'F';
+  if (c === 'Business') return 'C';
+  if (c === 'Premium Economy') return 'S';
+  return 'Y';
+};
+
 export default function AirSearchPage() {
   const router = useRouter();
-  const { data, isLoading, isError, error, refetch } = useFlights();
+  const [sabreQuery, setSabreQuery] = useState<FlightShopQuery | null>(null);
+  const mockFlights = useFlights();
+  const sabreFlights = useSabreAirShop(flags.air ? sabreQuery : null);
+  const source = flags.air ? sabreFlights : mockFlights;
+  const { data, isLoading, isError, error, refetch } = source;
   const revalidate = useRevalidateResult();
   const setActiveFlight = useAppStore((state) => state.setActiveFlight);
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -101,8 +113,10 @@ export default function AirSearchPage() {
     if (!data) return [];
     return data
       .filter((flight) => {
-        if (query.origin && flight.origin !== query.origin) return false;
-        if (query.destination && flight.destination !== query.destination) return false;
+        if (!flags.air) {
+          if (query.origin && flight.origin !== query.origin) return false;
+          if (query.destination && flight.destination !== query.destination) return false;
+        }
         if (query.maxStops != null && flight.stops > query.maxStops) return false;
         if (query.ndcOnly) return flight.contentType === 'NDC';
         return true;
@@ -111,6 +125,20 @@ export default function AirSearchPage() {
   }, [data, query]);
 
   const onSubmit = () => {
+    if (flags.air && query.origin && query.destination && query.departure) {
+      const toIso = (d: Date): string => d.toISOString().slice(0, 10);
+      setSabreQuery({
+        origin: query.origin,
+        destination: query.destination,
+        departDate: toIso(new Date(query.departure)),
+        returnDate:
+          query.tripType === 'return' && query.returnDate
+            ? toIso(new Date(query.returnDate))
+            : undefined,
+        adults: query.adults,
+        cabin: cabinToSabre(query.cabin)
+      });
+    }
     setSearchResult(true);
   };
 

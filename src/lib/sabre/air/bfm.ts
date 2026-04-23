@@ -10,12 +10,56 @@ export interface BfmQuery {
   cabin?: 'Y' | 'S' | 'C' | 'F';
 }
 
+export interface BfmSchedule {
+  id: number;
+  departure?: { airport?: string; time?: string };
+  arrival?: { airport?: string; time?: string };
+  carrier?: {
+    marketing?: string;
+    marketingFlightNumber?: number;
+    equipment?: { code?: string };
+  };
+  elapsedTime?: number;
+  stopCount?: number;
+}
+
+export interface BfmLegDesc {
+  id: number;
+  elapsedTime?: number;
+  schedules?: Array<{ ref: number; departureDateAdjustment?: number }>;
+}
+
+export interface BfmPricingInfo {
+  distributionModel?: 'ATPCO' | 'NDC' | 'LCC';
+  pricingSubsource?: string;
+  offer?: { offerId?: string };
+  fare?: {
+    offerItemId?: string;
+    passengerInfoList?: Array<{
+      passengerInfo?: {
+        passengerTotalFare?: { totalFare?: number; currency?: string };
+        fareComponents?: Array<{
+          segments?: Array<{ segment?: { bookingCode?: string; cabinCode?: string } }>;
+        }>;
+      };
+    }>;
+  };
+}
+
+export interface BfmItinerary {
+  id: number;
+  legs?: Array<{ ref: number }>;
+  pricingInformation?: BfmPricingInfo[];
+}
+
 export interface BfmResponse {
-  OTA_AirLowFareSearchRS?: {
-    PricedItineraries?: {
-      PricedItinerary?: unknown[];
-    };
-    Errors?: { Error?: { ErrorMessage?: string }[] };
+  groupedItineraryResponse?: {
+    version?: string;
+    messages?: Array<{ severity?: string; code?: string; text?: string; value?: string }>;
+    statistics?: { itineraryCount?: number };
+    scheduleDescs?: BfmSchedule[];
+    legDescs?: BfmLegDesc[];
+    itineraryGroups?: Array<{ itineraries?: BfmItinerary[] }>;
   };
 }
 
@@ -38,7 +82,7 @@ const buildRequest = (q: BfmQuery, pcc: string) => {
   }
   return {
     OTA_AirLowFareSearchRQ: {
-      Target: 'Production',
+      Version: '5.5.0',
       POS: { Source: [{ PseudoCityCode: pcc, RequestorID: { Type: '1', ID: '1', CompanyName: { Code: 'TN' } } }] },
       OriginDestinationInformation,
       TravelPreferences: {

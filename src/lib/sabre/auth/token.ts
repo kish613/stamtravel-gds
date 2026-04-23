@@ -15,12 +15,27 @@ const cache = new Map<string, CacheEntry>();
 const cacheKey = (creds: SabreCredentials): string =>
   createHash('sha256').update(`${creds.clientId}:${creds.env}`).digest('hex');
 
+const b64 = (s: string): string => Buffer.from(s, 'utf8').toString('base64');
+
+const buildAuthHeader = (
+  creds: SabreCredentials
+): { header: string; version: 'v2' | 'v3' } => {
+  if (creds.clientId.startsWith('V1:')) {
+    const combined = `${b64(creds.clientId)}:${b64(creds.clientSecret)}`;
+    return { header: `Basic ${b64(combined)}`, version: 'v2' };
+  }
+  return {
+    header: `Basic ${b64(`${creds.clientId}:${creds.clientSecret}`)}`,
+    version: 'v3'
+  };
+};
+
 const fetchToken = async (creds: SabreCredentials): Promise<CacheEntry> => {
-  const basic = Buffer.from(`${creds.clientId}:${creds.clientSecret}`).toString('base64');
-  const res = await fetch(`${restBaseUrl(creds.env)}/v3/auth/token`, {
+  const { header, version } = buildAuthHeader(creds);
+  const res = await fetch(`${restBaseUrl(creds.env)}/${version}/auth/token`, {
     method: 'POST',
     headers: {
-      Authorization: `Basic ${basic}`,
+      Authorization: header,
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: 'grant_type=client_credentials'
