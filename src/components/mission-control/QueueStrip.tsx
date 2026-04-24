@@ -119,7 +119,7 @@ export function QueueStrip({ queues, now }: { queues: QueueBucket[]; now: number
   const maxCount = Math.max(1, ...metas.map((q) => q.count));
 
   return (
-    <McCard accent={mcColors.teal500}>
+    <McCard accent={mcColors.teal500} className="mc-queuestrip">
       <McCardHeader>
         <McCardTitle
           eyebrow="◦ Sabre queues"
@@ -169,13 +169,7 @@ export function QueueStrip({ queues, now }: { queues: QueueBucket[]; now: number
         </McCardTitle>
       </McCardHeader>
       <McCardContent style={{ padding: 0 }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(280px, 320px) 1fr',
-            minHeight: 148
-          }}
-        >
+        <div className="mc-qs-inner">
           {/* Focus panel */}
           <div
             style={{
@@ -372,6 +366,7 @@ export function QueueStrip({ queues, now }: { queues: QueueBucket[]; now: number
 
           {/* Queue rail */}
           <div
+            className="mc-qs-rail"
             style={{
               padding: 12,
               display: 'grid',

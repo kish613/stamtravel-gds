@@ -5,14 +5,17 @@ import { ReactNode, CSSProperties } from 'react';
 export function McCard({
   children,
   accent,
-  style
+  style,
+  className
 }: {
   children: ReactNode;
   accent?: string;
   style?: CSSProperties;
+  className?: string;
 }) {
   return (
     <div
+      className={className}
       style={{
         position: 'relative',
         background: '#fff',

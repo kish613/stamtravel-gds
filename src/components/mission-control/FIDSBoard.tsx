@@ -25,11 +25,9 @@ function FIDSRow({ flight, idx }: { flight: FidsRow; idx: number }) {
 
   return (
     <div
+      className="mc-fids-grid"
       style={{
-        display: 'grid',
-        gridTemplateColumns: '62px 82px 1fr 64px 52px 118px',
         alignItems: 'center',
-        gap: 12,
         padding: '11px 16px',
         borderBottom: '1px solid rgba(255, 180, 60, 0.08)',
         background: idx % 2 === 0 ? 'rgba(255, 180, 60, 0.015)' : 'transparent',
@@ -50,6 +48,7 @@ function FIDSRow({ flight, idx }: { flight: FidsRow; idx: number }) {
           <FlapText text={flight.city} delayBase={idx * 40 + 120} color="#fff" />
         </div>
         <div
+          className="mc-fids-pax"
           style={{
             color: 'rgba(245, 197, 107, 0.55)',
             fontSize: 11,
@@ -130,6 +129,7 @@ export function FIDSBoard({
 
   return (
     <div
+      className="mc-fids"
       style={{
         background: mcColors.gradientFids,
         borderRadius: 20,
@@ -219,27 +219,31 @@ export function FIDSBoard({
             border: '1px solid rgba(245, 197, 107, 0.18)'
           }}
         >
-          {(['DEPARTURES', 'ARRIVALS', 'MY PNRS'] as FidsMode[]).map((m) => (
-            <button
-              key={m}
-              onClick={() => onModeChange(m)}
-              style={{
-                padding: '6px 12px',
-                borderRadius: 6,
-                border: 'none',
-                fontFamily: 'var(--font-jetbrains)',
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: '0.12em',
-                cursor: 'pointer',
-                background: mode === m ? '#F5C56B' : 'transparent',
-                color: mode === m ? '#0A0D14' : 'rgba(245,197,107,0.7)',
-                transition: 'all 180ms'
-              }}
-            >
-              {m}
-            </button>
-          ))}
+          {(['DEPARTURES', 'ARRIVALS', 'MY PNRS'] as FidsMode[]).map((m) => {
+            const short = m === 'DEPARTURES' ? 'DEP' : m === 'ARRIVALS' ? 'ARR' : 'MINE';
+            return (
+              <button
+                key={m}
+                onClick={() => onModeChange(m)}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: 6,
+                  border: 'none',
+                  fontFamily: 'var(--font-jetbrains)',
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: '0.12em',
+                  cursor: 'pointer',
+                  background: mode === m ? '#F5C56B' : 'transparent',
+                  color: mode === m ? '#0A0D14' : 'rgba(245,197,107,0.7)',
+                  transition: 'all 180ms'
+                }}
+              >
+                <span className="mc-fids-tab-long">{m}</span>
+                <span className="mc-fids-tab-short">{short}</span>
+              </button>
+            );
+          })}
         </div>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, fontFamily: 'var(--font-jetbrains)' }}>
           <span
@@ -271,12 +275,10 @@ export function FIDSBoard({
 
       {/* Column headers */}
       <div
+        className="mc-fids-grid"
         style={{
           position: 'relative',
           zIndex: 2,
-          display: 'grid',
-          gridTemplateColumns: '62px 82px 1fr 64px 52px 118px',
-          gap: 12,
           padding: '9px 16px',
           background: 'rgba(245, 197, 107, 0.06)',
           borderBottom: '1px solid rgba(245, 197, 107, 0.2)',

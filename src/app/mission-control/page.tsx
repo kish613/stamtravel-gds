@@ -60,6 +60,62 @@ export default function MissionControlPage() {
             opacity: 0;
           }
         }
+
+        /* ── FIDS board — container-query driven ── */
+        .mc-fids {
+          container-type: inline-size;
+          container-name: mc-fids;
+        }
+        .mc-fids-grid {
+          display: grid;
+          grid-template-columns: var(
+            --fids-cols,
+            62px 82px 1fr 64px 52px 118px
+          );
+          gap: 12px;
+        }
+        .mc-fids-tab-short {
+          display: none;
+        }
+        @container mc-fids (max-width: 719px) {
+          .mc-fids-grid {
+            --fids-cols: 54px 74px 1fr 56px 44px 96px;
+          }
+        }
+        @container mc-fids (max-width: 559px) {
+          .mc-fids-grid {
+            --fids-cols: 48px 68px 1fr 42px 36px 80px;
+          }
+          .mc-fids-pax {
+            display: none;
+          }
+          .mc-fids-tab-long {
+            display: none;
+          }
+          .mc-fids-tab-short {
+            display: inline;
+          }
+        }
+
+        /* ── Queue strip — container-query driven ── */
+        .mc-queuestrip {
+          container-type: inline-size;
+          container-name: mc-queuestrip;
+        }
+        .mc-qs-inner {
+          display: grid;
+          grid-template-columns: var(--qs-cols, minmax(280px, 320px) 1fr);
+          min-height: 148px;
+        }
+        @container mc-queuestrip (max-width: 819px) {
+          .mc-qs-inner {
+            --qs-cols: 1fr;
+          }
+          .mc-qs-rail {
+            border-left: none !important;
+            border-top: 1px solid #e2e8f0;
+          }
+        }
       `}</style>
 
       <div className="flex flex-col gap-5 max-w-[1600px] mx-auto">
@@ -78,20 +134,23 @@ export default function MissionControlPage() {
           <CommandBar />
         </div>
 
-        <div
-          className="grid items-start gap-5"
-          style={{
-            gridTemplateColumns: 'minmax(280px, 320px) minmax(0, 1fr) minmax(280px, 320px)'
-          }}
-        >
-          {/* LEFT RAIL */}
-          <div className="flex flex-col gap-4">
+        {/* Left rail — hoisted above the main grid at LG (1024-1279),
+            stacks single-column below LG, hidden at XL (handled inside grid). */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:hidden">
+          <KpiStack kpis={kpis} />
+          <CreditBank credits={credits} />
+        </div>
+
+        {/* Main grid — 3 rails XL / 2 rails LG / 1 rail MD */}
+        <div className="grid items-start gap-5 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] xl:grid-cols-[minmax(280px,320px)_minmax(0,1fr)_minmax(280px,320px)]">
+          {/* LEFT RAIL — only visible at XL */}
+          <div className="hidden xl:flex flex-col gap-4">
             <KpiStack kpis={kpis} />
             <CreditBank credits={credits} />
           </div>
 
           {/* CENTER RAIL */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 min-w-0">
             {loadingPnr ? (
               <div className="p-6 rounded-[14px] bg-white border border-slate-200 text-slate-400 text-[13px]">
                 Loading PNR work…
@@ -102,7 +161,7 @@ export default function MissionControlPage() {
           </div>
 
           {/* RIGHT RAIL */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 min-w-0">
             <TtlTicker pnrs={pnrList} />
             <IntegrationsPanel />
           </div>
