@@ -3,7 +3,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Bell, BarChart3, LayoutDashboard, ListTodo, Moon, Plane, Settings, Sun, Ticket, Menu, TerminalSquare, Radar, LucideIcon } from 'lucide-react';
+import { Bell, BarChart3, ListTodo, Moon, Plane, Settings, Sun, Ticket, Menu, TerminalSquare, Radar, LucideIcon } from 'lucide-react';
 import { useAppStore } from '@/stores/app-store';
 import { TerminalPanel } from '@/components/terminal/terminal-overlay';
 import { cn } from '@/lib/utils';
@@ -12,7 +12,6 @@ type NavItem = { path: string; label: string; icon: LucideIcon; matchPrefix?: st
 
 const NAV: NavItem[] = [
   { path: '/mission-control', label: 'Mission Control', icon: Radar },
-  { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/search/air', label: 'Search', icon: Plane, matchPrefix: '/search' },
   { path: '/bookings', label: 'Bookings', icon: Ticket, matchPrefix: '/bookings' },
   { path: '/queues', label: 'Queues', icon: ListTodo },
