@@ -30,6 +30,9 @@ interface AppState {
   toggleTerminal: () => void;
   terminalDrawerOpen: boolean;
   toggleTerminalDrawer: () => void;
+  pendingTerminalCommand: string | null;
+  setPendingTerminalCommand: (cmd: string | null) => void;
+  openTerminalWithCommand: (cmd: string) => void;
   dashboardTheme: DashboardTheme;
   setDashboardTheme: (theme: DashboardTheme) => void;
   toggleDashboardTheme: () => void;
@@ -61,16 +64,28 @@ export const useAppStore = create<AppState>()(
     (set) => ({
       terminalOpen: false,
       terminalDrawerOpen: false,
+      pendingTerminalCommand: null,
       dashboardTheme: 'light',
       booking: defaultBooking,
       toggleTerminal: () =>
         set((state) => ({
           terminalOpen: !state.terminalOpen,
-          terminalDrawerOpen: false
+          terminalDrawerOpen: false,
+          pendingTerminalCommand: state.terminalOpen ? null : state.pendingTerminalCommand
         })),
       toggleTerminalDrawer: () =>
         set((state) => ({
           terminalDrawerOpen: !state.terminalDrawerOpen
+        })),
+      setPendingTerminalCommand: (cmd) =>
+        set(() => ({
+          pendingTerminalCommand: cmd
+        })),
+      openTerminalWithCommand: (cmd) =>
+        set(() => ({
+          terminalOpen: true,
+          terminalDrawerOpen: false,
+          pendingTerminalCommand: cmd
         })),
       setDashboardTheme: (dashboardTheme) =>
         set(() => ({
@@ -135,7 +150,12 @@ export const useAppStore = create<AppState>()(
         }))
     }),
     {
-      name: 'sabre-gds-store'
+      name: 'sabre-gds-store',
+      partialize: (state) => {
+        const { pendingTerminalCommand: _omit, ...rest } = state;
+        void _omit;
+        return rest as AppState;
+      }
     }
   )
 );

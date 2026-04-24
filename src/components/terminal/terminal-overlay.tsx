@@ -51,6 +51,8 @@ export function TerminalPanel() {
   const toggleTerminal = useAppStore((state) => state.toggleTerminal);
   const terminalDrawerOpen = useAppStore((state) => state.terminalDrawerOpen);
   const toggleTerminalDrawer = useAppStore((state) => state.toggleTerminalDrawer);
+  const pendingTerminalCommand = useAppStore((state) => state.pendingTerminalCommand);
+  const setPendingTerminalCommand = useAppStore((state) => state.setPendingTerminalCommand);
 
   const categories = useMemo(() => {
     const grouped: Record<string, typeof TERMINAL_COMMANDS> = {};
@@ -102,6 +104,21 @@ export function TerminalPanel() {
       terminal.writeln('Type HLP for commands.  Try: QC/  then  Q/9  then  *R  then  WP');
       terminal.writeln('Shortcut:  # is accepted as ‡ (cross of Lorraine).');
       terminal.write(`${PROMPT} `);
+
+      const seed = useAppStore.getState().pendingTerminalCommand;
+      if (seed) {
+        useAppStore.getState().setPendingTerminalCommand(null);
+        terminal.write(seed);
+        terminal.writeln('');
+        const response = await runCommand(seed);
+        for (const line of response) terminal.writeln(line);
+        terminal.write(`${PROMPT} `);
+        setHistory((prev) => {
+          const next = [seed, ...prev.slice(0, 49)];
+          historyRef.current = next;
+          return next;
+        });
+      }
 
       const onData = terminal.onData((data) => {
         if (data === '\r') {
@@ -174,6 +191,32 @@ export function TerminalPanel() {
     historyRef.current = history;
     commandHistoryIndexRef.current = commandHistoryIndex;
   }, [history, commandHistoryIndex]);
+
+  useEffect(() => {
+    if (!pendingTerminalCommand || !terminalOpen) return;
+    const terminal = xtermRef.current;
+    if (!terminal) return;
+    const cmd = pendingTerminalCommand;
+    setPendingTerminalCommand(null);
+    if (isMinimized) setIsMinimized(false);
+    let cancelled = false;
+    (async () => {
+      terminal.write(cmd);
+      terminal.writeln('');
+      const response = await runCommand(cmd);
+      if (cancelled) return;
+      for (const line of response) terminal.writeln(line);
+      terminal.write(`${PROMPT} `);
+      setHistory((prev) => {
+        const next = [cmd, ...prev.slice(0, 49)];
+        historyRef.current = next;
+        return next;
+      });
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [pendingTerminalCommand, terminalOpen, isMinimized, setPendingTerminalCommand]);
 
   useEffect(() => {
     if (terminalDrawerOpen !== drawerOpen) {

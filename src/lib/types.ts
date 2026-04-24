@@ -155,6 +155,22 @@ export interface Airport {
   country: string;
 }
 
+export interface FidsRow {
+  time: string;
+  flightNo: string;
+  city: string;
+  pax: string;
+  locator: string;
+  gate: string;
+  term: string;
+  status: string;
+}
+
+export interface FidsBoard {
+  departures: FidsRow[];
+  arrivals: FidsRow[];
+}
+
 export interface QueryErrorPayload {
   message: string;
   code?: string;

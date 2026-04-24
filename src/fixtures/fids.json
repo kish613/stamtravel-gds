@@ -1,0 +1,20 @@
+{
+  "departures": [
+    { "time": "08:00", "flightNo": "LY 001",  "city": "JFK NEW YORK",      "pax": "Green A",     "locator": "ABCD12", "gate": "B14", "term": "3", "status": "BOARDING" },
+    { "time": "08:45", "flightNo": "BA 162",  "city": "LHR LONDON",        "pax": "Brooks D",    "locator": "EFGH34", "gate": "A07", "term": "3", "status": "CHECK-IN" },
+    { "time": "09:30", "flightNo": "UA 091",  "city": "EWR NEWARK",        "pax": "Kohn M +3",   "locator": "HN03YT", "gate": "C22", "term": "1", "status": "GATE CHG" },
+    { "time": "10:15", "flightNo": "UA 837",  "city": "SFO SAN FRANCISCO", "pax": "Bloom A",     "locator": "ZR71AB", "gate": "B09", "term": "3", "status": "ON TIME" },
+    { "time": "11:00", "flightNo": "AA 117",  "city": "MIA MIAMI",         "pax": "Stern N",     "locator": "LW22CD", "gate": "---", "term": "1", "status": "SCHED" },
+    { "time": "12:25", "flightNo": "AC 082",  "city": "YYZ TORONTO",       "pax": "Weiss D +1",  "locator": "VP58JK", "gate": "D03", "term": "3", "status": "DELAYED" },
+    { "time": "14:10", "flightNo": "KL 462",  "city": "AMS AMSTERDAM",     "pax": "Adler R",     "locator": "MC90PR", "gate": "B21", "term": "3", "status": "ON TIME" },
+    { "time": "15:40", "flightNo": "QF 006",  "city": "SYD SYDNEY",        "pax": "Goldberg J",  "locator": "TF14XZ", "gate": "---", "term": "2", "status": "CANCELLED" }
+  ],
+  "arrivals": [
+    { "time": "07:12", "flightNo": "AF 1020", "city": "CDG PARIS",         "pax": "Levin S",     "locator": "GH32QR", "gate": "E11", "term": "3", "status": "ARRIVED" },
+    { "time": "09:45", "flightNo": "DL 468",  "city": "ATL ATLANTA",       "pax": "Cohen A +2",  "locator": "RT88MN", "gate": "C14", "term": "3", "status": "ON TIME" },
+    { "time": "10:30", "flightNo": "LH 686",  "city": "FRA FRANKFURT",     "pax": "Hirsch E",    "locator": "PQ14KL", "gate": "B02", "term": "3", "status": "DELAYED" },
+    { "time": "12:55", "flightNo": "EK 931",  "city": "DXB DUBAI",         "pax": "Rabin L",     "locator": "NM66BV", "gate": "---", "term": "3", "status": "SCHED" },
+    { "time": "14:20", "flightNo": "TK 784",  "city": "IST ISTANBUL",      "pax": "Stein J",     "locator": "WR09PL", "gate": "---", "term": "3", "status": "SCHED" },
+    { "time": "16:05", "flightNo": "BA 165",  "city": "LHR LONDON",        "pax": "Katz M +1",   "locator": "JH52YN", "gate": "---", "term": "3", "status": "ON TIME" }
+  ]
+}

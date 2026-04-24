@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pnr from '@/fixtures/pnr.json';
+import { rebasePnrs } from '@/lib/mock-rebase';
+import type { PNR } from '@/lib/types';
 
 export async function GET() {
-  return NextResponse.json(pnr);
+  return NextResponse.json(rebasePnrs(pnr as unknown as PNR[]));
 }
 
 export async function POST(req: NextRequest) {

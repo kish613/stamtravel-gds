@@ -1,0 +1,56 @@
+{
+  "ABCD12": {
+    "meta": {
+      "pcc": "901",
+      "fop": "AX ••4002",
+      "ttl": "ISSUED",
+      "ttlTone": "ok",
+      "fqtv": "BA 556 10284",
+      "channel": "NDC · BA"
+    },
+    "segmentsDetail": [
+      {
+        "class": "Y",
+        "eqp": "B789",
+        "statusTone": "confirmed",
+        "statusCode": "HK1"
+      }
+    ],
+    "fareRules": "BA NDC Y-CLASS · LHRJFK\n  PENALTY: CHG USD 150 · REF USD 300\n  ADVANCE PURCHASE: NONE\n  MIN STAY: NONE  MAX STAY: 12M\n  BAGGAGE: 1PC · 23KG\n  ENDO: NON-END VALID BA ONLY",
+    "remarks": [
+      { "code": "OSI", "text": "BA EXECUTIVE CLUB SILVER" },
+      { "code": "SSR", "text": "VGML BA HK1 LHRJFK" },
+      { "code": "RMK", "text": "TKT ISSUED · NDC BOOKING" }
+    ]
+  },
+  "EFGH34": {
+    "meta": {
+      "pcc": "901",
+      "fop": "VI ••7731",
+      "ttl": "TAW/26APR",
+      "ttlTone": "warn",
+      "fqtv": "UA 019 882741",
+      "channel": "ATPCO"
+    },
+    "segmentsDetail": [
+      {
+        "class": "J",
+        "eqp": "77W",
+        "statusTone": "warning",
+        "statusCode": "HK1"
+      },
+      {
+        "class": "J",
+        "eqp": "E90",
+        "statusTone": "warning",
+        "statusCode": "SC1"
+      }
+    ],
+    "fareRules": "UA ATPCO J-CLASS · LHREWR\n  PENALTY: CHG USD 300 · REF USD 450\n  ADVANCE PURCHASE: 7D\n  MIN STAY: SUN  MAX STAY: 6M\n  BAGGAGE: 2PC · 32KG EA\n  LOUNGE: UNITED POLARIS",
+    "remarks": [
+      { "code": "OSI", "text": "UA SCHEDULE CHANGE JFKEWR DEP 20:00 → 20:35" },
+      { "code": "SSR", "text": "DOCS UA HK1 LHRJFK 06MAR" },
+      { "code": "RMK", "text": "CORP CODE STAM-2026" }
+    ]
+  }
+}

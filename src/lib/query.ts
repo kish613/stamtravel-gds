@@ -9,7 +9,8 @@ import {
   type PNR,
   type QueueBucket,
   type Airport,
-  type SeatMap
+  type SeatMap,
+  type FidsBoard
 } from './types';
 
 const postJson = async <T, B = unknown>(url: string, body: B): Promise<T> => {
@@ -149,6 +150,13 @@ export const useAirports = (q?: string) =>
           item.city.toLowerCase().includes(term)
       );
     },
+    staleTime: Infinity
+  });
+
+export const useFids = () =>
+  useQuery<FidsBoard>({
+    queryKey: ['fixtures', 'fids'],
+    queryFn: () => fetchJson<FidsBoard>(`${API_BASE_URL}/fids`),
     staleTime: Infinity
   });
 
