@@ -7,7 +7,8 @@ export default function CredentialsSettingsPage() {
   return (
     <div className="space-y-6 text-[13px]">
       <div>
-        <h1 className="text-foreground text-2xl font-bold tracking-tight">Sabre credentials</h1>
+        <p className="gds-eyebrow mb-2">Settings · Integrations</p>
+        <h1 className="font-display text-foreground text-[28px] font-extrabold tracking-tight leading-tight">Sabre credentials</h1>
         <p className="text-muted-foreground mt-1 text-sm">
           Connect your agency&apos;s Sabre account. These credentials are used for bookings,
           ticketing, PNR retrieval, and queue operations.

@@ -34,7 +34,8 @@ export default function CarSearchPage() {
     <div className="space-y-6 text-[13px]">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Car Search</h1>
+        <p className="gds-eyebrow mb-2">Search</p>
+        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Car</h1>
         <p className="text-sm text-muted-foreground mt-1">Search and add rental cars to an active booking</p>
       </div>
 
@@ -59,7 +60,7 @@ export default function CarSearchPage() {
                 <option value="intermediate">Intermediate</option>
               </select>
             </div>
-            <Button type="submit">Search cars</Button>
+            <Button type="submit" variant="primary" size="lg">Search cars</Button>
           </form>
         </CardContent>
       </Card>

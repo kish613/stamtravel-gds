@@ -1,12 +1,24 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Bell, BarChart3, ListTodo, Moon, Plane, Settings, Sun, Ticket, Menu, TerminalSquare, Radar, LucideIcon } from 'lucide-react';
 import { useAppStore } from '@/stores/app-store';
 import { TerminalPanel } from '@/components/terminal/terminal-overlay';
 import { cn } from '@/lib/utils';
+
+function Wordmark({ dark = false }: { dark?: boolean }) {
+  return (
+    <span
+      className="font-display font-extrabold tracking-tight text-[20px] leading-none select-none"
+      style={{ color: dark ? '#FFFFFF' : '#0A2540' }}
+    >
+      GDS<span className="font-medium" style={{ color: '#25A5B4' }}>imple</span>
+    </span>
+  );
+}
 
 type NavItem = { path: string; label: string; icon: LucideIcon; matchPrefix?: string };
 
@@ -46,31 +58,44 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const sidebarWidth = collapsed ? 'w-14' : 'w-56';
   const isDashboardRoute = pathname === '/dashboard' || pathname.startsWith('/dashboard/');
+  const isMissionControlRoute = pathname === '/mission-control' || pathname.startsWith('/mission-control/');
+  const showLogomark = isMissionControlRoute || isDashboardRoute;
   const isDashboardDark = isDashboardRoute && dashboardTheme === 'dark';
+  const logomarkSrc = isDashboardDark ? '/brand/logomark-on-dark.svg' : '/brand/logomark.svg';
 
   return (
     <div className="min-h-screen bg-background text-foreground flex">
       <aside
         className={cn(
           'fixed left-0 top-0 bottom-0 z-40 border-r transition-all duration-300 ease-in-out flex flex-col',
-          isDashboardDark ? 'bg-black border-white/[0.10]' : 'bg-white border-slate-100',
+          isDashboardDark ? 'bg-black border-white/[0.10]' : 'bg-white border-[#EEF2F7]',
           sidebarWidth
         )}
       >
-        <div className="h-[var(--nav-height)] flex items-center px-6 font-bold mt-2">
-          <span
-            className={cn(
-              'tracking-tight text-xl font-black',
-              isDashboardDark ? 'text-white' : 'text-slate-900',
-              collapsed && 'hidden'
-            )}
-          >
-            Sabre GDS
-          </span>
-          {collapsed && (
-            <span className={cn('tracking-tight font-black mx-auto text-xl', isDashboardDark ? 'text-white' : 'text-slate-900')}>
-              S
-            </span>
+        <div className={cn('h-[var(--nav-height)] flex items-center mt-2', collapsed ? 'justify-center px-0' : 'px-5 gap-2')}>
+          {showLogomark && (
+            <Image
+              src={logomarkSrc}
+              alt="GDSimple"
+              width={28}
+              height={28}
+              priority
+              className="h-7 w-7 flex-shrink-0"
+            />
+          )}
+          {collapsed ? (
+            !showLogomark && (
+              <Image
+                src={logomarkSrc}
+                alt="GDSimple"
+                width={28}
+                height={28}
+                priority
+                className="h-7 w-7"
+              />
+            )
+          ) : (
+            <Wordmark dark={isDashboardDark} />
           )}
         </div>
 
@@ -78,7 +103,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           {!collapsed && (
             <p
               className={cn(
-                'px-2 py-2 text-[11px] uppercase tracking-wider font-semibold mt-2 mb-1',
+                'px-2 py-2 text-[11px] uppercase tracking-[0.14em] font-bold mt-2 mb-1',
                 isDashboardDark ? 'text-white/[0.62]' : 'text-slate-400'
               )}
             >
@@ -98,20 +123,20 @@ export function AppShell({ children }: { children: ReactNode }) {
                   active
                     ? isDashboardDark
                       ? 'bg-white text-slate-950 shadow-sm'
-                      : 'bg-slate-50 text-slate-900'
+                      : 'bg-[#E4F5F7] text-[#0A2540]'
                     : isDashboardDark
                       ? 'text-white/[0.88] hover:bg-white/[0.10] hover:text-white'
-                      : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                      : 'text-slate-500 hover:bg-[#F6F8FB] hover:text-[#0A2540]'
                 )}
               >
                 <Icon
                   className={cn(
                     'h-[18px] w-[18px] flex-shrink-0 transition-colors',
                     active
-                      ? 'text-amber-400 fill-amber-400/20'
+                      ? 'text-[#25A5B4]'
                       : isDashboardDark
                         ? 'text-white/[0.72] group-hover:text-white'
-                        : 'text-slate-400 group-hover:text-slate-600'
+                        : 'text-slate-400 group-hover:text-[#475569]'
                   )}
                 />
                 {!collapsed && <span>{item.label}</span>}
@@ -120,12 +145,12 @@ export function AppShell({ children }: { children: ReactNode }) {
           })}
         </nav>
 
-        <div className={cn('p-4 border-t flex flex-col gap-1', isDashboardDark ? 'border-white/[0.10]' : 'border-slate-200')}>
+        <div className={cn('p-4 border-t flex flex-col gap-1', isDashboardDark ? 'border-white/[0.10]' : 'border-[#EEF2F7]')}>
           <button
             onClick={toggleTerminal}
             className={cn(
               'group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] font-medium transition-colors',
-              isDashboardDark ? 'text-white/[0.88] hover:bg-white/[0.10] hover:text-white' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900',
+              isDashboardDark ? 'text-white/[0.88] hover:bg-white/[0.10] hover:text-white' : 'text-slate-500 hover:bg-[#F6F8FB] hover:text-[#0A2540]',
               collapsed && 'justify-center px-0'
             )}
             aria-label="Open terminal"
@@ -133,7 +158,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <TerminalSquare
               className={cn(
                 'h-[18px] w-[18px] flex-shrink-0 transition-colors',
-                isDashboardDark ? 'text-white/[0.72] group-hover:text-white' : 'text-slate-400 group-hover:text-slate-600'
+                isDashboardDark ? 'text-white/[0.72] group-hover:text-white' : 'text-slate-400 group-hover:text-[#475569]'
               )}
             />
             {!collapsed && <span>Terminal</span>}
@@ -142,13 +167,13 @@ export function AppShell({ children }: { children: ReactNode }) {
           <button
             className={cn(
               'group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] font-medium transition-colors',
-              isDashboardDark ? 'text-white/[0.88] hover:bg-white/[0.10] hover:text-white' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900',
+              isDashboardDark ? 'text-white/[0.88] hover:bg-white/[0.10] hover:text-white' : 'text-slate-500 hover:bg-[#F6F8FB] hover:text-[#0A2540]',
               collapsed && 'justify-center px-0'
             )}
             aria-label="collapse nav"
             onClick={() => setCollapsed((prev) => !prev)}
           >
-            <Menu className={cn('h-[18px] w-[18px] flex-shrink-0', isDashboardDark ? 'text-white/[0.72] group-hover:text-white' : 'text-slate-400 group-hover:text-slate-600')} />
+            <Menu className={cn('h-[18px] w-[18px] flex-shrink-0', isDashboardDark ? 'text-white/[0.72] group-hover:text-white' : 'text-slate-400 group-hover:text-[#475569]')} />
             {!collapsed && <span>Collapse</span>}
           </button>
         </div>
@@ -157,14 +182,14 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div
         className={cn(
           'flex-1 flex flex-col min-h-screen transition-all duration-300 ease-in-out',
-          isDashboardDark ? 'bg-black' : 'bg-[#f4f4f5]',
+          isDashboardDark ? 'bg-black' : 'bg-background',
           collapsed ? 'pl-14' : 'pl-56'
         )}
       >
         <header
           className={cn(
             'h-[var(--nav-height)] backdrop-blur-md sticky top-0 z-30 flex items-center justify-between px-8 border-b shadow-sm',
-            isDashboardDark ? 'bg-black/[0.92] border-white/[0.10]' : 'bg-[#f4f4f5]/90 border-slate-200'
+            isDashboardDark ? 'bg-black/[0.92] border-white/[0.10]' : 'bg-[#F6F8FB]/90 border-[#E2E8F0]'
           )}
         >
           <div className={cn('flex-1 text-sm flex items-center gap-2 font-medium', isDashboardDark ? 'text-white/[0.60]' : 'text-slate-500')}>
@@ -203,10 +228,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             </button>
             <div
               className={cn(
-                'flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ring-1 select-none cursor-pointer transition-colors shadow-sm',
+                'flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ring-1 select-none cursor-pointer transition-colors shadow-sm font-display',
                 isDashboardDark
                   ? 'bg-white text-slate-950 ring-white/[0.20] hover:bg-slate-100'
-                  : 'bg-white text-slate-700 ring-slate-200 hover:bg-slate-50'
+                  : 'bg-white text-[#0A2540] ring-[#E2E8F0] hover:bg-[#F6F8FB]'
               )}
             >
               JE

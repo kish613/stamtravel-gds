@@ -161,7 +161,8 @@ export default function AirSearchPage() {
     <div className="space-y-6 text-[13px]">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Air Search</h1>
+        <p className="gds-eyebrow mb-2">Search</p>
+        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Air</h1>
         <p className="text-sm text-muted-foreground mt-1">Search flights across all content types and add to an active booking</p>
       </div>
 
@@ -307,7 +308,7 @@ export default function AirSearchPage() {
             {errors.origin && <div className="text-destructive text-sm">{errors.origin.message}</div>}
 
             <div className="pt-2">
-              <Button type="submit">Search</Button>
+              <Button type="submit" variant="primary" size="lg">Search</Button>
             </div>
           </form>
         </CardContent>

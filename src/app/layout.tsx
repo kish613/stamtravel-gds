@@ -14,8 +14,8 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Sabre GDS Platform',
-  description: 'Phase build travel agency GDS frontend'
+  title: 'GDSimple',
+  description: 'Unified workspace for travel consultants — every journey, one clear view.'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

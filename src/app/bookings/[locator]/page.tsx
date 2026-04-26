@@ -36,9 +36,12 @@ export default function BookingDetailPage({ params }: { params: Promise<{ locato
     <div className="space-y-6 text-[13px]">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Booking Detail</h1>
+        <p className="gds-eyebrow mb-2">Booking Detail</p>
+        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">
+          {pnr.passengerName}
+        </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Locator <span className="font-mono">{pnr.locator}</span> · {pnr.route} · {pnr.departureDate}
+          Locator <span className="font-mono font-semibold tracking-[0.02em] text-[#0A2540]">{pnr.locator}</span> · {pnr.route} · {pnr.departureDate}
         </p>
       </div>
 
@@ -79,7 +82,10 @@ export default function BookingDetailPage({ params }: { params: Promise<{ locato
                     <TableCell>{segment.from} → {segment.to}</TableCell>
                     <TableCell>{segment.departure}</TableCell>
                     <TableCell>
-                      <Link href={`/bookings/${pnr.locator}/seatmap/${segment.id}`} className="text-sky-600 underline hover:text-sky-700 transition-colors">
+                      <Link
+                        href={`/bookings/${pnr.locator}/seatmap/${segment.id}`}
+                        className="text-[#25A5B4] hover:text-[#0A8A98] underline-offset-4 hover:underline transition-colors"
+                      >
                         Seat map
                       </Link>
                     </TableCell>
@@ -158,13 +164,22 @@ export default function BookingDetailPage({ params }: { params: Promise<{ locato
           <CardHeader>
             <CardTitle>Actions</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
-            <Button className="w-full">Issue Ticket</Button>
-            <Button variant="destructive" className="w-full" onClick={() => setConfirmAction('void')}>Void Ticket</Button>
-            <Button variant="destructive" className="w-full" onClick={() => setConfirmAction('cancel-all')}>Cancel All</Button>
-            <Button variant="outline" className="w-full">Add to Queue</Button>
-            <Button variant="outline" className="w-full">Reissue</Button>
-            <Button variant="outline" className="w-full">Print</Button>
+          <CardContent className="space-y-3">
+            <div className="space-y-1.5">
+              <p className="gds-eyebrow">Ticketing</p>
+              <Button variant="primary" size="lg" className="w-full">Issue Ticket</Button>
+              <Button variant="outline" size="lg" className="w-full">Reissue</Button>
+            </div>
+            <div className="space-y-1.5">
+              <p className="gds-eyebrow">Workflow</p>
+              <Button variant="outline" size="lg" className="w-full">Add to Queue</Button>
+              <Button variant="outline" size="lg" className="w-full">Print</Button>
+            </div>
+            <div className="space-y-1.5">
+              <p className="gds-eyebrow text-[#A8202E]">Danger zone</p>
+              <Button variant="destructive" size="lg" className="w-full" onClick={() => setConfirmAction('void')}>Void Ticket</Button>
+              <Button variant="destructive" size="lg" className="w-full" onClick={() => setConfirmAction('cancel-all')}>Cancel All</Button>
+            </div>
           </CardContent>
         </Card>
       </aside>

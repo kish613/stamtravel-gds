@@ -3,38 +3,52 @@
 @theme inline {
   --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, monospace;
+  --font-display: var(--font-plus-jakarta), 'Inter', system-ui, sans-serif;
 
-  /* ── ShadCN semantic color tokens ── */
-  --color-background: #f9fafb;
-  --color-foreground: #111827;
+  /* ── GDSimple semantic color tokens ── */
+  --color-background: #F6F8FB;
+  --color-foreground: #05192E;
   --color-card: #ffffff;
-  --color-card-foreground: #111827;
+  --color-card-foreground: #05192E;
   --color-popover: #ffffff;
-  --color-popover-foreground: #111827;
-  --color-primary: #111827;
+  --color-popover-foreground: #05192E;
+  --color-primary: #0A2540;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #f3f4f6;
-  --color-secondary-foreground: #111827;
-  --color-muted: #f3f4f6;
-  --color-muted-foreground: #6b7280;
-  --color-accent: #f3f4f6;
-  --color-accent-foreground: #111827;
-  --color-destructive: #ef4444;
-  --color-destructive-foreground: #fef2f2;
-  --color-border: #f1f5f9;
-  --color-input: #f1f5f9;
-  --color-ring: #111827;
+  --color-secondary: #EEF2F7;
+  --color-secondary-foreground: #0A2540;
+  --color-muted: #EEF2F7;
+  --color-muted-foreground: #475569;
+  --color-accent: #E4F5F7;
+  --color-accent-foreground: #0A2540;
+  --color-destructive: #D93141;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #E2E8F0;
+  --color-input: #EEF2F7;
+  --color-ring: #25A5B4;
 
-  /* ── Status colors ── */
-  --color-status-good: #10b981;
-  --color-status-warn: #f59e0b;
-  --color-status-danger: #ef4444;
-  --color-status-info: #0ea5e9;
+  /* ── Status colors (earthier than neon) ── */
+  --color-status-good: #0E9F6E;
+  --color-status-warn: #D9892B;
+  --color-status-danger: #D93141;
+  --color-status-info: #2275B8;
 
-  /* ── Layout & Shadows ── */
+  /* ── Brand palette (sampled from logomark gradient) ── */
+  --brand-navy-900: #05192E;
+  --brand-navy-800: #0A2540;
+  --brand-navy-700: #123256;
+  --brand-mid-500: #14476B;
+  --brand-teal-500: #25A5B4;
+  --brand-teal-400: #3DBBC8;
+  --brand-teal-300: #7CD3DB;
+  --brand-teal-100: #E4F5F7;
+  --brand-gradient: linear-gradient(135deg, #0A2540 0%, #14476B 55%, #25A5B4 100%);
+
+  /* ── Layout & Shadows (navy-tinted) ── */
   --nav-height: 56px;
   --radius: 0.5rem;
-  --shadow-card: 0 8px 30px -4px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 1px 2px rgba(10, 37, 64, 0.06), 0 1px 3px rgba(10, 37, 64, 0.04);
+  --shadow-card-md: 0 4px 8px -2px rgba(10, 37, 64, 0.08), 0 2px 4px -2px rgba(10, 37, 64, 0.04);
+  --shadow-brand: 0 12px 32px -8px rgba(37, 165, 180, 0.35);
 }
 
 * {
@@ -122,9 +136,35 @@ a {
 
 .animate-shimmer {
   background: linear-gradient(90deg,
-      #f1f5f9 0%,
-      #e2e8f0 40%,
-      #f1f5f9 80%);
+      #EEF2F7 0%,
+      #E2E8F0 40%,
+      #EEF2F7 80%);
   background-size: 200% 100%;
   animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* ── GDSimple typography helpers ── */
+.gds-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #64748B;
+}
+
+.gds-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
+  color: var(--color-foreground);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.bg-brand-gradient {
+  background-image: var(--brand-gradient);
 }

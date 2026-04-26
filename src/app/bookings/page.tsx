@@ -31,7 +31,8 @@ export default function BookingManagerPage() {
     <div className="space-y-6 text-[13px]">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Bookings</h1>
+        <p className="gds-eyebrow mb-2">PNR Manager</p>
+        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Bookings</h1>
         <p className="text-sm text-muted-foreground mt-1">Search and manage passenger name records</p>
       </div>
 
@@ -41,16 +42,16 @@ export default function BookingManagerPage() {
         </CardHeader>
         <CardContent className="space-y-3">
           {/* Mode selector */}
-          <div className="flex flex-wrap gap-1 bg-muted rounded-md p-1 border border-border">
+          <div className="inline-flex flex-wrap gap-1 bg-muted rounded-[10px] p-1 border border-border">
             {(['locator', 'surname', 'ticket'] as const).map((m) => (
               <button
                 key={m}
                 type="button"
                 onClick={() => setMode(m)}
-                className={`px-3 py-1.5 rounded text-[13px] transition-colors capitalize ${
+                className={`px-3 py-1.5 rounded-[8px] text-[13px] font-medium transition-colors capitalize ${
                   mode === m
-                    ? 'bg-background text-foreground shadow-card'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? 'bg-white text-[#0A2540] shadow-card'
+                    : 'text-muted-foreground hover:text-[#0A2540]'
                 }`}
               >
                 {m === 'surname' ? 'Surname + departure' : m.charAt(0).toUpperCase() + m.slice(1)}
@@ -104,7 +105,10 @@ export default function BookingManagerPage() {
                 {filtered.map((pnr) => (
                   <TableRow key={pnr.locator}>
                     <TableCell>
-                      <Link href={`/bookings/${pnr.locator}`} className="text-sky-600 underline hover:text-sky-700 transition-colors">
+                      <Link
+                        href={`/bookings/${pnr.locator}`}
+                        className="font-mono font-semibold tracking-[0.02em] text-[#25A5B4] hover:text-[#0A8A98] transition-colors"
+                      >
                         {pnr.locator}
                       </Link>
                     </TableCell>

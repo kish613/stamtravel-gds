@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { authClient } from '@/lib/auth/client';
 import { Button } from '@/components/ui/button';
@@ -41,8 +42,12 @@ export default function CreateOrganizationPage() {
   return (
     <div className="mx-auto flex min-h-screen max-w-md items-center justify-center p-6">
       <Card className="w-full">
-        <CardHeader>
-          <CardTitle>Create your agency</CardTitle>
+        <CardHeader className="flex flex-col items-center gap-3 text-center">
+          <Image src="/brand/logomark.svg" alt="GDSimple" width={40} height={40} className="h-10 w-10" priority />
+          <div className="space-y-1">
+            <p className="gds-eyebrow">One last step</p>
+            <CardTitle className="font-display text-[22px] font-extrabold tracking-tight">Create your agency</CardTitle>
+          </div>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground mb-4 text-sm">
@@ -71,7 +76,7 @@ export default function CreateOrganizationPage() {
               />
             </div>
             {error && <p className="text-destructive text-sm">{error}</p>}
-            <Button type="submit" disabled={submitting}>
+            <Button type="submit" variant="primary" size="lg" disabled={submitting}>
               {submitting ? 'Creating…' : 'Create agency'}
             </Button>
           </form>

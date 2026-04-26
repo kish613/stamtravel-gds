@@ -47,7 +47,8 @@ export default function HotelSearchPage() {
     <div className="space-y-6 text-[13px]">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Hotel Search</h1>
+        <p className="gds-eyebrow mb-2">Search</p>
+        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Hotel</h1>
         <p className="text-sm text-muted-foreground mt-1">Search and add hotel rooms to an active booking</p>
       </div>
 
@@ -73,7 +74,7 @@ export default function HotelSearchPage() {
               <label className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Guests</label>
               <Input type="number" min={1} max={8} {...register('guests', { valueAsNumber: true })} className="w-24" />
             </div>
-            <Button type="submit">Search hotels</Button>
+            <Button type="submit" variant="primary" size="lg">Search hotels</Button>
           </form>
         </CardContent>
       </Card>

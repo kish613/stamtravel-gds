@@ -10,9 +10,9 @@ import { format } from 'date-fns';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 
 const STATUS_COLORS = {
-  NDC: '#059669',
-  ATPCO: '#D97706',
-  LCC: '#DC2626'
+  NDC: '#0E9F6E',
+  ATPCO: '#D9892B',
+  LCC: '#D93141'
 } as const;
 
 const now = new Date();
@@ -83,7 +83,8 @@ export default function ReportsPage() {
     <div className="space-y-6 text-[13px]">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Reports</h1>
+        <p className="gds-eyebrow mb-2">Analytics</p>
+        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Reports</h1>
         <p className="text-sm text-muted-foreground mt-1">Analyse booking performance and content mix across all agents</p>
       </div>
 
@@ -98,7 +99,7 @@ export default function ReportsPage() {
               <label className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">To</label>
               <Input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="w-40" />
             </div>
-            <Button onClick={exportCsv}>Export CSV</Button>
+            <Button onClick={exportCsv} variant="primary">Export CSV</Button>
           </div>
         </CardContent>
       </Card>
@@ -106,10 +107,10 @@ export default function ReportsPage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
         {kpiCards.map((card) => (
           <Card key={card.label}>
-            <CardContent className="p-3">
-              <div className="text-muted-foreground text-[12px]">{card.label}</div>
-              <div className="text-[32px] font-bold text-foreground tracking-tight leading-none">{card.value}</div>
-              <div className={`text-[11px] flex items-center gap-0.5 ${card.trend >= 0 ? 'text-emerald-600' : 'text-destructive'}`}>
+            <CardContent className="p-4">
+              <p className="gds-eyebrow mb-2">{card.label}</p>
+              <div className="gds-num text-[32px] leading-none">{card.value}</div>
+              <div className={`text-[11px] flex items-center gap-0.5 mt-2 font-medium tabular-nums ${card.trend >= 0 ? 'text-[#0E7C56]' : 'text-[#A8202E]'}`}>
                 {card.trend >= 0 ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />}
                 <span>{Math.abs(card.trend)}%</span>
               </div>
@@ -133,7 +134,7 @@ export default function ReportsPage() {
                   <XAxis dataKey="agent" tick={{ fontSize: 12 }} />
                   <YAxis tick={{ fontSize: 12 }} />
                   <Tooltip />
-                  <Bar dataKey="count" fill="#0f172a" radius={[3, 3, 0, 0]} />
+                  <Bar dataKey="count" fill="#0A2540" radius={[3, 3, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             )}

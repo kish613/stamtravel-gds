@@ -131,7 +131,8 @@ export default function QueuesPage() {
     <div className="space-y-6 text-[13px]">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Queues</h1>
+        <p className="gds-eyebrow mb-2">Work Queues</p>
+        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Queues</h1>
         <p className="text-sm text-muted-foreground mt-1">Monitor and manage booking queues across all agents</p>
       </div>
 
@@ -184,8 +185,8 @@ export default function QueuesPage() {
                   <Card key={bucket.queueCode} className="w-64 min-w-64">
                     <CardContent className="pt-4 space-y-2">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{bucket.queueCode}</span>
-                        <Badge variant="neutral">{bucket.items.length}</Badge>
+                        <span className="font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-[#0A2540]">{bucket.queueCode}</span>
+                        <Badge variant="brand">{bucket.items.length}</Badge>
                       </div>
                       <SortableContext
                         items={bucket.items.map((item) => item.id)}
@@ -201,15 +202,15 @@ export default function QueuesPage() {
                                 {/* Status accent dot */}
                                 <span
                                   className={`absolute right-0 top-0 w-1.5 h-1.5 rounded-full ${
-                                    isOverdue ? 'bg-rose-500' : isUrgent ? 'bg-amber-400' : 'bg-emerald-500'
+                                    isOverdue ? 'bg-[#D93141]' : isUrgent ? 'bg-[#D9892B]' : 'bg-[#0E9F6E]'
                                   }`}
                                 />
-                                <div className="font-mono font-semibold text-foreground pr-3">{item.locator}</div>
+                                <div className="font-mono font-semibold tracking-[0.02em] text-[#0A2540] pr-3">{item.locator}</div>
                                 <div className="text-muted-foreground mt-0.5">{item.passengerName}</div>
                                 <div className="text-muted-foreground">{item.departureDate} · {item.route}</div>
                                 <div className="text-muted-foreground">Segments: {item.segmentsCount}</div>
-                                <div className={`text-[11px] mt-1 font-medium ${
-                                  isOverdue ? 'text-rose-600' : isUrgent ? 'text-amber-600' : 'text-muted-foreground'
+                                <div className={`text-[11px] mt-1 font-medium tabular-nums ${
+                                  isOverdue ? 'text-[#A8202E]' : isUrgent ? 'text-[#A66610]' : 'text-muted-foreground'
                                 }`}>
                                   TTL {formatCountdown(item.deadlineAt)}
                                 </div>

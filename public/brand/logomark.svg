@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" aria-label="GDSimple mark">
+  <defs>
+    <linearGradient id="gdsTileFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A2540"></stop>
+      <stop offset="55%" stop-color="#12496E"></stop>
+      <stop offset="100%" stop-color="#25A5B4"></stop>
+    </linearGradient>
+  </defs>
+
+  
+  <rect x="20" y="20" width="160" height="160" rx="40" fill="url(#gdsTileFill)"></rect>
+
+  
+  
+  <path d="M 130 70&#xA;       A 32 32 0 1 0 130 130" stroke="#ffffff" stroke-width="14" stroke-linecap="round" fill="none"></path>
+  
+  <path d="M 130 130 L 130 108 L 108 108" stroke="#ffffff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+
+  
+  <circle cx="138" cy="66" r="7" fill="#7DD9E3"></circle>
+</svg>

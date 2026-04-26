@@ -19,7 +19,8 @@ export default function SettingsPage() {
     <div className="space-y-6 text-[13px]">
       {/* Page header */}
       <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Settings</h1>
+        <p className="gds-eyebrow mb-2">Workspace</p>
+        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Settings</h1>
         <p className="text-sm text-muted-foreground mt-1">Manage your agent profile, PCCs, and queue preferences</p>
       </div>
 
@@ -34,7 +35,7 @@ export default function SettingsPage() {
           </p>
           <Link
             href="/settings/credentials"
-            className="inline-flex h-8 items-center justify-center rounded-md border border-border bg-background px-3 py-1.5 text-[13px] font-medium text-foreground transition-colors hover:bg-secondary"
+            className="inline-flex h-8 items-center justify-center rounded-[10px] border border-border bg-background px-3 py-1.5 text-[13px] font-medium text-foreground transition-colors hover:bg-secondary active:scale-[0.98]"
           >
             Manage credentials
           </Link>
@@ -54,7 +55,7 @@ export default function SettingsPage() {
               <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Agent name" />
               <Input value={pcc} onChange={(e) => setPcc(e.target.value)} placeholder="Default PCC" />
               <Input value={signature} onChange={(e) => setSignature(e.target.value)} placeholder="Email signature" />
-              <Button>Save profile</Button>
+              <Button variant="primary">Save profile</Button>
             </TabsContent>
 
             <TabsContent value="pccs" className="space-y-2 mt-3">
@@ -71,7 +72,7 @@ export default function SettingsPage() {
                 </label>
               </div>
               <Separator />
-              <Button>Save queue preferences</Button>
+              <Button variant="primary">Save queue preferences</Button>
             </TabsContent>
           </Tabs>
         </CardContent>
