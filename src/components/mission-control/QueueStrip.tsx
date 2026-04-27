@@ -371,6 +371,7 @@ export function QueueStrip({ queues, now }: { queues: QueueBucket[]; now: number
               padding: 12,
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
+              gridAutoRows: 'minmax(82px, auto)',
               gap: 8,
               alignContent: 'start',
               background: mcColors.neutral25,
