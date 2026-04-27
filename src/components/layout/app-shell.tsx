@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Bell, BarChart3, ListTodo, Moon, Plane, Settings, Sun, Ticket, Menu, TerminalSquare, Radar, LucideIcon } from 'lucide-react';
+import { Bell, BarChart3, ListTodo, Map as MapIcon, Moon, Plane, Settings, Sun, Ticket, Menu, TerminalSquare, Radar, LucideIcon } from 'lucide-react';
 import { useAppStore } from '@/stores/app-store';
 import { TerminalPanel } from '@/components/terminal/terminal-overlay';
 import { cn } from '@/lib/utils';
@@ -26,6 +26,7 @@ const NAV: NavItem[] = [
   { path: '/mission-control', label: 'Mission Control', icon: Radar },
   { path: '/search/air', label: 'Search', icon: Plane, matchPrefix: '/search' },
   { path: '/bookings', label: 'Bookings', icon: Ticket, matchPrefix: '/bookings' },
+  { path: '/map', label: 'Map', icon: MapIcon },
   { path: '/queues', label: 'Queues', icon: ListTodo },
   { path: '/reports', label: 'Reports', icon: BarChart3 },
   { path: '/settings', label: 'Settings', icon: Settings }

@@ -3,127 +3,169 @@
     "code": "LHR",
     "name": "London Heathrow",
     "city": "London",
-    "country": "United Kingdom"
+    "country": "United Kingdom",
+    "lat": 51.4706,
+    "lon": -0.461941
   },
   {
     "code": "JFK",
     "name": "John F Kennedy International",
     "city": "New York",
-    "country": "United States"
+    "country": "United States",
+    "lat": 40.63980103,
+    "lon": -73.77890015
   },
   {
     "code": "EWR",
     "name": "Newark Liberty",
     "city": "Newark",
-    "country": "United States"
+    "country": "United States",
+    "lat": 40.692501068115234,
+    "lon": -74.168701171875
   },
   {
     "code": "LAX",
     "name": "Los Angeles Intl",
     "city": "Los Angeles",
-    "country": "United States"
+    "country": "United States",
+    "lat": 33.94250107,
+    "lon": -118.4079971
   },
   {
     "code": "CDG",
     "name": "Charles de Gaulle",
     "city": "Paris",
-    "country": "France"
+    "country": "France",
+    "lat": 49.012798,
+    "lon": 2.55
   },
   {
     "code": "FRA",
     "name": "Frankfurt Airport",
     "city": "Frankfurt",
-    "country": "Germany"
+    "country": "Germany",
+    "lat": 50.033333,
+    "lon": 8.570556
   },
   {
     "code": "DXB",
     "name": "Dubai Airport",
     "city": "Dubai",
-    "country": "United Arab Emirates"
+    "country": "United Arab Emirates",
+    "lat": 25.2527999878,
+    "lon": 55.3643989563
   },
   {
     "code": "HKG",
     "name": "Hong Kong Intl",
     "city": "Hong Kong",
-    "country": "Hong Kong"
+    "country": "Hong Kong",
+    "lat": 22.308901,
+    "lon": 113.915001
   },
   {
     "code": "SIN",
     "name": "Singapore Changi",
     "city": "Singapore",
-    "country": "Singapore"
+    "country": "Singapore",
+    "lat": 1.35019,
+    "lon": 103.994003
   },
   {
     "code": "NRT",
     "name": "Narita",
     "city": "Tokyo",
-    "country": "Japan"
+    "country": "Japan",
+    "lat": 35.7647018433,
+    "lon": 140.386001587
   },
   {
     "code": "BKK",
     "name": "Suvarnabhumi",
     "city": "Bangkok",
-    "country": "Thailand"
+    "country": "Thailand",
+    "lat": 13.681099891662598,
+    "lon": 100.74700164794922
   },
   {
     "code": "YYZ",
     "name": "Toronto Pearson",
     "city": "Toronto",
-    "country": "Canada"
+    "country": "Canada",
+    "lat": 43.6772003174,
+    "lon": -79.63059997559999
   },
   {
     "code": "MUC",
     "name": "Munich Airport",
     "city": "Munich",
-    "country": "Germany"
+    "country": "Germany",
+    "lat": 48.353802,
+    "lon": 11.7861
   },
   {
     "code": "SFO",
     "name": "San Francisco Intl",
     "city": "San Francisco",
-    "country": "United States"
+    "country": "United States",
+    "lat": 37.61899948120117,
+    "lon": -122.375
   },
   {
     "code": "ORD",
     "name": "O'Hare",
     "city": "Chicago",
-    "country": "United States"
+    "country": "United States",
+    "lat": 41.9786,
+    "lon": -87.9048
   },
   {
     "code": "ATL",
     "name": "Hartsfield-Jackson",
     "city": "Atlanta",
-    "country": "United States"
+    "country": "United States",
+    "lat": 33.6367,
+    "lon": -84.428101
   },
   {
     "code": "SYD",
     "name": "Kingsford Smith",
     "city": "Sydney",
-    "country": "Australia"
+    "country": "Australia",
+    "lat": -33.94609832763672,
+    "lon": 151.177001953125
   },
   {
     "code": "MIA",
     "name": "Miami International",
     "city": "Miami",
-    "country": "United States"
+    "country": "United States",
+    "lat": 25.79319953918457,
+    "lon": -80.29060363769531
   },
   {
     "code": "MAD",
     "name": "Barajas",
     "city": "Madrid",
-    "country": "Spain"
+    "country": "Spain",
+    "lat": 40.471926,
+    "lon": -3.56264
   },
   {
     "code": "FCO",
     "name": "Rome Fiumicino",
     "city": "Rome",
-    "country": "Italy"
+    "country": "Italy",
+    "lat": 41.8002778,
+    "lon": 12.2388889
   },
   {
     "code": "AMS",
     "name": "Schiphol",
     "city": "Amsterdam",
-    "country": "Netherlands"
+    "country": "Netherlands",
+    "lat": 52.308601,
+    "lon": 4.76389
   },
   {
     "code": "A21",

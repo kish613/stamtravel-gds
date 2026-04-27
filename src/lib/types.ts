@@ -153,6 +153,8 @@ export interface Airport {
   name: string;
   city: string;
   country: string;
+  lat?: number;
+  lon?: number;
 }
 
 export interface FidsRow {
