@@ -5,9 +5,11 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useHotels } from '@/lib/query';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { PageHeader } from '@/components/ui/page-header';
+import { Eyebrow } from '@/components/ui/section-eyebrow';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
@@ -43,21 +45,24 @@ export default function HotelSearchPage() {
 
   const onSubmit = () => {};
 
-  return (
-    <div className="space-y-6 text-[13px]">
-      {/* Page header */}
-      <div>
-        <p className="gds-eyebrow mb-2">Search</p>
-        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Hotel</h1>
-        <p className="text-sm text-muted-foreground mt-1">Search and add hotel rooms to an active booking</p>
-      </div>
+  const cheapestId = (data || []).reduce<string | null>(
+    (acc, h) => (acc == null || h.nightlyRate < (data || []).find((x) => x.id === acc)!.nightlyRate ? h.id : acc),
+    null
+  );
 
-      {/* Search form */}
-      <Card>
-        <CardContent className="pt-5">
+  return (
+    <div className="space-y-5 text-[13px]">
+      <PageHeader
+        eyebrow="Search · Hotel"
+        title="Hotel"
+        meta="Search and add hotel rooms to an active booking"
+      />
+
+      <Card variant="pro" accent="brand">
+        <CardContent className="pt-3">
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-wrap gap-3 items-end">
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">City</label>
+            <div>
+              <Eyebrow as="div" className="mb-1">City</Eyebrow>
               <Input {...register('city')} className="w-52" />
             </div>
             <DateRangePicker
@@ -70,34 +75,66 @@ export default function HotelSearchPage() {
               onChange={(date) => { if (!date) return; setValue('checkOut', date); }}
               label="Check-out"
             />
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">Guests</label>
+            <div>
+              <Eyebrow as="div" className="mb-1">Guests</Eyebrow>
               <Input type="number" min={1} max={8} {...register('guests', { valueAsNumber: true })} className="w-24" />
             </div>
-            <Button type="submit" variant="primary" size="lg">Search hotels</Button>
+            <Button type="submit" variant="primary" size="lg">
+              Search hotels
+            </Button>
           </form>
         </CardContent>
       </Card>
 
       {isError && (
-        <Card className="border-destructive">
+        <Card variant="pro" accent="danger">
           <CardContent className="text-destructive py-3">
             {(error as Error)?.message}
-            <Button className="ml-3" variant="outline" size="sm" onClick={() => refetch()}>Retry</Button>
+            <Button className="ml-3" variant="outline" size="sm" onClick={() => refetch()}>
+              Retry
+            </Button>
           </CardContent>
         </Card>
       )}
 
-      <section className="space-y-3">
-        {isLoading
-          ? Array.from({ length: 4 }).map((_, idx) => <Skeleton key={idx} className="h-32" />)
-          : (data || []).map((hotel) => (
-              <Card key={hotel.id} className="hover:bg-muted/30 transition-colors">
-                <CardContent className="pt-4 flex items-start justify-between gap-4">
+      <Card variant="pro">
+        <CardHeader>
+          <CardTitle>Results</CardTitle>
+          <Eyebrow>{(data || []).length} propert{(data || []).length === 1 ? 'y' : 'ies'}</Eyebrow>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          {isLoading ? (
+            <div className="space-y-2">
+              {Array.from({ length: 4 }).map((_, idx) => <Skeleton key={idx} className="h-32" />)}
+            </div>
+          ) : (data || []).length === 0 ? (
+            <div className="py-8 text-center text-muted-foreground">No hotels match. Adjust your filters.</div>
+          ) : (
+            (data || []).map((hotel) => {
+              const isCheapest = hotel.id === cheapestId;
+              return (
+              <Card
+                key={hotel.id}
+                variant="pro"
+                accent={isCheapest ? 'brand' : undefined}
+                className="hover:bg-[#F6F8FB] transition-colors"
+              >
+                <CardContent className="pt-3 flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <div className="font-semibold text-foreground">{hotel.name}</div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-display font-bold text-[15px] text-[var(--brand-navy-800)]">
+                        {hotel.name}
+                      </span>
+                      {isCheapest && (
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-teal-500)]">
+                          ★ best price
+                        </span>
+                      )}
+                    </div>
                     <div className="text-[12px] text-muted-foreground mt-0.5">{hotel.address}</div>
-                    <div className="text-[12px] text-muted-foreground">{hotel.distanceKm} km from center · {hotel.description}</div>
+                    <div className="text-[12px] text-muted-foreground tabular-nums">
+                      {hotel.distanceKm} km from center · {hotel.description}
+                    </div>
                     <div className="mt-2 flex items-center gap-2">
                       <div className="flex items-center gap-0.5">
                         {Array.from({ length: hotel.starRating }).map((_, idx) => (
@@ -110,7 +147,9 @@ export default function HotelSearchPage() {
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="text-[28px] font-bold text-foreground tracking-tight leading-none">${hotel.nightlyRate}</div>
+                    <div className="font-display text-[26px] font-extrabold text-[var(--brand-navy-800)] tabular-nums leading-tight">
+                      ${hotel.nightlyRate.toLocaleString()}
+                    </div>
                     <div className="text-[11px] text-muted-foreground mt-0.5">per night</div>
                     <Dialog
                       open={open && selected?.id === hotel.id}
@@ -171,8 +210,11 @@ export default function HotelSearchPage() {
                   </div>
                 </CardContent>
               </Card>
-            ))}
-      </section>
+              );
+            })
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

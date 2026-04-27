@@ -16,9 +16,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card as UiCard } from '@/components/ui/card';
-import { AlertCircle, Plus, Minus } from 'lucide-react';
+import { AlertCircle, Plus, Minus, Check } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { PageHeader } from '@/components/ui/page-header';
+import { ActionBar } from '@/components/ui/action-bar';
+import { Eyebrow } from '@/components/ui/section-eyebrow';
+import { KpiTile } from '@/components/ui/kpi-tile';
+import { KpiStrip } from '@/components/ui/kpi-strip';
 
 const ssrCodes = [
   ['WCHR', 'Wheelchair', 'Passenger requires wheelchair'],
@@ -160,15 +165,18 @@ export default function BookingWizardPage() {
   const stepContent = () => {
     if (createdLocator && currentStep === 5) {
       return (
-        <Card>
+        <Card variant="pro" accent="good">
           <CardHeader>
             <CardTitle>PNR Created</CardTitle>
+            <Eyebrow className="text-[var(--color-status-good)]">Success</Eyebrow>
           </CardHeader>
           <CardContent>
-            <div className="text-[14px] font-semibold text-muted-foreground">Record Locator</div>
-            <div className="text-[32px] font-mono font-bold text-foreground tracking-tight">{createdLocator}</div>
+            <Eyebrow as="div" className="mb-2">Record Locator</Eyebrow>
+            <div className="font-display text-[32px] font-extrabold text-[var(--brand-navy-800)] tracking-tight tabular-nums font-mono">
+              {createdLocator}
+            </div>
             <div className="mt-3 flex gap-2">
-              <Button onClick={() => { navigator.clipboard.writeText(createdLocator).catch(() => undefined); }}>
+              <Button variant="primary" onClick={() => { navigator.clipboard.writeText(createdLocator).catch(() => undefined); }}>
                 Copy locator
               </Button>
               <Button variant="outline" onClick={() => router.push(`/bookings/${createdLocator}`)}>
@@ -182,7 +190,7 @@ export default function BookingWizardPage() {
 
     if (currentStep === 1) {
       return (
-        <Card>
+        <Card variant="pro" accent="brand">
           <CardHeader>
             <CardTitle>Passenger Details</CardTitle>
           </CardHeader>
@@ -230,7 +238,7 @@ export default function BookingWizardPage() {
 
     if (currentStep === 2) {
       return (
-        <Card>
+        <Card variant="pro" accent="brand">
           <CardHeader>
             <CardTitle>Itinerary Review</CardTitle>
           </CardHeader>
@@ -254,7 +262,7 @@ export default function BookingWizardPage() {
 
     if (currentStep === 3) {
       return (
-        <Card>
+        <Card variant="pro" accent="brand">
           <CardHeader>
             <CardTitle>Contact and ticketing</CardTitle>
           </CardHeader>
@@ -292,7 +300,7 @@ export default function BookingWizardPage() {
 
     if (currentStep === 4) {
       return (
-        <Card>
+        <Card variant="pro" accent="brand">
           <CardHeader>
             <CardTitle>Special Requests</CardTitle>
           </CardHeader>
@@ -345,45 +353,47 @@ export default function BookingWizardPage() {
     }
 
     return (
-      <Card>
+      <Card variant="pro" accent="brand">
         <CardHeader>
           <CardTitle>Review and create</CardTitle>
+          <Eyebrow>Step 5 of 5</Eyebrow>
         </CardHeader>
         <CardContent className="space-y-3">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <UiCard>
-              <CardContent className="p-3">
-                <div className="text-muted-foreground text-[12px]">Base fare</div>
-                <div className="font-semibold text-foreground">${totalPrice}</div>
-              </CardContent>
-            </UiCard>
-            <UiCard>
-              <CardContent className="p-3">
-                <div className="text-muted-foreground text-[12px]">Taxes</div>
-                <div className="font-semibold text-foreground">${Math.round(totalPrice * 0.15)}</div>
-              </CardContent>
-            </UiCard>
-            <UiCard>
-              <CardContent className="p-3">
-                <div className="text-muted-foreground text-[12px]">Fees</div>
-                <div className="font-semibold text-foreground">${Math.round(totalPrice * 0.05)}</div>
-              </CardContent>
-            </UiCard>
-          </div>
-          <div className="rounded-md border border-border bg-muted/30 p-3 font-semibold text-lg text-foreground">
-            Total: ${Math.round(totalPrice * 1.2)}
+          <KpiStrip cols={3}>
+            <KpiTile
+              label="Base Fare"
+              value={`$${totalPrice.toLocaleString()}`}
+              tone="brand"
+            />
+            <KpiTile
+              label="Taxes"
+              value={`$${Math.round(totalPrice * 0.15).toLocaleString()}`}
+              tone="neutral"
+            />
+            <KpiTile
+              label="Fees"
+              value={`$${Math.round(totalPrice * 0.05).toLocaleString()}`}
+              tone="neutral"
+            />
+          </KpiStrip>
+          <div
+            className="rounded-[12px] border bg-[var(--brand-teal-100)] px-4 py-3 flex items-center justify-between"
+            style={{ borderColor: '#B7E6EB' }}
+          >
+            <Eyebrow>Grand total</Eyebrow>
+            <div className="font-display text-[24px] font-extrabold tabular-nums text-[var(--brand-navy-800)]">
+              ${Math.round(totalPrice * 1.2).toLocaleString()}
+            </div>
           </div>
           {ttlMinutes < 120 && (
-            <div className="rounded-md border border-amber-200 bg-amber-50 text-amber-700 p-2.5 flex items-center gap-2 text-[12px]">
+            <div
+              className="rounded-[10px] border bg-[#FDF5E6] text-[#9E6612] p-2.5 flex items-center gap-2 text-[12px]"
+              style={{ borderColor: '#F5E0B0' }}
+            >
               <AlertCircle className="h-4 w-4 flex-shrink-0" />
               Ticketing deadline is approaching.
             </div>
           )}
-          <div className="text-right">
-            <Button onClick={handleSubmit(onSubmit)} disabled={createPnr.isPending}>
-              {createPnr.isPending ? 'Creating...' : 'Create PNR'}
-            </Button>
-          </div>
           {createPnr.error && (
             <div className="text-destructive text-sm">{(createPnr.error as Error).message}</div>
           )}
@@ -392,58 +402,97 @@ export default function BookingWizardPage() {
     );
   };
 
-  return (
-    <div className="space-y-6 text-[13px]">
-      {/* Page header */}
-      <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">New Booking</h1>
-        <p className="text-sm text-muted-foreground mt-1">Build and create a passenger name record step by step</p>
-      </div>
+  const isReview = currentStep === 5;
+  const reviewReady = isReview && !createdLocator;
 
-      {/* Step indicator */}
-      <div className="rounded-md border border-border bg-card p-3">
-        <div className="flex items-center justify-between">
-          {steps.map((label, idx) => {
-            const step = idx + 1;
-            const active = step === currentStep;
-            const done = step < currentStep;
-            return (
-              <div key={label} className="flex items-center gap-2">
-                <span
-                  className={cn(
-                    'inline-flex h-6 w-6 items-center justify-center rounded-full text-[12px] font-medium',
-                    active ? 'bg-primary text-primary-foreground' : done ? 'bg-muted text-muted-foreground' : 'border border-border text-muted-foreground'
+  return (
+    <div className="space-y-5 text-[13px] pb-4">
+      <PageHeader
+        eyebrow={<>Step {currentStep} of {steps.length} · {steps[currentStep - 1]}</>}
+        title="New Booking"
+        meta="Build and create a passenger name record step by step"
+      />
+
+      <Card variant="pro">
+        <CardContent>
+          <div className="flex flex-wrap items-center gap-3">
+            {steps.map((label, idx) => {
+              const step = idx + 1;
+              const active = step === currentStep;
+              const done = step < currentStep;
+              return (
+                <div key={label} className="flex items-center gap-2">
+                  <span
+                    className={cn(
+                      'inline-flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-bold tabular-nums',
+                      active
+                        ? 'bg-[var(--brand-navy-800)] text-white shadow-[0_0_0_3px_rgba(37,165,180,0.25)]'
+                        : done
+                        ? 'bg-[var(--brand-teal-100)] text-[var(--brand-navy-800)]'
+                        : 'border border-border text-muted-foreground bg-background'
+                    )}
+                  >
+                    {done ? <Check className="h-3 w-3" /> : step}
+                  </span>
+                  <span
+                    className={cn(
+                      'font-mono text-[11px] uppercase tracking-[0.14em]',
+                      active
+                        ? 'text-[var(--brand-navy-800)] font-bold'
+                        : 'text-muted-foreground'
+                    )}
+                  >
+                    {label}
+                  </span>
+                  {idx < steps.length - 1 && (
+                    <span className="hidden md:inline-block h-px w-6 bg-border" />
                   )}
-                >
-                  {step}
-                </span>
-                <span className={cn('text-[13px]', active ? 'text-foreground font-semibold' : 'text-muted-foreground')}>
-                  {label}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+                </div>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
 
       {stepContent()}
 
-      <div className="flex justify-between">
-        <Button
-          variant="outline"
-          disabled={currentStep === 1}
-          onClick={() => setCurrentStep((prev) => Math.max(1, prev - 1))}
-        >
-          <Minus className="h-4 w-4 mr-1" /> Back
-        </Button>
-        <Button
-          onClick={() => { if (currentStep < 5) setCurrentStep((prev) => prev + 1); }}
-          disabled={currentStep === 5 || (currentStep === 1 ? false : currentStep === 5)}
-          variant={currentStep < 5 ? 'outline' : 'default'}
-        >
-          {currentStep === 5 ? 'Done' : <><Plus className="h-4 w-4 mr-1" /> Next</>}
-        </Button>
-      </div>
+      <ActionBar
+        meta={
+          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+            Step {currentStep} / {steps.length}
+          </span>
+        }
+        secondary={
+          <Button
+            variant="outline"
+            disabled={currentStep === 1}
+            onClick={() => setCurrentStep((prev) => Math.max(1, prev - 1))}
+          >
+            <Minus className="h-4 w-4 mr-1" /> Back
+          </Button>
+        }
+        primary={
+          reviewReady ? (
+            <Button
+              variant="primary"
+              onClick={handleSubmit(onSubmit)}
+              disabled={createPnr.isPending}
+            >
+              {createPnr.isPending ? 'Creating…' : 'Create PNR'}
+            </Button>
+          ) : (
+            <Button
+              variant="primary"
+              onClick={() => {
+                if (currentStep < 5) setCurrentStep((prev) => prev + 1);
+              }}
+              disabled={currentStep === 5}
+            >
+              {currentStep === 5 ? 'Done' : (<><Plus className="h-4 w-4 mr-1" /> Next</>)}
+            </Button>
+          )
+        }
+      />
     </div>
   );
 }

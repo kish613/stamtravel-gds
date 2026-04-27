@@ -22,6 +22,8 @@ import { Card as UiCard } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
+import { PageHeader } from '@/components/ui/page-header';
+import { Eyebrow } from '@/components/ui/section-eyebrow';
 
 const schema = z.object({
   tripType: z.enum(['one-way', 'return', 'multi-city']),
@@ -158,16 +160,15 @@ export default function AirSearchPage() {
   };
 
   return (
-    <div className="space-y-6 text-[13px]">
-      {/* Page header */}
-      <div>
-        <p className="gds-eyebrow mb-2">Search</p>
-        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Air</h1>
-        <p className="text-sm text-muted-foreground mt-1">Search flights across all content types and add to an active booking</p>
-      </div>
+    <div className="space-y-5 text-[13px]">
+      <PageHeader
+        eyebrow="Search · Air"
+        title="Air"
+        meta="Search flights across all content types and add to an active booking"
+      />
 
-      <Card>
-        <CardContent className="pt-5">
+      <Card variant="pro" accent="brand">
+        <CardContent className="pt-3">
           <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-wrap gap-3 items-end">
               <div>
@@ -315,7 +316,7 @@ export default function AirSearchPage() {
       </Card>
 
       {isError && (
-        <Card className="border-destructive">
+        <Card variant="pro" accent="danger">
           <CardContent className="py-3 text-destructive">
             {(error as Error)?.message}
             <Button variant="outline" size="sm" className="ml-3" onClick={() => refetch()}>Retry</Button>
@@ -325,41 +326,60 @@ export default function AirSearchPage() {
 
       {(searchResult || isLoading || isError) && (
         <div className="grid grid-cols-1 xl:grid-cols-[320px_1fr] gap-3">
-          <Card>
+          <Card variant="pro">
             <CardHeader>
               <CardTitle>Fare matrix</CardTitle>
+              <Eyebrow>By price · stops</Eyebrow>
             </CardHeader>
             <CardContent>
               {isLoading ? (
                 <Skeleton className="h-48 w-full" />
               ) : (
-                <table className="w-full text-[12px]">
-                  <thead>
-                    <tr className="bg-muted">
-                      <th className="text-left py-1.5 px-2 text-muted-foreground font-medium">Price band</th>
-                      <th className="text-center py-1.5 text-muted-foreground font-medium">0 stops</th>
-                      <th className="text-center py-1.5 text-muted-foreground font-medium">1 stop</th>
-                      <th className="text-center py-1.5 text-muted-foreground font-medium">2+ stops</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {fareRows.map((row) => (
-                      <tr key={row.label} className="border-t border-border hover:bg-muted/50 transition-colors">
-                        <td className="py-1.5 px-2">{row.label}</td>
-                        <td className="text-center">{row.counts[0] || 0}</td>
-                        <td className="text-center">{row.counts[1] || 0}</td>
-                        <td className="text-center">{row.counts[2] || 0}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <div className="space-y-1.5">
+                  <div className="grid grid-cols-[1fr_repeat(3,minmax(0,40px))] gap-2 px-1 pb-1.5 border-b border-border">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+                      Band
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground text-right">0</span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground text-right">1</span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground text-right">2+</span>
+                  </div>
+                  {fareRows.map((row) => {
+                    const min = Math.min(row.counts[0] || 0, row.counts[1] || 0, row.counts[2] || 0);
+                    return (
+                      <div
+                        key={row.label}
+                        className="grid grid-cols-[1fr_repeat(3,minmax(0,40px))] gap-2 items-center rounded-[10px] border bg-[#F6F8FB] px-3 py-2"
+                        style={{
+                          borderColor: '#E2E8F0',
+                          borderLeft: '3px solid var(--brand-teal-500)'
+                        }}
+                      >
+                        <span className="text-[12px]">{row.label}</span>
+                        {[0, 1, 2].map((s) => (
+                          <span
+                            key={s}
+                            className={`text-right font-mono tabular-nums text-[12px] ${
+                              (row.counts[s] || 0) === 0
+                                ? 'text-muted-foreground'
+                                : 'text-[var(--brand-navy-800)] font-bold'
+                            }`}
+                          >
+                            {row.counts[s] || 0}
+                          </span>
+                        ))}
+                      </div>
+                    );
+                  })}
+                </div>
               )}
             </CardContent>
           </Card>
 
-          <Card>
+          <Card variant="pro">
             <CardHeader>
               <CardTitle>Results</CardTitle>
+              <Eyebrow>{results.length} match{results.length === 1 ? '' : 'es'}</Eyebrow>
             </CardHeader>
             <CardContent className="space-y-2">
               {isLoading ? (
@@ -367,39 +387,68 @@ export default function AirSearchPage() {
               ) : results.length === 0 ? (
                 <div className="py-8 text-center text-muted-foreground">No matches. Try a broader date or airport.</div>
               ) : (
-                results.map((flight) => {
+                results.map((flight, idx) => {
                   const expandedState = expanded === flight.id;
+                  const isCheapest = idx === 0;
                   return (
-                    <UiCard key={flight.id} className="transition-colors hover:bg-muted/30">
+                    <UiCard
+                      key={flight.id}
+                      variant="pro"
+                      accent={isCheapest ? 'brand' : undefined}
+                      className="transition-colors hover:bg-[#F6F8FB]"
+                    >
                       <CardContent className="space-y-2 pt-3">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="font-semibold text-foreground">{flight.airline} · {flight.flightNumber}</div>
-                            <div className="text-[12px] text-muted-foreground">
-                              {flight.origin} to {flight.destination} · {format(new Date(flight.departure), 'MMM d, HH:mm')} · {flight.durationMinutes}m · {flight.stops} stop(s)
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className="font-display font-bold text-[15px] text-[var(--brand-navy-800)]">
+                                {flight.airline} · {flight.flightNumber}
+                              </span>
+                              {isCheapest && (
+                                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--brand-teal-500)]">
+                                  ★ best price
+                                </span>
+                              )}
                             </div>
-                            <div className="text-[11px] text-muted-foreground">Fare basis {flight.fareBasis}</div>
+                            <div className="text-[12px] text-muted-foreground tabular-nums">
+                              <span className="font-mono">{flight.origin} → {flight.destination}</span> · {format(new Date(flight.departure), 'MMM d, HH:mm')} · {flight.durationMinutes}m · {flight.stops} stop{flight.stops === 1 ? '' : 's'}
+                            </div>
+                            <div className="text-[11px] text-muted-foreground">Fare basis <span className="font-mono">{flight.fareBasis}</span></div>
                           </div>
-                          <div className="text-right">
-                            <div className="text-[26px] font-bold text-foreground tracking-tight">${flight.price}</div>
+                          <div className="text-right shrink-0">
+                            <div className="font-display text-[26px] font-extrabold text-[var(--brand-navy-800)] tabular-nums leading-tight">
+                              ${flight.price.toLocaleString()}
+                            </div>
                             <Badge variant={flight.contentType === 'NDC' ? 'confirmed' : flight.contentType === 'ATPCO' ? 'warning' : 'neutral'}>
                               {flight.contentType}
                             </Badge>
                           </div>
                         </div>
                         <div className="flex justify-between items-center">
-                          <button className="text-[12px] flex items-center text-muted-foreground hover:text-foreground transition-colors" onClick={() => setExpanded(expandedState ? null : flight.id)}>
+                          <button
+                            className="text-[12px] flex items-center text-muted-foreground hover:text-[var(--brand-navy-800)] transition-colors"
+                            onClick={() => setExpanded(expandedState ? null : flight.id)}
+                          >
                             <Plane className="h-3 w-3 mr-1" />
                             {expandedState ? 'Hide details' : 'Show details'}
                           </button>
-                          <Button size="sm" onClick={() => handleSelect(flight.id)}>Select</Button>
+                          <Button
+                            size="sm"
+                            variant={isCheapest ? 'primary' : 'default'}
+                            onClick={() => handleSelect(flight.id)}
+                          >
+                            Select
+                          </Button>
                         </div>
                         {expandedState && (
-                          <div className="grid grid-cols-2 gap-3 text-[12px] bg-muted rounded-md p-2.5 border border-border">
+                          <div
+                            className="grid grid-cols-2 gap-3 text-[12px] rounded-[10px] border bg-[#F6F8FB] p-2.5"
+                            style={{ borderColor: '#E2E8F0' }}
+                          >
                             <div>Baggage: {flight.baggageAllowance}</div>
                             <div>Refundable: {flight.refundable ? 'Yes' : 'No'}</div>
                             <div className="col-span-2">Rules: {flight.fareRulesSummary}</div>
-                            <div className="text-status-good flex items-center text-sm">
+                            <div className="text-[var(--color-status-good)] flex items-center text-[12px]">
                               <CircleCheckBig className="h-3 w-3 mr-1" /> NDC ready for revalidation
                             </div>
                           </div>

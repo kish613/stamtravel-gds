@@ -143,6 +143,38 @@ a {
   animation: shimmer 1.8s ease-in-out infinite;
 }
 
+/* ── GDS pulse + ping (lifted from Mission Control for re-use) ── */
+@keyframes gdsPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes gdsPing {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-shimmer,
+  [style*="gdsPulse"],
+  [style*="gdsPing"] {
+    animation: none !important;
+  }
+}
+
+.gds-focus {
+  transition: box-shadow 180ms cubic-bezier(.22,1,.36,1),
+              border-color 180ms cubic-bezier(.22,1,.36,1);
+}
+
 /* ── GDSimple typography helpers ── */
 .gds-eyebrow {
   font-size: 11px;

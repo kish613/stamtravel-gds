@@ -41,7 +41,7 @@ export default function CreateOrganizationPage() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md items-center justify-center p-6">
-      <Card className="w-full">
+      <Card variant="pro" accent="brand" className="w-full">
         <CardHeader className="flex flex-col items-center gap-3 text-center">
           <Image src="/brand/logomark.svg" alt="GDSimple" width={40} height={40} className="h-10 w-10" priority />
           <div className="space-y-1">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { usePnrList } from '@/lib/query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,6 +8,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { StatusBadge } from '@/components/ui/status-badge';
+import { PageHeader } from '@/components/ui/page-header';
+import { KpiStrip } from '@/components/ui/kpi-strip';
+import { KpiTile } from '@/components/ui/kpi-tile';
+import { Eyebrow } from '@/components/ui/section-eyebrow';
 
 export default function BookingManagerPage() {
   const { data, isLoading, isError, error, refetch } = usePnrList();
@@ -27,21 +31,62 @@ export default function BookingManagerPage() {
     return !ticket || ticket.length > 3;
   });
 
-  return (
-    <div className="space-y-6 text-[13px]">
-      {/* Page header */}
-      <div>
-        <p className="gds-eyebrow mb-2">PNR Manager</p>
-        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Bookings</h1>
-        <p className="text-sm text-muted-foreground mt-1">Search and manage passenger name records</p>
-      </div>
+  const kpis = useMemo(() => {
+    const list = data || [];
+    const todayKey = new Date().toISOString().slice(0, 10);
+    const total = list.length;
+    const awaiting = list.filter((p) => p.status === 'Awaiting Ticket').length;
+    const ticketedToday = list.filter(
+      (p) => p.status === 'Ticketed' && p.createdAt?.slice(0, 10) === todayKey
+    ).length;
+    const atRisk = list.filter(
+      (p) => p.status === 'Awaiting Ticket' || p.status === 'Booked'
+    ).length;
+    return { total, awaiting, ticketedToday, atRisk };
+  }, [data]);
 
-      <Card>
+  return (
+    <div className="space-y-5 text-[13px]">
+      <PageHeader
+        eyebrow="PNR Manager"
+        title="Bookings"
+        meta="Search and manage passenger name records"
+      />
+
+      <KpiStrip cols={4}>
+        <KpiTile
+          label="Total PNRs"
+          value={kpis.total}
+          tone="brand"
+          sub="across all queues"
+        />
+        <KpiTile
+          label="Awaiting Ticket"
+          value={kpis.awaiting}
+          tone={kpis.awaiting > 0 ? 'warn' : 'good'}
+          delta={kpis.awaiting > 0 ? 'REVIEW' : 'CLEAR'}
+          sub="pending issuance"
+        />
+        <KpiTile
+          label="Ticketed Today"
+          value={kpis.ticketedToday}
+          tone="good"
+          sub="settled"
+        />
+        <KpiTile
+          label="At Risk"
+          value={kpis.atRisk}
+          tone={kpis.atRisk > 0 ? 'danger' : 'good'}
+          delta={kpis.atRisk > 0 ? 'WATCH' : 'OK'}
+          sub="booked / awaiting"
+        />
+      </KpiStrip>
+
+      <Card variant="pro" accent="brand">
         <CardHeader>
-          <CardTitle>PNR Manager</CardTitle>
+          <CardTitle>Search</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
-          {/* Mode selector */}
           <div className="inline-flex flex-wrap gap-1 bg-muted rounded-[10px] p-1 border border-border">
             {(['locator', 'surname', 'ticket'] as const).map((m) => (
               <button
@@ -50,8 +95,8 @@ export default function BookingManagerPage() {
                 onClick={() => setMode(m)}
                 className={`px-3 py-1.5 rounded-[8px] text-[13px] font-medium transition-colors capitalize ${
                   mode === m
-                    ? 'bg-white text-[#0A2540] shadow-card'
-                    : 'text-muted-foreground hover:text-[#0A2540]'
+                    ? 'bg-white text-[var(--brand-navy-800)] shadow-card'
+                    : 'text-muted-foreground hover:text-[var(--brand-navy-800)]'
                 }`}
               >
                 {m === 'surname' ? 'Surname + departure' : m.charAt(0).toUpperCase() + m.slice(1)}
@@ -71,7 +116,7 @@ export default function BookingManagerPage() {
       </Card>
 
       {isError && (
-        <Card className="border-destructive">
+        <Card variant="pro" accent="danger">
           <CardContent className="text-destructive py-3">
             {(error as Error)?.message}
             <Button className="ml-3" variant="outline" size="sm" onClick={() => refetch()}>Retry</Button>
@@ -79,12 +124,18 @@ export default function BookingManagerPage() {
         </Card>
       )}
 
-      <Card>
-        <CardContent className="pt-3">
+      <Card variant="pro">
+        <CardHeader>
+          <Eyebrow>Results</Eyebrow>
+          <span className="font-mono text-[11px] text-muted-foreground tabular-nums">
+            {filtered.length} of {(data || []).length}
+          </span>
+        </CardHeader>
+        <CardContent>
           {isLoading ? (
             <div className="space-y-2">
               {Array.from({ length: 4 }).map((_, idx) => (
-                <div key={idx} className="h-8 bg-muted animate-pulse rounded" />
+                <div key={idx} className="h-8 bg-muted animate-shimmer rounded" />
               ))}
             </div>
           ) : filtered.length === 0 ? (
@@ -97,7 +148,7 @@ export default function BookingManagerPage() {
                   <TableHead>Passenger</TableHead>
                   <TableHead>Route</TableHead>
                   <TableHead>Date</TableHead>
-                  <TableHead>Segments</TableHead>
+                  <TableHead className="text-right">Segments</TableHead>
                   <TableHead>Status</TableHead>
                 </TableRow>
               </TableHeader>
@@ -107,15 +158,15 @@ export default function BookingManagerPage() {
                     <TableCell>
                       <Link
                         href={`/bookings/${pnr.locator}`}
-                        className="font-mono font-semibold tracking-[0.02em] text-[#25A5B4] hover:text-[#0A8A98] transition-colors"
+                        className="font-mono font-semibold tracking-[0.02em] tabular-nums text-[var(--brand-teal-500)] hover:text-[#0A8A98] transition-colors"
                       >
                         {pnr.locator}
                       </Link>
                     </TableCell>
                     <TableCell>{pnr.passengerName}</TableCell>
-                    <TableCell>{pnr.route}</TableCell>
-                    <TableCell>{pnr.departureDate}</TableCell>
-                    <TableCell>{pnr.segments.length}</TableCell>
+                    <TableCell className="font-mono tabular-nums text-[12px]">{pnr.route}</TableCell>
+                    <TableCell className="tabular-nums">{pnr.departureDate}</TableCell>
+                    <TableCell className="text-right tabular-nums">{pnr.segments.length}</TableCell>
                     <TableCell>
                       <StatusBadge status={pnr.status} />
                     </TableCell>

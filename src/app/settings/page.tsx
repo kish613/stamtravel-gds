@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
+import { PageHeader } from '@/components/ui/page-header';
+import { Eyebrow } from '@/components/ui/section-eyebrow';
 
 export default function SettingsPage() {
   const [name, setName] = useState('Jordan Ellis');
@@ -16,34 +18,34 @@ export default function SettingsPage() {
   const [autoSeat, setAutoSeat] = useState(false);
 
   return (
-    <div className="space-y-6 text-[13px]">
-      {/* Page header */}
-      <div>
-        <p className="gds-eyebrow mb-2">Workspace</p>
-        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Settings</h1>
-        <p className="text-sm text-muted-foreground mt-1">Manage your agent profile, PCCs, and queue preferences</p>
-      </div>
+    <div className="space-y-5 text-[13px]">
+      <PageHeader
+        eyebrow="Workspace"
+        title="Settings"
+        meta="Manage your agent profile, PCCs, and queue preferences"
+      />
 
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-base">Sabre credentials</CardTitle>
+      <Card variant="pro" accent="brand">
+        <CardHeader>
+          <CardTitle>Sabre credentials</CardTitle>
+          <Eyebrow>Connection</Eyebrow>
         </CardHeader>
-        <CardContent className="pt-0">
+        <CardContent>
           <p className="text-sm text-muted-foreground mb-3">
             Connect your agency&apos;s Sabre account. Bookings, ticketing, and PNR retrieval
             will run under your credentials and bill to your Sabre contract.
           </p>
           <Link
             href="/settings/credentials"
-            className="inline-flex h-8 items-center justify-center rounded-[10px] border border-border bg-background px-3 py-1.5 text-[13px] font-medium text-foreground transition-colors hover:bg-secondary active:scale-[0.98]"
+            className="gds-focus inline-flex h-8 items-center justify-center rounded-[10px] border border-border bg-background px-3 py-1.5 text-[13px] font-medium text-foreground transition-colors hover:bg-secondary active:scale-[0.98]"
           >
             Manage credentials
           </Link>
         </CardContent>
       </Card>
 
-      <Card>
-        <CardContent className="pt-5">
+      <Card variant="pro">
+        <CardContent className="pt-3">
           <Tabs defaultValue="profile">
             <TabsList>
               <TabsTrigger value="profile">Profile</TabsTrigger>
@@ -52,15 +54,40 @@ export default function SettingsPage() {
             </TabsList>
 
             <TabsContent value="profile" className="space-y-2 mt-3">
-              <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Agent name" />
-              <Input value={pcc} onChange={(e) => setPcc(e.target.value)} placeholder="Default PCC" />
-              <Input value={signature} onChange={(e) => setSignature(e.target.value)} placeholder="Email signature" />
+              <div>
+                <Eyebrow as="div" className="mb-1">Agent name</Eyebrow>
+                <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Agent name" />
+              </div>
+              <div>
+                <Eyebrow as="div" className="mb-1">Default PCC</Eyebrow>
+                <Input value={pcc} onChange={(e) => setPcc(e.target.value)} placeholder="Default PCC" />
+              </div>
+              <div>
+                <Eyebrow as="div" className="mb-1">Email signature</Eyebrow>
+                <Input value={signature} onChange={(e) => setSignature(e.target.value)} placeholder="Email signature" />
+              </div>
               <Button variant="primary">Save profile</Button>
             </TabsContent>
 
             <TabsContent value="pccs" className="space-y-2 mt-3">
-              <div className="rounded-md border border-border bg-muted/40 p-2.5 hover:bg-muted transition-colors">PCC 901 - London Office</div>
-              <div className="rounded-md border border-border bg-muted/40 p-2.5 hover:bg-muted transition-colors">PCC 902 - New York Office</div>
+              {[
+                { code: '901', label: 'London Office' },
+                { code: '902', label: 'New York Office' }
+              ].map((p) => (
+                <div
+                  key={p.code}
+                  className="rounded-[10px] border bg-[#F6F8FB] px-3 py-2.5 hover:bg-[#EEF2F7] transition-colors flex items-center justify-between"
+                  style={{
+                    borderColor: '#E2E8F0',
+                    borderLeft: '3px solid var(--brand-teal-500)'
+                  }}
+                >
+                  <span>
+                    <span className="font-mono font-bold tabular-nums text-[var(--brand-navy-800)]">PCC {p.code}</span>{' '}
+                    — {p.label}
+                  </span>
+                </div>
+              ))}
               <Button variant="outline">Add PCC</Button>
             </TabsContent>
 

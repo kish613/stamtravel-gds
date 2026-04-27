@@ -2,17 +2,21 @@
 
 import { useState } from 'react';
 import { usePnrList } from '@/lib/query';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format } from 'date-fns';
-import { ArrowDown, ArrowUp } from 'lucide-react';
+import { PageHeader } from '@/components/ui/page-header';
+import { KpiStrip } from '@/components/ui/kpi-strip';
+import { KpiTile } from '@/components/ui/kpi-tile';
+import { Eyebrow } from '@/components/ui/section-eyebrow';
 
 const STATUS_COLORS = {
-  NDC: '#0E9F6E',
-  ATPCO: '#D9892B',
-  LCC: '#D93141'
+  NDC: 'var(--color-status-good)',
+  ATPCO: 'var(--color-status-warn)',
+  LCC: 'var(--color-status-danger)'
 } as const;
 
 const now = new Date();
@@ -66,63 +70,79 @@ export default function ReportsPage() {
 
   if (isError) {
     return (
-      <Card className="border-destructive">
+      <Card variant="pro" accent="danger">
         <CardContent className="py-3 text-destructive">{(error as Error)?.message}</CardContent>
       </Card>
     );
   }
 
-  const kpiCards = [
-    { label: 'Total bookings', value: total, trend: 8 },
-    { label: 'Total segments', value: totalSegments, trend: 3 },
-    { label: 'Revenue', value: `$${revenue}`, trend: -5 },
-    { label: 'Awaiting Ticket', value: awaiting, trend: 12 }
-  ];
-
   return (
-    <div className="space-y-6 text-[13px]">
-      {/* Page header */}
-      <div>
-        <p className="gds-eyebrow mb-2">Analytics</p>
-        <h1 className="font-display text-[28px] font-extrabold text-foreground tracking-tight leading-tight">Reports</h1>
-        <p className="text-sm text-muted-foreground mt-1">Analyse booking performance and content mix across all agents</p>
-      </div>
+    <div className="space-y-5 text-[13px]">
+      <PageHeader
+        eyebrow="Analytics"
+        title="Reports"
+        meta="Analyse booking performance and content mix across all agents"
+        actions={
+          <Button onClick={exportCsv} variant="primary">
+            Export CSV
+          </Button>
+        }
+      />
 
-      <Card>
-        <CardContent className="pt-5">
-          <div className="flex flex-wrap gap-2 items-end">
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">From</label>
-              <Input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="w-40" />
+      <Card variant="pro" accent="brand">
+        <CardContent className="pt-3">
+          <div className="flex flex-wrap gap-3 items-end">
+            <div>
+              <Eyebrow as="div" className="mb-1">From</Eyebrow>
+              <Input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className="w-44" />
             </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] uppercase tracking-widest font-medium text-muted-foreground">To</label>
-              <Input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="w-40" />
+            <div>
+              <Eyebrow as="div" className="mb-1">To</Eyebrow>
+              <Input type="date" value={to} onChange={(e) => setTo(e.target.value)} className="w-44" />
             </div>
-            <Button onClick={exportCsv} variant="primary">Export CSV</Button>
+            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              {filtered.length} bookings in range
+            </span>
           </div>
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-        {kpiCards.map((card) => (
-          <Card key={card.label}>
-            <CardContent className="p-4">
-              <p className="gds-eyebrow mb-2">{card.label}</p>
-              <div className="gds-num text-[32px] leading-none">{card.value}</div>
-              <div className={`text-[11px] flex items-center gap-0.5 mt-2 font-medium tabular-nums ${card.trend >= 0 ? 'text-[#0E7C56]' : 'text-[#A8202E]'}`}>
-                {card.trend >= 0 ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />}
-                <span>{Math.abs(card.trend)}%</span>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      <KpiStrip cols={4}>
+        <KpiTile
+          label="Total Bookings"
+          value={total}
+          tone="brand"
+          delta="+8%"
+          sub="vs prior period"
+        />
+        <KpiTile
+          label="Total Segments"
+          value={totalSegments}
+          tone="brand"
+          delta="+3%"
+          sub="across all bookings"
+        />
+        <KpiTile
+          label="Revenue"
+          value={`$${revenue.toLocaleString()}`}
+          tone="good"
+          delta="−5%"
+          sub="gross USD"
+        />
+        <KpiTile
+          label="Awaiting Ticket"
+          value={awaiting}
+          tone={awaiting > 0 ? 'warn' : 'good'}
+          delta={awaiting > 0 ? '+12%' : 'OK'}
+          sub="pending issuance"
+        />
+      </KpiStrip>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-        <Card>
+        <Card variant="pro" accent="brand">
           <CardHeader>
             <CardTitle>Bookings per agent</CardTitle>
+            <Eyebrow>Volume</Eyebrow>
           </CardHeader>
           <CardContent>
             {isLoading ? (
@@ -131,19 +151,27 @@ export default function ReportsPage() {
               <ResponsiveContainer width="100%" height={280}>
                 <BarChart data={byAgent}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                  <XAxis dataKey="agent" tick={{ fontSize: 12 }} />
-                  <YAxis tick={{ fontSize: 12 }} />
-                  <Tooltip />
-                  <Bar dataKey="count" fill="#0A2540" radius={[3, 3, 0, 0]} />
+                  <XAxis dataKey="agent" tick={{ fontSize: 12, fill: '#64748B' }} />
+                  <YAxis tick={{ fontSize: 12, fill: '#64748B' }} />
+                  <Tooltip
+                    contentStyle={{
+                      borderRadius: 10,
+                      border: '1px solid #E8EDF3',
+                      fontSize: 12,
+                      boxShadow: '0 4px 12px rgba(10,37,64,0.08)'
+                    }}
+                  />
+                  <Bar dataKey="count" fill="var(--brand-navy-800)" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             )}
           </CardContent>
         </Card>
 
-        <Card>
+        <Card variant="pro" accent="brand">
           <CardHeader>
             <CardTitle>Content mix</CardTitle>
+            <Eyebrow>NDC · ATPCO · LCC</Eyebrow>
           </CardHeader>
           <CardContent>
             {isLoading ? (
@@ -151,12 +179,19 @@ export default function ReportsPage() {
             ) : (
               <ResponsiveContainer width="100%" height={280}>
                 <PieChart>
-                  <Pie data={pieData} dataKey="value" outerRadius={110} innerRadius={45} fill="#8884d8" paddingAngle={3} label>
+                  <Pie data={pieData} dataKey="value" outerRadius={110} innerRadius={45} paddingAngle={3} label>
                     {pieData.map((entry) => (
                       <Cell key={entry.name} fill={STATUS_COLORS[entry.name as keyof typeof STATUS_COLORS]} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip
+                    contentStyle={{
+                      borderRadius: 10,
+                      border: '1px solid #E8EDF3',
+                      fontSize: 12,
+                      boxShadow: '0 4px 12px rgba(10,37,64,0.08)'
+                    }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
             )}

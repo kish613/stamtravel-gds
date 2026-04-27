@@ -33,13 +33,13 @@ export default function SignInPage() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-sm items-center justify-center p-6">
-      <Card className="w-full">
+      <Card variant="pro" accent="brand" className="w-full">
         <CardHeader className="flex flex-col items-center gap-3 text-center">
           <Image src="/brand/logomark.svg" alt="GDSimple" width={40} height={40} className="h-10 w-10" priority />
           <div className="space-y-1">
             <p className="gds-eyebrow">Welcome back</p>
             <CardTitle className="font-display text-[22px] font-extrabold tracking-tight">
-              Sign in to GDS<span className="text-[#25A5B4] font-medium">imple</span>
+              Sign in to GDS<span className="text-[var(--brand-teal-500)] font-medium">imple</span>
             </CardTitle>
           </div>
         </CardHeader>
@@ -73,7 +73,7 @@ export default function SignInPage() {
             </Button>
             <p className="text-muted-foreground text-center text-sm">
               New here?{' '}
-              <Link href="/auth/sign-up" className="text-[#25A5B4] hover:text-[#0A8A98] font-medium transition-colors">
+              <Link href="/auth/sign-up" className="text-[var(--brand-teal-500)] hover:text-[#0A8A98] font-medium transition-colors">
                 Create an account
               </Link>
             </p>

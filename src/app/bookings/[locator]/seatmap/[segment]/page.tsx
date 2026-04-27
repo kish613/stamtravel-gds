@@ -6,6 +6,9 @@ import { useSeatMap } from '@/lib/query';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/stores/app-store';
+import { PageHeader } from '@/components/ui/page-header';
+import { ActionBar } from '@/components/ui/action-bar';
+import { LiveDot } from '@/components/ui/live-dot';
 import type { Seat } from '@/lib/types';
 
 const exitRows = [11, 12, 13, 14, 29];
@@ -44,22 +47,32 @@ export default function SeatMapPage({ params }: { params: { locator: string; seg
   };
 
   if (!mapData) {
-    return <div className="text-sm text-muted-foreground">Loading seat map...</div>;
+    return (
+      <div className="space-y-3">
+        <div className="h-7 w-48 animate-shimmer rounded" />
+        <div className="h-96 animate-shimmer rounded-[14px]" />
+      </div>
+    );
   }
 
   return (
-    <div className="space-y-6 text-[13px]">
-      {/* Page header */}
-      <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Seat Map</h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          Segment {params.segment} · Locator{' '}
-          <span className="font-mono">{params.locator}</span>
-        </p>
-      </div>
+    <div className="space-y-5 text-[13px] pb-4">
+      <PageHeader
+        eyebrow={<>Seat Map · Segment {params.segment}</>}
+        title="Pick a seat"
+        meta={
+          <>
+            Locator{' '}
+            <span className="font-mono font-semibold tracking-[0.02em] text-[var(--brand-navy-800)]">
+              {params.locator}
+            </span>
+          </>
+        }
+        actions={<LiveDot tone="brand" pulse label="Live availability" />}
+      />
 
-      <Card>
-        <CardContent className="pt-5">
+      <Card variant="pro" accent="brand">
+        <CardContent>
           <div className="overflow-x-auto">
             <div className="grid gap-1.5 min-w-[640px]">
               {grouped.map(({ row, seats }) => {
@@ -143,25 +156,42 @@ export default function SeatMapPage({ params }: { params: { locator: string; seg
             </div>
           </div>
 
-          <div className="mt-4 flex justify-end gap-2">
-            <Button
-              variant="outline"
-              onClick={() => router.push(`/bookings/${params.locator}`)}
-            >
-              Cancel
-            </Button>
-            <Button
-              disabled={!localSeat}
-              onClick={() => {
-                setSelectedSeat(params.segment, localSeat);
-                router.push(`/bookings/${params.locator}`);
-              }}
-            >
-              Confirm seat {localSeat}
-            </Button>
-          </div>
         </CardContent>
       </Card>
+
+      <ActionBar
+        meta={
+          <span className="text-[12px] text-muted-foreground">
+            {localSeat ? (
+              <>
+                Selected seat{' '}
+                <span className="font-mono font-bold text-[var(--brand-navy-800)] tabular-nums">
+                  {localSeat}
+                </span>
+              </>
+            ) : (
+              <>No seat selected yet — pick from the map.</>
+            )}
+          </span>
+        }
+        secondary={
+          <Button variant="outline" onClick={() => router.push(`/bookings/${params.locator}`)}>
+            Cancel
+          </Button>
+        }
+        primary={
+          <Button
+            variant="primary"
+            disabled={!localSeat}
+            onClick={() => {
+              setSelectedSeat(params.segment, localSeat);
+              router.push(`/bookings/${params.locator}`);
+            }}
+          >
+            Confirm seat {localSeat || ''}
+          </Button>
+        }
+      />
     </div>
   );
 }
