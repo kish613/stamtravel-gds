@@ -10,7 +10,8 @@ import {
   type QueueBucket,
   type Airport,
   type SeatMap,
-  type FidsBoard
+  type FidsBoard,
+  type FlightAlert
 } from './types';
 
 const postJson = async <T, B = unknown>(url: string, body: B): Promise<T> => {
@@ -286,4 +287,12 @@ export const useSabreVoidTicket = () =>
 export const useSabreCommand = () =>
   useMutation<{ screen: string }, Error, { command: string }>({
     mutationFn: (payload) => postJson('/api/sabre/command', payload)
+  });
+
+export const useFlightAlerts = () =>
+  useQuery<FlightAlert[]>({
+    queryKey: ['notifications', 'flight-alerts'],
+    queryFn: () => fetchJson<FlightAlert[]>(`${API_BASE_URL}/notifications`),
+    refetchInterval: 30_000,
+    staleTime: 15_000
   });

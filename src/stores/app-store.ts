@@ -43,6 +43,8 @@ interface AppState {
   removeAirSegment: (id: string) => void;
   setSelectedSeat: (segmentId: string, seat: string) => void;
   setActiveFlight: (flight: FlightResult) => void;
+  notificationsLastSeenAt: string | null;
+  markNotificationsSeen: () => void;
 }
 
 const defaultBooking: BookingSession = {
@@ -67,6 +69,11 @@ export const useAppStore = create<AppState>()(
       pendingTerminalCommand: null,
       dashboardTheme: 'light',
       booking: defaultBooking,
+      notificationsLastSeenAt: null,
+      markNotificationsSeen: () =>
+        set(() => ({
+          notificationsLastSeenAt: new Date().toISOString()
+        })),
       toggleTerminal: () =>
         set((state) => ({
           terminalOpen: !state.terminalOpen,

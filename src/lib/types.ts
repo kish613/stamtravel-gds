@@ -184,3 +184,23 @@ export interface ToastMessage {
   description?: string;
   variant?: 'default' | 'destructive';
 }
+
+export type FlightAlertKind = 'delayed' | 'rerouted' | 'canceled';
+export type FlightAlertSeverity = 'info' | 'warn' | 'danger';
+
+export interface FlightAlert {
+  id: string;
+  kind: FlightAlertKind;
+  severity: FlightAlertSeverity;
+  pnrLocator: string;
+  segmentId: string;
+  carrier: string;
+  flightNumber: string;
+  from: string;
+  to: string;
+  scheduledDeparture: string;
+  updatedDeparture?: string;
+  reroutedTo?: string;
+  reason?: string;
+  createdAt: string;
+}

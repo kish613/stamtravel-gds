@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation';
 import { Bell, BarChart3, ListTodo, Map as MapIcon, Moon, Plane, Settings, Sun, Ticket, Menu, TerminalSquare, Radar, LucideIcon } from 'lucide-react';
 import { useAppStore } from '@/stores/app-store';
 import { TerminalPanel } from '@/components/terminal/terminal-overlay';
+import { useFlightAlerts } from '@/lib/query';
+import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
 function Wordmark({ dark = false }: { dark?: boolean }) {
@@ -27,6 +29,7 @@ const NAV: NavItem[] = [
   { path: '/search/air', label: 'Search', icon: Plane, matchPrefix: '/search' },
   { path: '/bookings', label: 'Bookings', icon: Ticket, matchPrefix: '/bookings' },
   { path: '/map', label: 'Map', icon: MapIcon },
+  { path: '/notifications', label: 'Notifications', icon: Bell },
   { path: '/queues', label: 'Queues', icon: ListTodo },
   { path: '/reports', label: 'Reports', icon: BarChart3 },
   { path: '/settings', label: 'Settings', icon: Settings }
@@ -37,7 +40,16 @@ export function AppShell({ children }: { children: ReactNode }) {
   const toggleTerminal = useAppStore((state) => state.toggleTerminal);
   const dashboardTheme = useAppStore((state) => state.dashboardTheme);
   const toggleDashboardTheme = useAppStore((state) => state.toggleDashboardTheme);
+  const notificationsLastSeenAt = useAppStore((state) => state.notificationsLastSeenAt);
+  const { data: flightAlerts } = useFlightAlerts();
   const [collapsed, setCollapsed] = useState(false);
+
+  const unreadCount = (() => {
+    if (!flightAlerts || flightAlerts.length === 0) return 0;
+    if (!notificationsLastSeenAt) return flightAlerts.length;
+    const cutoff = Date.parse(notificationsLastSeenAt);
+    return flightAlerts.filter((a) => Date.parse(a.createdAt) > cutoff).length;
+  })();
 
   useEffect(() => {
     const onResize = () => setCollapsed(window.innerWidth < 980);
@@ -115,6 +127,8 @@ export function AppShell({ children }: { children: ReactNode }) {
             const Icon = item.icon;
             const prefix = item.matchPrefix ?? item.path;
             const active = pathname === prefix || pathname.startsWith(prefix + '/');
+            const showUnread =
+              item.path === '/notifications' && !active && unreadCount > 0;
             return (
               <Link
                 key={item.path}
@@ -140,7 +154,16 @@ export function AppShell({ children }: { children: ReactNode }) {
                         : 'text-slate-400 group-hover:text-[#475569]'
                   )}
                 />
-                {!collapsed && <span>{item.label}</span>}
+                {!collapsed && (
+                  <span className="flex-1 flex items-center justify-between gap-2">
+                    <span>{item.label}</span>
+                    {showUnread && (
+                      <Badge variant="danger" className="tabular-nums">
+                        {unreadCount > 99 ? '99+' : unreadCount}
+                      </Badge>
+                    )}
+                  </span>
+                )}
               </Link>
             );
           })}
