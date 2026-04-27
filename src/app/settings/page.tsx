@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -10,12 +10,22 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import { PageHeader } from '@/components/ui/page-header';
 import { Eyebrow } from '@/components/ui/section-eyebrow';
+import { LiveDot } from '@/components/ui/live-dot';
+import type { AgencyCredentialsPublic } from '@/lib/sabre';
 
 export default function SettingsPage() {
   const [name, setName] = useState('Jordan Ellis');
   const [pcc, setPcc] = useState('901');
   const [signature, setSignature] = useState('Best Regards');
   const [autoSeat, setAutoSeat] = useState(false);
+  const [credStatus, setCredStatus] = useState<AgencyCredentialsPublic | null | undefined>(undefined);
+
+  useEffect(() => {
+    fetch('/api/credentials')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: AgencyCredentialsPublic | null) => setCredStatus(data ?? null))
+      .catch(() => setCredStatus(null));
+  }, []);
 
   return (
     <div className="space-y-5 text-[13px]">
@@ -31,6 +41,16 @@ export default function SettingsPage() {
           <Eyebrow>Connection</Eyebrow>
         </CardHeader>
         <CardContent>
+          {credStatus !== undefined && (
+            <div className="flex items-center gap-2 mb-3 text-[13px]">
+              <LiveDot tone={credStatus ? 'good' : 'warn'} pulse={!!credStatus} />
+              <span className={credStatus ? 'text-foreground' : 'text-muted-foreground'}>
+                {credStatus
+                  ? `Connected · PCC ${credStatus.pcc} · ${credStatus.env}${credStatus.verifiedAt ? ` · verified ${new Date(credStatus.verifiedAt).toLocaleString()}` : ''}`
+                  : 'Not connected — setup required'}
+              </span>
+            </div>
+          )}
           <p className="text-sm text-muted-foreground mb-3">
             Connect your agency&apos;s Sabre account. Bookings, ticketing, and PNR retrieval
             will run under your credentials and bill to your Sabre contract.
