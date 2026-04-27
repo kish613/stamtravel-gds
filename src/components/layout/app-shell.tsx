@@ -1,15 +1,18 @@
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Bell, BarChart3, ListTodo, Map as MapIcon, Moon, Plane, Settings, Sun, Ticket, Menu, TerminalSquare, Radar, LucideIcon } from 'lucide-react';
 import { useAppStore } from '@/stores/app-store';
 import { TerminalPanel } from '@/components/terminal/terminal-overlay';
+import { OnboardingWizard } from '@/components/onboarding/onboarding-wizard';
+import { UserMenu } from '@/components/layout/user-menu';
 import { useFlightAlerts } from '@/lib/query';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import type { AgencyCredentialsPublic } from '@/lib/sabre';
 
 function Wordmark({ dark = false }: { dark?: boolean }) {
   return (
@@ -43,6 +46,26 @@ export function AppShell({ children }: { children: ReactNode }) {
   const notificationsLastSeenAt = useAppStore((state) => state.notificationsLastSeenAt);
   const { data: flightAlerts } = useFlightAlerts();
   const [collapsed, setCollapsed] = useState(false);
+  const [credStatus, setCredStatus] = useState<AgencyCredentialsPublic | null | undefined>(undefined);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  const fetchCreds = useCallback(async () => {
+    try {
+      const res = await fetch('/api/credentials');
+      if (!res.ok) { setCredStatus(null); return; }
+      const data: AgencyCredentialsPublic | null = await res.json();
+      setCredStatus(data ?? null);
+      if (!data) setShowOnboarding(true);
+    } catch {
+      setCredStatus(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (pathname.startsWith('/auth')) return;
+    fetchCreds();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const unreadCount = (() => {
     if (!flightAlerts || flightAlerts.length === 0) return 0;
@@ -221,7 +244,9 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            Agent: Jordan Ellis · PCC: 901
+            {credStatus?.pcc
+              ? `Agent: Jordan Ellis · PCC: ${credStatus.pcc}`
+              : 'Agent: Jordan Ellis · PCC: 901'}
           </div>
           <div className="flex items-center gap-4">
             {isDashboardRoute && (
@@ -250,16 +275,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               <Bell className="h-5 w-5" />
             </button>
-            <div
-              className={cn(
-                'flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ring-1 select-none cursor-pointer transition-colors shadow-sm font-display',
-                isDashboardDark
-                  ? 'bg-white text-slate-950 ring-white/[0.20] hover:bg-slate-100'
-                  : 'bg-white text-[#0A2540] ring-[#E2E8F0] hover:bg-[#F6F8FB]'
-              )}
-            >
-              JE
-            </div>
+            <UserMenu initials="JE" isDark={isDashboardDark} />
           </div>
         </header>
 
@@ -269,6 +285,15 @@ export function AppShell({ children }: { children: ReactNode }) {
       </div>
 
       <TerminalPanel />
+
+      {showOnboarding && (
+        <OnboardingWizard
+          onComplete={() => {
+            setShowOnboarding(false);
+            fetchCreds();
+          }}
+        />
+      )}
     </div>
   );
 }
