@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
@@ -11,6 +12,7 @@ import { Separator } from '@/components/ui/separator';
 import { PageHeader } from '@/components/ui/page-header';
 import { Eyebrow } from '@/components/ui/section-eyebrow';
 import { LiveDot } from '@/components/ui/live-dot';
+import { useAppStore } from '@/stores/app-store';
 import type { AgencyCredentialsPublic } from '@/lib/sabre';
 
 export default function SettingsPage() {
@@ -19,6 +21,9 @@ export default function SettingsPage() {
   const [signature, setSignature] = useState('Best Regards');
   const [autoSeat, setAutoSeat] = useState(false);
   const [credStatus, setCredStatus] = useState<AgencyCredentialsPublic | null | undefined>(undefined);
+  const router = useRouter();
+  const setEditingLayout = useAppStore((s) => s.setEditingLayout);
+  const resetDashboardLayouts = useAppStore((s) => s.resetDashboardLayouts);
 
   useEffect(() => {
     fetch('/api/credentials')
@@ -34,6 +39,40 @@ export default function SettingsPage() {
         title="Settings"
         meta="Manage your agent profile, PCCs, and queue preferences"
       />
+
+      <Card variant="pro">
+        <CardHeader>
+          <CardTitle>Dashboard layout</CardTitle>
+          <Eyebrow>Mission Control</Eyebrow>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground mb-3">
+            Drag tiles to rearrange your dashboard, and resize them wider, thinner, taller,
+            or shorter to suit how you work. Each tile has a minimum size so its contents
+            stay readable. Your layout is saved per user across devices.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <Button
+              variant="primary"
+              onClick={() => {
+                setEditingLayout(true);
+                router.push('/mission-control');
+              }}
+            >
+              Customize dashboard
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                resetDashboardLayouts();
+                fetch('/api/dashboard-layout', { method: 'DELETE' }).catch(() => {});
+              }}
+            >
+              Reset to default
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       <Card variant="pro" accent="brand">
         <CardHeader>
