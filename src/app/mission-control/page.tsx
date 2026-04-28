@@ -11,12 +11,20 @@ import { PnrWorkList } from '@/components/mission-control/PnrWorkList';
 import { TtlTicker } from '@/components/mission-control/TtlTicker';
 import { IntegrationsPanel } from '@/components/mission-control/IntegrationsPanel';
 import { QueueStrip } from '@/components/mission-control/QueueStrip';
+import { DashboardGrid } from '@/components/mission-control/DashboardGrid';
+import { LayoutEditToolbar } from '@/components/mission-control/LayoutEditToolbar';
+import { useAppStore } from '@/stores/app-store';
+import type { TileId } from '@/lib/dashboard-layout';
 import type { FidsRow } from '@/lib/types';
 
 export default function MissionControlPage() {
   const { data: pnrs, isLoading: loadingPnr } = usePnrList();
   const { data: queues, isLoading: loadingQ } = useQueues();
   const { data: fids, isLoading: loadingFids } = useFids();
+
+  const isEditingLayout = useAppStore((s) => s.isEditingLayout);
+  const setEditingLayout = useAppStore((s) => s.setEditingLayout);
+  const resetDashboardLayouts = useAppStore((s) => s.resetDashboardLayouts);
 
   const [now, setNow] = useState<number | null>(null);
   const [fidsMode, setFidsMode] = useState<FidsMode>('DEPARTURES');
@@ -38,6 +46,46 @@ export default function MissionControlPage() {
     if (!fids) return [];
     return fids.departures.filter((d) => myPnrLocators.has(d.locator));
   }, [fids, myPnrLocators]);
+
+  const tiles: Partial<Record<TileId, { label: string; node: React.ReactNode }>> = {
+    'kpi-stack': { label: 'KPIs', node: <KpiStack kpis={kpis} /> },
+    'credit-bank': { label: 'Credit Bank', node: <CreditBank credits={credits} /> },
+    'fids-board': {
+      label: 'Flight Information Display',
+      node: (
+        <FIDSBoard
+          departures={fids?.departures || []}
+          arrivals={fids?.arrivals || []}
+          myPnrs={myPnrRows}
+          mode={fidsMode}
+          onModeChange={setFidsMode}
+          loading={loadingFids}
+        />
+      )
+    },
+    'pnr-work-list': {
+      label: 'PNR Work List',
+      node: loadingPnr ? (
+        <div className="p-6 rounded-[14px] bg-white border border-slate-200 text-slate-400 text-[13px] h-full">
+          Loading PNR work…
+        </div>
+      ) : (
+        <PnrWorkList pnrs={pnrList} now={now ?? Date.now()} />
+      )
+    },
+    'ttl-ticker': { label: 'Ticketing Deadlines', node: <TtlTicker pnrs={pnrList} /> },
+    'integrations-panel': { label: 'Integrations', node: <IntegrationsPanel /> },
+    'queue-strip': {
+      label: 'Queues',
+      node: loadingQ ? (
+        <div className="p-6 rounded-[14px] bg-white border border-slate-200 text-slate-400 text-[13px] h-full">
+          Loading queues…
+        </div>
+      ) : (
+        <QueueStrip queues={queueList} now={now ?? Date.now()} />
+      )
+    }
+  };
 
   return (
     <div className="-mx-8 -my-6 px-8 py-6 w-full max-w-none min-h-screen">
@@ -121,60 +169,22 @@ export default function MissionControlPage() {
       <div className="flex flex-col gap-5 max-w-[1600px] mx-auto">
         <HeaderRow />
 
-        <FIDSBoard
-          departures={fids?.departures || []}
-          arrivals={fids?.arrivals || []}
-          myPnrs={myPnrRows}
-          mode={fidsMode}
-          onModeChange={setFidsMode}
-          loading={loadingFids}
-        />
-
         <div className="sticky top-[var(--nav-height)] z-20">
           <CommandBar />
         </div>
 
-        {/* Left rail — hoisted above the main grid at LG (1024-1279),
-            stacks single-column below LG, hidden at XL (handled inside grid). */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:hidden">
-          <KpiStack kpis={kpis} />
-          <CreditBank credits={credits} />
-        </div>
-
-        {/* Main grid — 3 rails XL / 2 rails LG / 1 rail MD */}
-        <div className="grid items-start gap-5 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] xl:grid-cols-[minmax(280px,320px)_minmax(0,1fr)_minmax(280px,320px)]">
-          {/* LEFT RAIL — only visible at XL */}
-          <div className="hidden xl:flex flex-col gap-4">
-            <KpiStack kpis={kpis} />
-            <CreditBank credits={credits} />
-          </div>
-
-          {/* CENTER RAIL */}
-          <div className="flex flex-col gap-4 min-w-0">
-            {loadingPnr ? (
-              <div className="p-6 rounded-[14px] bg-white border border-slate-200 text-slate-400 text-[13px]">
-                Loading PNR work…
-              </div>
-            ) : (
-              <PnrWorkList pnrs={pnrList} now={now ?? Date.now()} />
-            )}
-          </div>
-
-          {/* RIGHT RAIL */}
-          <div className="flex flex-col gap-4 min-w-0">
-            <TtlTicker pnrs={pnrList} />
-            <IntegrationsPanel />
-          </div>
-        </div>
-
-        {loadingQ ? (
-          <div className="p-6 rounded-[14px] bg-white border border-slate-200 text-slate-400 text-[13px]">
-            Loading queues…
-          </div>
-        ) : (
-          <QueueStrip queues={queueList} now={now ?? Date.now()} />
-        )}
+        <DashboardGrid tiles={tiles} />
       </div>
+
+      {isEditingLayout && (
+        <LayoutEditToolbar
+          onDone={() => setEditingLayout(false)}
+          onReset={() => {
+            resetDashboardLayouts();
+            fetch('/api/dashboard-layout', { method: 'DELETE' }).catch(() => {});
+          }}
+        />
+      )}
     </div>
   );
 }

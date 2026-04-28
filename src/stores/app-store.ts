@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { FlightResult, HotelResult, CarResult, Passenger, Segment } from '@/lib/types';
+import { DEFAULT_LAYOUTS, mergeWithDefaults, type Layouts } from '@/lib/dashboard-layout';
 
 interface BookingSession {
   passengers: Passenger[];
@@ -45,6 +46,12 @@ interface AppState {
   setActiveFlight: (flight: FlightResult) => void;
   notificationsLastSeenAt: string | null;
   markNotificationsSeen: () => void;
+  dashboardLayouts: Layouts;
+  isEditingLayout: boolean;
+  setDashboardLayouts: (layouts: Layouts) => void;
+  resetDashboardLayouts: () => void;
+  setEditingLayout: (editing: boolean) => void;
+  toggleEditingLayout: () => void;
 }
 
 const defaultBooking: BookingSession = {
@@ -70,6 +77,24 @@ export const useAppStore = create<AppState>()(
       dashboardTheme: 'light',
       booking: defaultBooking,
       notificationsLastSeenAt: null,
+      dashboardLayouts: DEFAULT_LAYOUTS,
+      isEditingLayout: false,
+      setDashboardLayouts: (layouts) =>
+        set(() => ({
+          dashboardLayouts: mergeWithDefaults(layouts)
+        })),
+      resetDashboardLayouts: () =>
+        set(() => ({
+          dashboardLayouts: DEFAULT_LAYOUTS
+        })),
+      setEditingLayout: (editing) =>
+        set(() => ({
+          isEditingLayout: editing
+        })),
+      toggleEditingLayout: () =>
+        set((state) => ({
+          isEditingLayout: !state.isEditingLayout
+        })),
       markNotificationsSeen: () =>
         set(() => ({
           notificationsLastSeenAt: new Date().toISOString()
@@ -159,8 +184,13 @@ export const useAppStore = create<AppState>()(
     {
       name: 'sabre-gds-store',
       partialize: (state) => {
-        const { pendingTerminalCommand: _omit, ...rest } = state;
-        void _omit;
+        const {
+          pendingTerminalCommand: _omitCmd,
+          isEditingLayout: _omitEditing,
+          ...rest
+        } = state;
+        void _omitCmd;
+        void _omitEditing;
         return rest as AppState;
       }
     }
